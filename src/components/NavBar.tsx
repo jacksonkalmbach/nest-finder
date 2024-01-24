@@ -38,13 +38,13 @@ const NavBar = () => {
           </div>
         )}
         <div className="hidden md:block">
-          {/* <UserCard /> */}
+          <UserCard />
 
-          <Button
+          {/* <Button
             text="Sign In"
             variant="ghost"
             onClick={() => console.log("click")}
-          />
+          /> */}
         </div>
       </div>
       <div className="block md:hidden">
