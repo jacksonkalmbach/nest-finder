@@ -5,6 +5,7 @@ import { APARTMENTS_DATA } from "../DATA";
 import Button from "../components/ui/Button";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
+import HowItWorks from "../components/HowItWorks";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ const HomePage = () => {
           />
         </div>
       </div>
+      <HowItWorks />
       <Footer />
     </div>
   );
