@@ -4,6 +4,7 @@ import "./index.css";
 import { Route, Routes } from "react-router-dom";
 import Main from "./pages/DiscoverPage";
 import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
 import ListingPage from "./pages/ListingPage";
 import HomePage from "./pages/HomePage";
 import { RootStoreContext } from "./context/RootStoreContext";
