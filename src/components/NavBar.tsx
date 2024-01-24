@@ -4,8 +4,11 @@ import Logo from "./Logo";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { Bars3BottomRightIcon } from "@heroicons/react/24/solid";
 import Button from "./ui/Button";
+import InputField from "./ui/InputField";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
+  const navigate = useNavigate();
   const [isHome, setIsHome] = useState<boolean>(true);
   const path = window.location.pathname;
   useEffect(() => {
@@ -18,20 +21,33 @@ const NavBar = () => {
   return (
     <div
       className={
-        "bg-white relative w-full h-[60px] flex items-center justify-end p-6"
+        "bg-white w-full h-[60px] flex items-center justify-between lg:justify-end p-6 gap-3 sticky top-0"
       }
     >
-      <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex gap-2 items-center justify-center">
-        <div className="h-8 w-8 md:h-10 md:w-10 flex justify-center items-center">
+      <div
+        onClick={() => navigate("/")}
+        className={`${
+          isHome
+            ? "absolute flex left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 items-center justify-center gap-2 cursor-default"
+            : "flex lg:absolute lg:left-1/2 lg:top-1/2 lg:transform lg:-translate-x-1/2 lg:-translate-y-1/2 gap-2 items-center justify-center cursor-pointer"
+        }`}
+      >
+        <div
+          className={"h-8 w-8 md:h-10 md:w-10 flex justify-center items-center"}
+        >
           <Logo />
         </div>
         <p
-          className={`text-3xl md:text-4xl font-medium font-lilita text-accent-blue z-10`}
+          className={`${
+            !isHome
+              ? "hidden md:block text-4xl font-medium font-lilita text-accent-blue"
+              : "text-3xl md:text-4xl font-medium font-lilita text-accent-blue z-10"
+          }`}
         >
           NestFinder
         </p>
       </div>
-      <div className="flex justify-center items-center gap-10">
+      <div className="flex justify-center items-center gap-2">
         {!isHome && (
           <div className="hidden md:block">
             <HeartIcon className="h-6 w-6" />
@@ -47,6 +63,11 @@ const NavBar = () => {
           /> */}
         </div>
       </div>
+      {!isHome && (
+        <div className="md:hidden w-full">
+          <InputField variant="outlined" />
+        </div>
+      )}
       <div className="block md:hidden">
         <Bars3BottomRightIcon className="h-8 w-8" />
       </div>

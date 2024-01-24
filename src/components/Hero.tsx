@@ -3,8 +3,10 @@ import heroImg from "../assets/hero-image.jpg";
 import InputField from "./ui/InputField";
 import Underline from "./Underline";
 import Button from "./ui/Button";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate = useNavigate();
   return (
     <div className="w-full h-3/4 flex justify-center items-center bg-bg-light p-6">
       {/* <img
@@ -31,20 +33,22 @@ const Hero = () => {
           Effortless Apartment Hunting at Your Fingertips
         </h3>
         <div className="w-full flex flex-col md:flex-row gap-2">
-          <div className="hidden md:block w-full">
+          <div className="hidden md:block w-full h-full">
             <InputField variant="primary" />
           </div>
           <div className="block md:hidden">
             <Button
               text="Start Searching"
               variant="primary"
-              onClick={() => console.log("click")}
+              onClick={() => navigate("/discover")}
             />
           </div>
-          <div className="w-full md:w-[200px]">
-            <button className="hidden md:block px-3 py-3 bg-accent-blue text-white rounded-full font-medium w-full">
-              Go
-            </button>
+          <div className="hidden md:block w-full md:w-[200px]">
+            <Button
+              text="Go"
+              variant="primary"
+              onClick={() => navigate("/discover")}
+            />
           </div>
         </div>
       </div>

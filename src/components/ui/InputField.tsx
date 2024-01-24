@@ -4,11 +4,13 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 type VariantTypes = {
   primary: string;
   secondary: string;
+  outlined: string;
 };
 
 const variants: VariantTypes = {
   primary: "bg-white",
   secondary: "bg-secondary-dark-blue",
+  outlined: "border",
 };
 
 const InputField = ({ variant }: { variant: keyof VariantTypes }) => {

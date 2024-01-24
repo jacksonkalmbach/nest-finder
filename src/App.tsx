@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import "./index.css";
 import { Route, Routes } from "react-router-dom";
-import Main from "./components/Main";
+import Main from "./pages/DiscoverPage";
 import NavBar from "./components/NavBar";
 import ListingPage from "./pages/ListingPage";
 import HomePage from "./pages/HomePage";
