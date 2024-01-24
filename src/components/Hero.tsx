@@ -2,6 +2,7 @@ import React from "react";
 import heroImg from "../assets/hero-image.jpg";
 import InputField from "./ui/InputField";
 import Underline from "./Underline";
+import Button from "./ui/Button";
 
 const Hero = () => {
   return (
@@ -33,10 +34,14 @@ const Hero = () => {
           <div className="hidden md:block w-full">
             <InputField variant="primary" />
           </div>
+          <div className="block md:hidden">
+            <Button
+              text="Start Searching"
+              variant="primary"
+              onClick={() => console.log("click")}
+            />
+          </div>
           <div className="w-full md:w-[200px]">
-            <button className="block md:hidden px-3 py-3 bg-accent-blue text-white rounded-full font-medium w-full">
-              Start Searching
-            </button>
             <button className="hidden md:block px-3 py-3 bg-accent-blue text-white rounded-full font-medium w-full">
               Go
             </button>

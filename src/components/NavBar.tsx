@@ -3,6 +3,7 @@ import UserCard from "./UserCard";
 import Logo from "./Logo";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { Bars3BottomRightIcon } from "@heroicons/react/24/solid";
+import Button from "./ui/Button";
 
 const NavBar = () => {
   const [isHome, setIsHome] = useState<boolean>(true);
@@ -37,7 +38,13 @@ const NavBar = () => {
           </div>
         )}
         <div className="hidden md:block">
-          <UserCard />
+          {/* <UserCard /> */}
+
+          <Button
+            text="Sign In"
+            variant="ghost"
+            onClick={() => console.log("click")}
+          />
         </div>
       </div>
       <div className="block md:hidden">
