@@ -6,6 +6,9 @@ import Button from "../components/ui/Button";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import HowItWorks from "../components/HowItWorks";
+import FeaturedListing from "../components/FeaturedListing";
+
+const listings = [1, 2, 3, 4];
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -17,10 +20,9 @@ const HomePage = () => {
           Featured Listings in Chicago, IL
         </h2>
         <div className="flex flex-col justify-center items-center gap-6 w-full md:justify-around lg:flex-row">
-          <div className="w-[350px] h-[400px] border rounded-xl hover:scale-105 transition duration-150 ease-in cursor-pointer"></div>
-          <div className="w-[350px] h-[400px] border rounded-xl hover:scale-105 transition duration-150 ease-in cursor-pointer"></div>
-          <div className="w-[350px] h-[400px] border rounded-xl hover:scale-105 transition duration-150 ease-in cursor-pointer"></div>
-          <div className="w-[350px] h-[400px] border rounded-xl hover:scale-105 transition duration-150 ease-in cursor-pointer"></div>
+          {listings.map((list: number) => {
+            return <FeaturedListing listing={list}/>;
+          })}
         </div>
         <div className="w-full flex justify-center items-center md:w-[200px]">
           <Button

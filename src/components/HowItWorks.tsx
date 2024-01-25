@@ -8,6 +8,7 @@ import wfhImg from "../assets/working-from-home.png";
 import HIWStep from "./HIWStep";
 import BlogIllustration1 from "./illustrations/BlogIllustration1";
 import Button from "./ui/Button";
+import { motion } from "framer-motion";
 
 const steps = [
   {

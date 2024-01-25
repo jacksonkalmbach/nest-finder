@@ -1,4 +1,6 @@
 import React, { ReactElement, useState } from "react";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 interface Props {
   step: {
@@ -15,10 +17,13 @@ interface Props {
 }
 
 const HIWStep = ({ step, currentStep, handleStep }: Props) => {
-  const [isSelected, setIsSelected] = useState<boolean>(false);
   const { stepNumber, icon, title, description } = step;
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.5,
+  });
   return (
-    <div
+    <motion.div
       key={stepNumber}
       onClick={() => handleStep(stepNumber)}
       className={`${
@@ -26,6 +31,14 @@ const HIWStep = ({ step, currentStep, handleStep }: Props) => {
           ? "bg-bg-light rounded-xl p-4"
           : "opacity-40 flex items-center w-full px-4"
       }  cursor-pointer flex flex-col`}
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
+      ref={ref}
+      variants={{
+        hidden: { y: 30, opacity: 0 },
+        visible: { y: 0, opacity: 1 },
+      }}
+      transition={{ duration: stepNumber / 1.8 }}
     >
       <div className="flex w-full items-center justify-start">
         <div className="flex w-full items-center gap-2 mb-2">
@@ -52,7 +65,7 @@ const HIWStep = ({ step, currentStep, handleStep }: Props) => {
           );
         })}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
