@@ -73,7 +73,7 @@ const ListingPage = () => {
           <BuildingOverview />
           <FeesAndPolicies />
         </div>
-        <div className="grow flex flex-col sticky top-20 gap-6">
+        <div className="hidden grow lg:flex flex-col sticky top-20 gap-6">
           <ContactListing />
           <div className="bg-white rounded-xl p-6 flex flex-col justify-start items-center">
             <p className="font-medium text-xl text-center mb-2">
