@@ -1,14 +1,20 @@
 import React from "react";
 import InputField from "./ui/InputField";
 import SearchDropdown from "./SearchDropdown";
+import Button from "./ui/Button";
+import { BedBathFilter } from "./Sidebar/BedBathFilter";
 
 const Sidebar = () => {
   return (
     <div className="hidden max-w-[300px] bg-dark-blue grow text-white p-6 xl:flex flex-col items-start gap-5">
       <InputField variant="secondary" />
-      <SearchDropdown />
+      {/* <SearchDropdown /> */}
+      <div className="flex bg-secondary-dark-blue py-4 px-4 rounded-xl gap-2 w-full items-center justify-around">
+        <p>For Rent</p>
+        <p className="bg-bg-light py-2 px-3 rounded-xl text-black">For Sale</p>
+      </div>
       <div className="flex flex-col w-full bg-secondary-dark-blue py-4 px-4 rounded-xl gap-2">
-        <p className="text-start">Price</p>
+        <p className="text-center">Price</p>
         <div className="flex w-full justify-between items-center">
           <input
             placeholder="Min Rent"
@@ -21,19 +27,12 @@ const Sidebar = () => {
           />
         </div>
       </div>
-      <div className="flex flex-col bg-secondary-dark-blue p-4 w-full rounded-xl">
-        <p>Beds</p>
-        <div className="flex w-full justify-start gap-4 items-center text-gray-400 mt-2">
-          <div className="bg-bg-light p-2 rounded-full">1</div>
-          <div className="bg-bg-light p-2 rounded-full">2</div>
-          <div className="bg-bg-light p-2 rounded-full">3</div>
-          <div className="bg-bg-light p-2 rounded-full">4</div>
-          <div className="bg-bg-light p-2 rounded-full">5+</div>
-        </div>
-      </div>
+      <BedBathFilter title="Bedrooms" />
+      <BedBathFilter title="Bathrooms" />
       <div className="flex flex-col bg-secondary-dark-blue w-full p-4 rounded-xl">
         <p>Home Type</p>
       </div>
+      <Button text="Search" variant="primary" onClick={() => {}} />
     </div>
   );
 };
