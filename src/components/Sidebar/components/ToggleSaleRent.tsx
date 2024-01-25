@@ -8,7 +8,7 @@ const ToggleSaleRent = () => {
       <p
         className={`${
           selected === "For Rent" ? "bg-bg-light text-black" : ""
-        } py-2 px-3 rounded-xl cursor-pointer`}
+        } py-2 px-3 rounded-xl cursor-pointer active:scale-90 transition-all duration-150`}
         onClick={() => setSelected("For Rent")}
       >
         For Rent
@@ -16,7 +16,7 @@ const ToggleSaleRent = () => {
       <p
         className={`${
           selected === "For Sale" ? "bg-bg-light text-black" : ""
-        } py-2 px-3 rounded-xl cursor-pointer`}
+        } py-2 px-3 rounded-xl cursor-pointer active:scale-90 transition-all duration-150`}
         onClick={() => setSelected("For Sale")}
       >
         For Sale

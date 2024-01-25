@@ -13,12 +13,12 @@ const Sidebar = () => {
         <div className="flex w-full justify-between items-center">
           <input
             placeholder="Min Rent"
-            className="w-[100px] rounded-lg p-1 bg-bg-light"
+            className="w-[100px] rounded-lg p-1 bg-bg-light text-center text-dark-blue"
           />
           <p>-</p>
           <input
             placeholder="Max Rent"
-            className="w-[100px] rounded-lg p-1 bg-bg-light"
+            className="w-[100px] rounded-lg p-1 bg-bg-light text-center text-dark-blue"
           />
         </div>
       </div>

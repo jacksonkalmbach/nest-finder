@@ -2,7 +2,7 @@ import { Squares2X2Icon, QueueListIcon } from "@heroicons/react/24/solid";
 import React from "react";
 import ListingCard from "../components/ListingCard";
 import SearchMap from "../components/SearchMap";
-import Sidebar from "../components/Sidebar/Sidebar";
+import Sidebar from "../components/sidebar/Sidebar";
 import ListingsContainer from "../components/ListingsContainer";
 
 const DiscoverPage = () => {
