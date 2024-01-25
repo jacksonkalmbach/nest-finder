@@ -8,6 +8,7 @@ import InputField from "./ui/InputField";
 import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react";
 import { RootStoreContext } from "../context/RootStoreContext";
+import TestMenu from "./TestMenu";
 
 const NavBar = observer(() => {
   const navigate = useNavigate();
@@ -64,6 +65,7 @@ const NavBar = observer(() => {
         )}
         <div className="hidden md:block">
           <UserCard />
+          {/* <TestMenu /> */}
 
           {/* <Button
             text="Sign In"

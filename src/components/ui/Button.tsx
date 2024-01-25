@@ -14,7 +14,7 @@ const buttonVariants = {
 const Button = ({ text, onClick, variant }: Props) => {
   return (
     <button
-      className={`${buttonVariants[variant]} px-3 py-3 w-full font-medium rounded-full font-poppins`}
+      className={`${buttonVariants[variant]} px-3 py-3 w-full font-medium rounded-full font-poppins active:scale-95 transition-all duration-150 ease-in-out`}
       onClick={onClick}
     >
       {text}

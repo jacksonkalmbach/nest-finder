@@ -2,17 +2,33 @@ import React, { useState, useEffect } from "react";
 import { ArrowUpRightIcon } from "@heroicons/react/24/solid";
 import { Separator } from "@radix-ui/themes";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useIsMediumOrSmaller } from "../hooks/useIsMediumOrSmaller";
 
-const ListingCard = ({ apt }: { apt: any }) => {
+const ListingCard = ({ apt, index }: { apt: any; index: number }) => {
   const { id, name, bedRange, rentRange, address } = apt;
 
   const [isGridView, seIsGridView] = useState<boolean>(true);
+  const variants = {
+    hidden: { y: 10, opacity: 0 },
+    visible: { y: 0, opacity: 1 },
+  };
+
+  const animationDuration = index === 0 ? 0.5 : 0.5 + index * 0.4;
 
   return (
     <>
       {isGridView ? (
-        <div className="bg-white row-span-1 col-span-1 rounded-xl border border-gray-100 flex flex-col p-4 justify-between">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={variants}
+          transition={{
+            ease: "easeInOut",
+            duration: animationDuration,
+          }}
+          className="bg-white row-span-1 col-span-1 rounded-xl border border-gray-100 flex flex-col p-4 justify-between"
+        >
           <div className="min-h-[150px] bg-gray-300 rounded-xl"></div>
           <div className="flex flex-col items-start w-full flex-grow py-2 gap-2">
             <div className="flex w-full justify-between items-center">
@@ -40,7 +56,7 @@ const ListingCard = ({ apt }: { apt: any }) => {
               <ArrowUpRightIcon className="w-3 h-3" />
             </Link>
           </div>
-        </div>
+        </motion.div>
       ) : (
         <div className="col-span-2 h-[150px] bg-white p-2 rounded-xl flex gap-2">
           <div className="h-full w-1/3 bg-gray-300 rounded-xl"></div>
