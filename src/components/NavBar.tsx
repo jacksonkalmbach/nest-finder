@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import UserCard from "./UserCard";
 import Logo from "./Logo";
 import { HeartIcon } from "@heroicons/react/24/outline";
@@ -6,11 +6,20 @@ import { Bars3BottomRightIcon } from "@heroicons/react/24/solid";
 import Button from "./ui/Button";
 import InputField from "./ui/InputField";
 import { useNavigate } from "react-router-dom";
+import { observer } from "mobx-react";
+import { RootStoreContext } from "../context/RootStoreContext";
 
-const NavBar = () => {
+const NavBar = observer(() => {
   const navigate = useNavigate();
+  const { uiStore } = useContext(RootStoreContext);
+
+  const handleClick = () => {
+    uiStore.toggleNav();
+  };
+
   const [isHome, setIsHome] = useState<boolean>(true);
   const path = window.location.pathname;
+
   useEffect(() => {
     if (path === "/") {
       setIsHome(true);
@@ -68,11 +77,11 @@ const NavBar = () => {
           <InputField variant="outlined" />
         </div>
       )}
-      <div className="block md:hidden">
+      <div className="block md:hidden" onClick={handleClick}>
         <Bars3BottomRightIcon className="h-8 w-8" />
       </div>
     </div>
   );
-};
+});
 
 export default NavBar;
