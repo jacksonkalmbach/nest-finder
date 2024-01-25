@@ -1,47 +1,40 @@
-import React from "react";
-import { SAMPLE_IMAGES } from "../DATA";
 import { Separator } from "@radix-ui/themes";
-import { PhoneIcon } from "@heroicons/react/24/solid";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import PricingAndFloorPlans from "../components/listing/PricingAndFloorPlans";
 import BuildingOverview from "../components/listing/BuildingOverview";
-import Button from "../components/ui/Button";
+import ContactListing from "../components/listing/ContactListing";
+import ListingPhotoGallery from "../components/listing/ListingPhotoGallery";
+import Footer from "../components/Footer";
+import FeesAndPolicies from "../components/listing/FeesAndPolicies";
 
 const ListingPage = () => {
   return (
-    <div className="w-screen bg-bg-light flex flex-col font-poppins">
-      <div className="h-[250px] grid grid-cols-1 grid-rows-1 md:grid-cols-4 md:grid-rows-2 md:flex-nowrap overflow-auto gap-1 md:h-1/2">
-        {SAMPLE_IMAGES.map((img, index) => {
-          return index === 0 ? (
-            <div className="w-auto h-full md:row-span-2 md:col-span-2">
-              <img src={img.link} alt="listing" className="w-full h-full" />
-            </div>
-          ) : (
-            <div className="w-full md:row-span-1 md:col-span-1">
-              <img src={img.link} alt="listing" className="w-full h-full" />
-            </div>
-          );
-        })}
-      </div>
+    <div className="bg-bg-light font-poppins">
+      <ListingPhotoGallery />
       <div className="flex items-start gap-8 p-6 lg:py-10 lg:px-20">
         <div className="flex flex-col gap-6 w-full lg:w-3/4">
           <div className="flex flex-col p-4 md:p-6 justify-start w-full items-start font-poppins col-span-2 bg-white rounded-xl gap-2 md:gap-6">
             <div className="w-full justify-center lg:justify-between flex flex-col lg:flex-row items-start lg:items-center">
               <div className="flex flex-col items-start w-full">
-                <div className="flex justify-between items-center w-full">
-                  <h1 className="font-medium text-2xl md:text-3xl">
-                    1441 N. Elk Grove
-                  </h1>
-                  <div className="w-6 h-6 md:w-8 md:h-8">
-                    <HeartIcon className="w-full h-auto text-accent-blue" />
+                <div className="flex justify-between items-start w-full">
+                  <div className="flex flex-col">
+                    <h1 className="font-medium text-2xl md:text-3xl mb-2">
+                      1441 N. Elk Grove
+                    </h1>
+                    <p className="text-sm md:text-base">123 Sesame Street</p>
+                    <p className="text-sm md:text-base">Chicago, IL 60622</p>
                   </div>
-                  <img
-                    src="https://images1.apartments.com/i2/mbkz4OaDkHbUzRWhfXWaXVhrA_QS21qtrSHbN33ULos/110/image.jpg"
-                    alt=""
-                    className="h-10 md:h-[80px]"
-                  />
+                  <div className="flex flex-col justify-center items-end">
+                    <div className="w-6 h-6 md:w-8 md:h-8">
+                      <HeartIcon className="w-full h-auto text-accent-blue" />
+                    </div>
+                    <img
+                      src="https://images1.apartments.com/i2/mbkz4OaDkHbUzRWhfXWaXVhrA_QS21qtrSHbN33ULos/110/image.jpg"
+                      alt=""
+                      className="hidden lg:block h-10 md:h-[80px]"
+                    />
+                  </div>
                 </div>
-                <p className="text-sm md:text-base">Chicago, IL 60622</p>
               </div>
             </div>
             <div className="flex w-full text-center justify-around p-2 bg-bg-light rounded-xl text-sm md:text-base">
@@ -78,19 +71,36 @@ const ListingPage = () => {
           </div>
           <PricingAndFloorPlans />
           <BuildingOverview />
+          <FeesAndPolicies />
         </div>
-        <div className="hidden lg:flex flex-col justify-center items-center bg-white grow p-6 rounded-xl gap-4 sticky top-20">
-          <h3 className="text-xl text-center font-medium">
-            Contact This Property
-          </h3>
-          <p>Company Name</p>
-          <div className="hidden md:flex gap-2 text-accent-blue font-medium items-center">
-            <PhoneIcon className="h-4 w-4" />
-            <p>(123) 425-5293</p>
+        <div className="grow flex flex-col sticky top-20 gap-6">
+          <ContactListing />
+          <div className="bg-white rounded-xl p-6 flex flex-col justify-start items-center">
+            <p className="font-medium text-xl text-center mb-2">
+              Recently Viewed
+            </p>
+            <div className="flex flex-col gap-2 w-full">
+              <div className="bg-bg-light h-[80px] w-full rounded-xl p-3 flex flex-col items-center justify-center cursor-pointer">
+                <p className="font-medium">1441 N Elk Grove</p>
+                <div className="flex gap-2 items-center">
+                  <p className="text-sm">$1,780</p>
+                  <Separator orientation="vertical" />
+                  <p className="text-sm">Studio, 1 Bath, 415 SF</p>
+                </div>
+              </div>
+              <div className="bg-bg-light h-[80px] w-full rounded-xl p-3 flex flex-col items-center justify-center cursor-pointer">
+                <p className="font-medium">1441 N Elk Grove</p>
+                <div className="flex gap-2 items-center">
+                  <p className="text-sm">$1,780</p>
+                  <Separator orientation="vertical" />
+                  <p className="text-sm">Studio, 1 Bath, 415 SF</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <Button text="Send Message" variant="primary" onClick={() => {}} />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

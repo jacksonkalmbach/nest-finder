@@ -4,7 +4,7 @@ import { LinkedInLogoIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 
 const Footer = () => {
   return (
-    <div className="w-screen flex flex-col md:flex-row justify-between items-center h-1/4 bg-bg-light p-14">
+    <div className="w-screen flex flex-col md:flex-row justify-between items-center h-[200px] bg-bg-light p-14">
       <div className="flex flex-col">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8">
