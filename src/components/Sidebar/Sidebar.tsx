@@ -1,18 +1,13 @@
-import React from "react";
-import InputField from "./ui/InputField";
-import SearchDropdown from "./SearchDropdown";
-import Button from "./ui/Button";
-import { BedBathFilter } from "./Sidebar/BedBathFilter";
+import InputField from "../ui/InputField";
+import Button from "../ui/Button";
+import { BedBathFilter } from "./components/BedBathFilter";
+import ToggleSaleRent from "./components/ToggleSaleRent";
 
 const Sidebar = () => {
   return (
     <div className="hidden max-w-[300px] bg-dark-blue grow text-white p-6 xl:flex flex-col items-start gap-5">
       <InputField variant="secondary" />
-      {/* <SearchDropdown /> */}
-      <div className="flex bg-secondary-dark-blue py-4 px-4 rounded-xl gap-2 w-full items-center justify-around">
-        <p>For Rent</p>
-        <p className="bg-bg-light py-2 px-3 rounded-xl text-black">For Sale</p>
-      </div>
+      <ToggleSaleRent />
       <div className="flex flex-col w-full bg-secondary-dark-blue py-4 px-4 rounded-xl gap-2">
         <p className="text-center">Price</p>
         <div className="flex w-full justify-between items-center">
