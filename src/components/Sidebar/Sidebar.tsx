@@ -10,7 +10,7 @@ interface Props {
 const Sidebar = ({ handleSearchParams }: Props) => {
   
   return (
-    <div className="hidden max-w-[300px] bg-dark-blue grow text-white p-6 xl:flex flex-col items-start gap-5">
+    <div className="hidden w-[300px] bg-dark-blue text-white p-6 xl:flex flex-col items-start gap-5">
       <InputField variant="secondary" />
       <ToggleSaleRent />
       <div className="flex flex-col w-full bg-secondary-dark-blue py-4 px-4 rounded-xl gap-2">

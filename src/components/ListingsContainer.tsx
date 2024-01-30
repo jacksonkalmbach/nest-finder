@@ -1,5 +1,4 @@
 import ListingCard from "./ListingCard";
-import { APARTMENTS_DATA } from "../DATA";
 
 const ListingsContainer = ({ data }: { data: any }) => {
   return (

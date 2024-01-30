@@ -8,6 +8,7 @@ import ListingPhotoGallery from "../components/listing/ListingPhotoGallery";
 import Footer from "../components/Footer";
 import FeesAndPolicies from "../components/listing/FeesAndPolicies";
 import { useParams } from "react-router-dom";
+import RecentlyViewed from "../components/RecentlyViewed";
 
 const url = process.env.REACT_APP_RAPID_API_URL + "/v2/properties/detail?zpid=";
 const options = {
@@ -110,29 +111,7 @@ const ListingPage = () => {
         </div>
         <div className="hidden grow lg:flex flex-col sticky top-20 gap-6">
           <ContactListing />
-          <div className="bg-white rounded-xl p-6 flex flex-col justify-start items-center">
-            <p className="font-medium text-xl text-center mb-2">
-              Recently Viewed
-            </p>
-            <div className="flex flex-col gap-2 w-full">
-              <div className="bg-bg-light h-[80px] w-full rounded-xl p-3 flex flex-col items-center justify-center cursor-pointer">
-                <p className="font-medium">1441 N Elk Grove</p>
-                <div className="flex gap-2 items-center">
-                  <p className="text-sm">$1,780</p>
-                  <Separator orientation="vertical" />
-                  <p className="text-sm">Studio, 1 Bath, 415 SF</p>
-                </div>
-              </div>
-              <div className="bg-bg-light h-[80px] w-full rounded-xl p-3 flex flex-col items-center justify-center cursor-pointer">
-                <p className="font-medium">1441 N Elk Grove</p>
-                <div className="flex gap-2 items-center">
-                  <p className="text-sm">$1,780</p>
-                  <Separator orientation="vertical" />
-                  <p className="text-sm">Studio, 1 Bath, 415 SF</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <RecentlyViewed />
         </div>
       </div>
       <Footer />
