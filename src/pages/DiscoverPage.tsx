@@ -35,6 +35,7 @@ const DiscoverPage = () => {
         console.log(result.data);
         getLocations(result.data);
         localStorage.setItem("recentSearch", JSON.stringify(result.data));
+        localStorage.setItem("searchCity", "Chicago, IL");
       } catch (error) {
         console.error(error);
       }
