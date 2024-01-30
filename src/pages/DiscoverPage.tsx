@@ -34,12 +34,18 @@ const DiscoverPage = () => {
         setApt(result.data);
         console.log(result.data);
         getLocations(result.data);
+        localStorage.setItem("recentSearch", JSON.stringify(result.data));
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchData();
+    const cachedResults = localStorage.getItem("recentSearch");
+    if (cachedResults) {
+      setApt(JSON.parse(cachedResults));
+    } else {
+      fetchData();
+    }
   }, []);
 
   const getLocations = (data: any) => {
