@@ -4,7 +4,8 @@ import SearchMap from "../components/SearchMap";
 import Sidebar from "../components/sidebar/Sidebar";
 import ListingsContainer from "../components/ListingsContainer";
 
-const url = process.env.REACT_APP_RAPID_API_URL + "/v2/properties/search-for-rent";
+const url =
+  process.env.REACT_APP_RAPID_API_URL + "/v2/properties/search-for-rent";
 const options = {
   method: "POST",
   headers: {
@@ -20,7 +21,9 @@ const options = {
 };
 
 const DiscoverPage = () => {
-  const [aptData, setApt] = useState([]);
+  const [aptData, setApt] = useState<any>([]);
+  const [searchParams, setSearchParams] = useState({});
+  const [locations, setLocations] = useState<any>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,6 +31,8 @@ const DiscoverPage = () => {
         const response = await fetch(url, options);
         const result = await response.json();
         setApt(result.data);
+        console.log(result.data);
+        getLocations(result.data);
       } catch (error) {
         console.error(error);
       }
@@ -36,9 +41,20 @@ const DiscoverPage = () => {
     fetchData();
   }, []);
 
+  const getLocations = (data: any) => {
+    const newLocations = data.map((apt: any) => {
+      return {
+        location: apt.property.location,
+        price: apt.property.price,
+      };
+    });
+
+    setLocations(newLocations);
+  };
+
   return (
     <div className="w-screen grow font-poppins flex bg-bg-light">
-      <Sidebar />
+      <Sidebar handleSearchParams={() => setSearchParams} />
       <div
         className="flex flex-col grow"
         style={{ maxHeight: "calc(100vh - 70px)" }}
@@ -57,12 +73,12 @@ const DiscoverPage = () => {
                 <h2 className="text-xl font-medium">
                   Apartments in Chicago, IL
                 </h2>
-                <p className="text-gray-400">133 Results</p>
+                <p className="text-gray-400">{aptData.length} Results</p>
               </div>
-              {aptData.length && <ListingsContainer data={aptData} />}
+              {aptData.length > 0 && <ListingsContainer data={aptData} />}
             </div>
             <div className="hidden md:flex w-1/2">
-              <SearchMap />
+              {locations.length > 0 && <SearchMap locations={locations} />}
             </div>
           </div>
         </div>

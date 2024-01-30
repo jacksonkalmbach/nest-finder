@@ -3,7 +3,12 @@ import Button from "../ui/Button";
 import { BedBathFilter } from "./components/BedBathFilter";
 import ToggleSaleRent from "./components/ToggleSaleRent";
 
-const Sidebar = () => {
+interface Props {
+  handleSearchParams: () => void;
+}
+
+const Sidebar = ({ handleSearchParams }: Props) => {
+  
   return (
     <div className="hidden max-w-[300px] bg-dark-blue grow text-white p-6 xl:flex flex-col items-start gap-5">
       <InputField variant="secondary" />
