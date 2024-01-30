@@ -1,11 +1,41 @@
+import { useEffect, useState } from "react";
 import { Squares2X2Icon, QueueListIcon } from "@heroicons/react/24/solid";
-import React from "react";
-import ListingCard from "../components/ListingCard";
 import SearchMap from "../components/SearchMap";
 import Sidebar from "../components/sidebar/Sidebar";
 import ListingsContainer from "../components/ListingsContainer";
 
+const url = process.env.REACT_APP_RAPID_API_URL + "/v2/properties/search-for-rent";
+const options = {
+  method: "POST",
+  headers: {
+    "content-type": "application/json",
+    "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY as string,
+    "X-RapidAPI-Host": "zillow-com4.p.rapidapi.com",
+  },
+  body: JSON.stringify({
+    location: "Lincoln Park, Chicago, IL",
+    price: { max: 2000 },
+    bedrooms: { min: 1, max: 1 },
+  }),
+};
+
 const DiscoverPage = () => {
+  const [aptData, setApt] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+        setApt(result.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="w-screen grow font-poppins flex bg-bg-light">
       <Sidebar />
@@ -29,7 +59,7 @@ const DiscoverPage = () => {
                 </h2>
                 <p className="text-gray-400">133 Results</p>
               </div>
-              <ListingsContainer />
+              {aptData.length && <ListingsContainer data={aptData} />}
             </div>
             <div className="hidden md:flex w-1/2">
               <SearchMap />

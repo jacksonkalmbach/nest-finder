@@ -1,11 +1,13 @@
 import ListingCard from "./ListingCard";
 import { APARTMENTS_DATA } from "../DATA";
 
-const ListingsContainer = () => {
+const ListingsContainer = ({ data }: { data: any }) => {
   return (
     <div className="w-full bg-bg-light flex flex-col lg:grid grid-rows-2 grid-cols-2 gap-2">
-      {APARTMENTS_DATA.map((apt: any, index: number) => {
-        return <ListingCard key={apt.id} apt={apt} index={index} />;
+      {data.map((apt: any, index: number) => {
+        const { property } = apt;
+        console.log(property);
+        return <ListingCard key={property.zpid} apt={property} index={index} />;
       })}
     </div>
   );

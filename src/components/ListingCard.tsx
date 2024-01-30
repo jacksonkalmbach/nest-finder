@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useIsMediumOrSmaller } from "../hooks/useIsMediumOrSmaller";
 
-const ListingCard = ({ apt, index }: { apt: any; index: number }) => {
-  const { id, name, bedRange, rentRange, address } = apt;
+const ListingCard = ({ apt, index }: { apt: any, index: number }) => {
+  const { zpid, address, minPrice, maxPrice, price, title, bedrooms, media } = apt;
 
   const [isGridView, seIsGridView] = useState<boolean>(true);
   const variants = {
@@ -29,10 +29,12 @@ const ListingCard = ({ apt, index }: { apt: any; index: number }) => {
           }}
           className="bg-white row-span-1 col-span-1 rounded-xl border border-gray-100 flex flex-col p-4 justify-between"
         >
-          <div className="min-h-[150px] bg-gray-300 rounded-xl"></div>
+          <div className="h-[150px] bg-gray-300 rounded-xl overflow-hidden object-cover">
+            <img src={media.allPropertyPhotos.highResolution[0]} alt="listing" className="w-full"/>
+          </div>
           <div className="flex flex-col items-start w-full flex-grow py-2 gap-2">
             <div className="flex w-full justify-between items-center">
-              <p className="font-medium">{name}</p>
+              <p className="font-medium">{title}</p>
               <div className="bg-light-orange h-fit px-2 py-1 rounded-full flex justify-center items-center">
                 <p className="text-[8px]">For Rent</p>
               </div>
@@ -42,15 +44,15 @@ const ListingCard = ({ apt, index }: { apt: any; index: number }) => {
                 {address.city}, {address.state}
               </p>
               <div className="flex text-sm text-text-gray gap-4">
-                <div>{bedRange}</div>
+                <div>{bedrooms ? bedrooms:  ""} bed</div>
               </div>
               <p className="text-text-gray text-sm">1,200 sqft</p>
             </div>
           </div>
           <div className="flex justify-between items-center border-t pt-2">
-            <p>{rentRange}</p>
+            <p>{price !== undefined ? "$" + price.value.toLocaleString() : `$${minPrice.toLocaleString()} - $${maxPrice.toLocaleString()}`}</p>
             <Link
-              to={`/${id}`}
+              to={`/${zpid}`}
               className="bg-accent-blue rounded-full p-2 text-white"
             >
               <ArrowUpRightIcon className="w-3 h-3" />
@@ -63,7 +65,7 @@ const ListingCard = ({ apt, index }: { apt: any; index: number }) => {
           <div className="flex flex-col p-2 flex-grow">
             <div className="flex items-center justify-between w-full">
               <p className="font-medium text-base md:text-lg">
-                {name === "" ? name : address.lineOne}
+                {title !== "" ? title : address.streetAddress}
               </p>
               <div className="bg-light-orange h-fit px-2 py-1 rounded-full flex justify-center items-center">
                 <p className="text-xs">For Rent</p>
@@ -74,7 +76,7 @@ const ListingCard = ({ apt, index }: { apt: any; index: number }) => {
                 {address.city}, {address.state}
               </p>
               <div className="flex text-sm text-text-gray gap-4 items-center ">
-                <div className="text-xs md:text-sm">{bedRange}</div>
+                <div className="text-xs md:text-sm">beds</div>
                 <Separator orientation="vertical" />
                 <div className="hidden md:block">1 Bathroom</div>
                 <div className="md:hidden">1 Ba.</div>
@@ -84,9 +86,9 @@ const ListingCard = ({ apt, index }: { apt: any; index: number }) => {
             </div>
 
             <div className="flex justify-between items-center border-t pt-2">
-              <p className="text-base md:text-lg font-medium">{rentRange}</p>
+              <p className="text-base md:text-lg font-medium">{minPrice} - {maxPrice}</p>
               <Link
-                to={`/${id}`}
+                to={`/${zpid}`}
                 className="bg-accent-blue rounded-full p-2 text-white"
               >
                 <ArrowUpRightIcon className="w-3 h-3" />
