@@ -6,7 +6,11 @@ export const BedBathFilter = ({ title }: { title: string }) => {
   const values = [];
 
   const handleSelect = (val: number) => {
-    setNumSelected(val);
+    if (numSelected === val) {
+      setNumSelected(0);
+    } else {
+      setNumSelected(val);
+    }
   };
 
   for (let i = 1; i <= 5; i++) {

@@ -76,7 +76,7 @@ const NavBar = observer(() => {
       </div>
       {!isHome && (
         <div className="md:hidden w-full">
-          <InputField variant="outlined" />
+          <InputField variant="outlined" placeholder="Search" />
         </div>
       )}
       <div className="block md:hidden" onClick={handleClick}>

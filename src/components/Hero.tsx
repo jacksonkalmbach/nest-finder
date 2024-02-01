@@ -34,7 +34,11 @@ const Hero = () => {
         </h3>
         <div className="w-full flex flex-col md:flex-row gap-2">
           <div className="hidden md:block w-full h-full">
-            <InputField variant="primary" />
+            <InputField
+              variant="primary"
+              iconVariant="search"
+              placeholder="Start Searching"
+            />
           </div>
           <div className="block md:hidden">
             <Button
