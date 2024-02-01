@@ -7,13 +7,10 @@ import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
   const navigate = useNavigate();
+  const defaultCity = localStorage.getItem("searchCity");
+  const searchCity = defaultCity ? defaultCity : "";
   return (
     <div className="w-full h-3/4 flex justify-center items-center bg-bg-light p-6">
-      {/* <img
-        src={heroImg}
-        alt="hero"
-        className="absolute w-full h-auto -z-0 object-cover"
-      /> */}
       <div className="flex flex-col justify-center items-center gap-6">
         <div className="flex flex-col justify-center items-center md:items-start w-fit md:gap-4 md:flex-row">
           <h1 className="text-6xl md:text-8xl font-medium text-end font-lilita">
@@ -37,6 +34,7 @@ const Hero = () => {
             <InputField
               variant="primary"
               iconVariant="search"
+              defaultValue={searchCity}
               placeholder="Start Searching"
             />
           </div>
@@ -51,7 +49,10 @@ const Hero = () => {
             <Button
               text="Go"
               variant="primary"
-              onClick={() => navigate("/discover")}
+              onClick={() => {
+                navigate("/discover");
+                localStorage.setItem("searchCity", "Chicago, IL");
+              }}
             />
           </div>
         </div>

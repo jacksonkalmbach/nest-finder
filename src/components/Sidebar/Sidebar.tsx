@@ -17,13 +17,14 @@ const homeTypes: string[] = [
 ];
 
 const Sidebar = ({ handleSearchParams }: Props) => {
-  const searchCity = localStorage.getItem("searchCity");
+  const defaultCity = localStorage.getItem("searchCity")
+  const searchCity = defaultCity ? defaultCity: "";
   return (
     <div className="hidden min-w-[300px] bg-dark-blue text-white p-6 xl:flex flex-col items-start gap-5 overflow-y-auto">
       <InputField
         variant="secondary"
         iconVariant="search"
-        defaultValue={searchCity ? searchCity : "Search"}
+        defaultValue={searchCity}
         placeholder="Search"
       />
       <ToggleSaleRent />
