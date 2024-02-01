@@ -1,4 +1,3 @@
-import React from "react";
 import Map, { Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import CustomMarker from "./CustomMarker";
@@ -13,7 +12,6 @@ interface Props {
 }
 
 const SearchMap = ({ locations }: Props) => {
-  console.log("LOCATIONS", locations);
   return (
     <div className="hidden md:flex w-full rounded-xl overflow-hidden">
       <Map

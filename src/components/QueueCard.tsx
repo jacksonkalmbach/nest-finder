@@ -3,7 +3,15 @@ import { Separator } from "@radix-ui/themes";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const QueueCard = ({ apt, index }: { apt: any; index: number }) => {
+const QueueCard = ({
+  apt,
+  index,
+  onSelected,
+}: {
+  apt: any;
+  index: number;
+  onSelected: (zpid: number) => void;
+}) => {
   const { zpid, address, minPrice, maxPrice, price, title, bedrooms, media } =
     apt;
 
@@ -22,21 +30,24 @@ const QueueCard = ({ apt, index }: { apt: any; index: number }) => {
         ease: "easeInOut",
         duration: animationDuration,
       }}
-      className="col-span-2 w-full h-[150px] bg-white p-2 rounded-xl flex gap-2"
+      className="w-full h-[150px] bg-white p-2 rounded-xl flex gap-2"
+      onClick={() => onSelected(zpid)}
     >
-      <div className="h-[130px] w-[150px] bg-gray-300 rounded-xl overflow-hidden object-cover">
+      <div className="h-[130px] min-w-[150px] bg-gray-300 rounded-xl overflow-hidden object-cover">
         <img
           src={media.allPropertyPhotos.highResolution[0]}
           alt=""
           className="h-full w-full"
         />
       </div>
-      <div className="flex flex-col p-2">
-        <div className="flex items-center justify-between w-full">
-          <p className="font-medium text-base md:text-base ">
-            {title !== "" ? title : address.streetAddress}
-          </p>
-          <div className="bg-light-orange h-fit px-2 py-1 rounded-full flex justify-center items-center">
+      <div className="w-full flex flex-col p-2">
+        <div className="grid grid-cols-5 w-full gap-2 items-start ">
+          <div className="col-span-4">
+            <p className="font-medium w-full text-base md:text-base overflow-hidden truncate">
+              {title !== "" ? title : address.streetAddress}
+            </p>
+          </div>
+          <div className="bg-light-orange col-span-1 h-fit px-2 py-1 rounded-full flex justify-center items-center">
             <p className="text-xs">For Rent</p>
           </div>
         </div>

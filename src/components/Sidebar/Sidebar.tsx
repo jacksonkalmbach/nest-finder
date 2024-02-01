@@ -17,10 +17,10 @@ const homeTypes: string[] = [
 ];
 
 const Sidebar = ({ handleSearchParams }: Props) => {
-  const defaultCity = localStorage.getItem("searchCity")
-  const searchCity = defaultCity ? defaultCity: "";
+  const defaultCity = localStorage.getItem("searchCity");
+  const searchCity = defaultCity ? defaultCity : "";
   return (
-    <div className="hidden min-w-[300px] bg-dark-blue text-white p-6 xl:flex flex-col items-start gap-5 overflow-y-auto">
+    <div className="hidden min-w-[300px] max-w-[300px] bg-dark-blue text-white p-6 xl:flex flex-col items-start gap-5 overflow-y-auto">
       <InputField
         variant="secondary"
         iconVariant="search"
