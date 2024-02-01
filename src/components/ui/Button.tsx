@@ -8,6 +8,7 @@ interface Props {
 
 const buttonVariants = {
   primary: "bg-accent-blue text-white",
+  seeThrough: "bg-bg-light text-black border border-black opacity-80",
   ghost: "hover:text-accent-blue",
 };
 

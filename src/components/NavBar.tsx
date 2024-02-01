@@ -8,7 +8,12 @@ import InputField from "./ui/InputField";
 import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react";
 import { RootStoreContext } from "../context/RootStoreContext";
-import TestMenu from "./TestMenu";
+
+const variants = {
+  home: "",
+  discover: "",
+  listing: "",
+};
 
 const NavBar = observer(() => {
   const navigate = useNavigate();
@@ -31,7 +36,7 @@ const NavBar = observer(() => {
   return (
     <div
       className={
-        "bg-white w-full h-[60px] flex items-center justify-between lg:justify-end p-6 gap-3 sticky top-0"
+        "bg-white w-full h-[60px] flex items-center justify-between lg:justify-end z-[9999] p-6 gap-3 sticky top-0"
       }
     >
       <div

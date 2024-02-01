@@ -32,7 +32,6 @@ const DiscoverPage = () => {
         const response = await fetch(url, options);
         const result = await response.json();
         setApt(result.data);
-        console.log(result.data);
         getLocations(result.data);
         localStorage.setItem("recentSearch", JSON.stringify(result.data));
         localStorage.setItem("searchCity", "Chicago, IL");

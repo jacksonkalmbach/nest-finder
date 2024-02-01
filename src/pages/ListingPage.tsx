@@ -9,6 +9,8 @@ import Footer from "../components/Footer";
 import FeesAndPolicies from "../components/listing/FeesAndPolicies";
 import { useParams } from "react-router-dom";
 import RecentlyViewed from "../components/RecentlyViewed";
+import FullGallery from "../components/listing/FullGallery";
+import ListingPhotoGallerySkeleton from "../components/listing/ListingPhotoGallerySkeleton";
 
 const url = process.env.REACT_APP_RAPID_API_URL + "/v2/properties/detail?zpid=";
 const options = {
@@ -39,8 +41,12 @@ const ListingPage = () => {
 
   return (
     <div className="bg-bg-light font-poppins w-screen flex flex-col">
-      <div className="w-full" style={{ height: "50vh" }}>
-        {data && <ListingPhotoGallery photos={data.photoUrlsHighRes} />}
+      <div className="w-full h-1/2" style={{ height: "60vh" }}>
+        {data ? (
+          <ListingPhotoGallery photos={data.photoUrlsHighRes} />
+        ) : (
+          <ListingPhotoGallerySkeleton />
+        )}
       </div>
       <div className="flex items-start gap-8 p-6 lg:py-10 lg:px-20">
         <div className="flex flex-col gap-6 w-full lg:w-3/4">
@@ -114,6 +120,7 @@ const ListingPage = () => {
           <RecentlyViewed />
         </div>
       </div>
+      {/* <FullGallery data={data} /> */}
       <Footer />
     </div>
   );

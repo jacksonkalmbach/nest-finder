@@ -36,13 +36,22 @@ const HomePage = () => {
         const result = await response.json();
         setFeaturedListings(result.data);
         console.log(result.data);
+        localStorage.setItem("cachedHomeResults", JSON.stringify(result));
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchData();
+    const cachedResults = localStorage.getItem("cachedHomeResults");
+    if (cachedResults) {
+      const result = JSON.parse(cachedResults);
+
+      setFeaturedListings(result.data);
+    } else {
+      fetchData();
+    }
   }, []);
+
   return (
     <div className="w-screen min-h-screen flex-col grow font-poppins">
       <Hero />
