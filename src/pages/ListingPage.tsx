@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import { Separator } from "@radix-ui/themes";
-import { HeartIcon } from "@heroicons/react/24/outline";
+import { useParams } from "react-router-dom";
+
 import PricingAndFloorPlans from "../components/listing/PricingAndFloorPlans";
 import BuildingOverview from "../components/listing/BuildingOverview";
 import ContactListing from "../components/listing/ContactListing";
 import ListingPhotoGallery from "../components/listing/ListingPhotoGallery";
 import Footer from "../components/Footer";
-import { useParams } from "react-router-dom";
 import RecentlyViewed from "../components/RecentlyViewed";
 import FullGallery from "../components/listing/FullGallery";
 import ListingPhotoGallerySkeleton from "../components/listing/ListingPhotoGallerySkeleton";
 import ListingInfoSection from "../components/listing/ListingInfoSection";
 import AboutListing from "../components/listing/AboutListing";
+import NearbyListingsContainer from "../components/listing/NearbyListingsContainer";
 
 const url = process.env.REACT_APP_RAPID_API_URL + "/v2/properties/detail?zpid=";
 const options = {
@@ -62,7 +62,7 @@ const ListingPage = () => {
             <></>
           </ListingInfoSection>
           <ListingInfoSection title="Nearby Listings for Rent">
-            <></>
+            <NearbyListingsContainer />
           </ListingInfoSection>
         </div>
         <div className="hidden grow lg:flex flex-col sticky top-20 gap-6">
