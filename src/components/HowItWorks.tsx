@@ -9,6 +9,7 @@ import HIWStep from "./HIWStep";
 import BlogIllustration1 from "./illustrations/BlogIllustration1";
 import Button from "./ui/Button";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const steps = [
   {
@@ -59,6 +60,7 @@ const steps = [
 ];
 
 const HowItWorks = () => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState<number>(1);
 
   return (
@@ -99,7 +101,7 @@ const HowItWorks = () => {
           <Button
             text="Join Now"
             variant="primary"
-            onClick={() => console.log("get started")}
+            onClick={() => navigate("/auth")}
           />
         </div>
       </div>

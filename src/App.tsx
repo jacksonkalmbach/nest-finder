@@ -9,6 +9,7 @@ import HomePage from "./pages/HomePage";
 import { RootStoreContext } from "./context/RootStoreContext";
 import MobileNavMenu from "./components/MobileNavMenu";
 import { observer } from "mobx-react";
+import AuthPage from "./pages/AuthPage";
 
 const App = observer(() => {
   const rootStore = useContext(RootStoreContext);
@@ -25,6 +26,7 @@ const App = observer(() => {
           <Route index element={<HomePage />} />
           <Route path="/discover" element={<Main />} />
           <Route path="/:id" element={<ListingPage />} />
+          <Route path="/auth" element={<AuthPage />} />
         </Routes>
       </div>
     </RootStoreContext.Provider>
