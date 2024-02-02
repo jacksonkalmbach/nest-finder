@@ -33,6 +33,7 @@ const DiscoverPage = () => {
         const result = await response.json();
         setApt(result.data);
         getLocations(result.data);
+
         localStorage.setItem("recentSearch", JSON.stringify(result.data));
         localStorage.setItem("searchCity", "Chicago, IL");
       } catch (error) {
@@ -41,6 +42,7 @@ const DiscoverPage = () => {
     };
 
     const cachedResults = localStorage.getItem("recentSearch");
+
     if (cachedResults) {
       setApt(JSON.parse(cachedResults));
     } else {

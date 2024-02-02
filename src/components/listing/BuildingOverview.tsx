@@ -2,8 +2,7 @@ import React from "react";
 
 const BuildingOverview = () => {
   return (
-    <div className="flex flex-col bg-white rounded-xl p-4 md:p-6 gap-4">
-      <h3 className="font-medium text-2xl">Building Overview</h3>
+    <>
       <p>
         If you're not much for great views of downtown Chicago, you won't like
         this vintage 10-story high rise situated on a nice tree-lined street
@@ -21,7 +20,7 @@ const BuildingOverview = () => {
         <li>Fitness Center</li>
         <li>Gated</li>
       </ul>
-    </div>
+    </>
   );
 };
 
