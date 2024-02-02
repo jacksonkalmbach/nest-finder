@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Squares2X2Icon, QueueListIcon } from "@heroicons/react/24/solid";
 import SearchMap from "../components/SearchMap";
 import Sidebar from "../components/sidebar/Sidebar";
 import ListingsContainer from "../components/ListingsContainer";
@@ -85,8 +84,8 @@ const DiscoverPage = () => {
               </div>
               {aptData.length > 0 && <ListingsContainer data={aptData} />}
             </div>
-            <div className="hidden md:flex w-1/2">
-              {locations.length > 0 && <SearchMap locations={locations} />}
+            <div className="hidden md:flex w-1/2 h-[730px] mt-8 rounded-xl overflow-hidden">
+              <SearchMap data={aptData} />
             </div>
           </div>
         </div>

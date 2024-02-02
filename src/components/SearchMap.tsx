@@ -1,6 +1,8 @@
+import { useState, useRef, useEffect } from "react";
 import Map, { Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import CustomMarker from "./CustomMarker";
+import { MapPinIcon } from "@heroicons/react/24/solid";
+import { Link } from "react-router-dom";
 
 const api_key = process.env.REACT_APP_MAP_API_KEY as string;
 
@@ -11,11 +13,80 @@ interface Props {
   }[];
 }
 
-const SearchMap = ({ locations }: Props) => {
+interface CustomMarkerProps {
+  lat: number;
+  lon: number;
+  img: string;
+  address: string;
+  price: number;
+  zpid: number;
+}
+
+const CustomMarker = (props: CustomMarkerProps) => {
+  const { lat, lon, img, address, price, zpid } = props;
+  const [isSelected, setIsSelected] = useState<boolean>(false);
+  const markerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        markerRef.current &&
+        !markerRef.current.contains(event.target as Node)
+      ) {
+        setIsSelected(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={markerRef}
+      className="z-10"
+      onClick={() => setIsSelected(!isSelected)}
+      style={{ cursor: "pointer" }}
+    >
+      <Marker latitude={lat} longitude={lon}>
+        <div className={`relative ${isSelected ? "z-30" : "z-20"}`}>
+          <MapPinIcon
+            className={`w-7 h-7 ${
+              isSelected ? "text-bg-light" : "text-accent-blue"
+            } hover:text-bg-light`}
+            strokeWidth="1"
+            stroke="white"
+          />
+          {isSelected && (
+            <Link
+              to={`${zpid}`}
+              className="absolute z-50 -top-56 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded-xl shadow-lg"
+            >
+              <div className="h-[150px] w-[200px] object-cover rounded-xl overflow-hidden">
+                <img src={img} alt="" className="w-full h-full" />
+              </div>
+              <div>
+                <p className="font-medium text-base">
+                  ${price.toLocaleString()}
+                </p>
+                <p className="text-base">{address}</p>
+              </div>
+            </Link>
+          )}
+        </div>
+      </Marker>
+    </div>
+  );
+};
+
+const SearchMap = ({ data }: { data: any }) => {
+  // console.log(data);
   return (
     <div className="hidden md:flex w-full rounded-xl overflow-hidden">
       <Map
-        mapboxAccessToken=""
+        mapboxAccessToken={api_key}
         initialViewState={{
           longitude: -87.633636,
           latitude: 41.925709,
@@ -23,23 +94,25 @@ const SearchMap = ({ locations }: Props) => {
         }}
         mapStyle="mapbox://styles/mapbox/streets-v9"
       >
-        {locations.length > 0 &&
-          locations.map((loc: any) => {
-            if (
-              !loc ||
-              loc.latitude === undefined ||
-              loc.longitude === undefined
-            ) {
-              return null;
-            }
-            const { location, price } = loc;
-            const { latitude, longitude } = location;
-            return (
-              <Marker latitude={latitude} longitude={longitude}>
-                <CustomMarker price={1000} />
-              </Marker>
-            );
-          })}
+        {data &&
+          data.length > 0 &&
+          data
+            .filter((loc: any) => loc.property.location !== undefined)
+            .map((loc: any) => {
+              const { price, minPrice } = loc.property;
+              const displayPrice = price ? price.value : minPrice;
+              return (
+                <CustomMarker
+                  key={`${loc.property.location.latitude}-${loc.property.location.longitude}`}
+                  lon={loc.property.location.longitude}
+                  lat={loc.property.location.latitude}
+                  img={loc.property.media.propertyPhotoLinks.highResolutionLink}
+                  address={loc.property.address.streetAddress}
+                  price={displayPrice}
+                  zpid={loc.property.zpid}
+                />
+              );
+            })}
       </Map>
     </div>
   );
