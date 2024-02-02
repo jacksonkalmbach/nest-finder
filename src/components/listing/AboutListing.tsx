@@ -22,11 +22,6 @@ const AboutListing = ({ data }: { data: any }) => {
               <div className="w-6 h-6 md:w-8 md:h-8">
                 <HeartIcon className="w-full h-auto text-accent-blue" />
               </div>
-              <img
-                src="https://images1.apartments.com/i2/mbkz4OaDkHbUzRWhfXWaXVhrA_QS21qtrSHbN33ULos/110/image.jpg"
-                alt=""
-                className="hidden lg:block h-10 md:h-[80px]"
-              />
             </div>
           </div>
         </div>

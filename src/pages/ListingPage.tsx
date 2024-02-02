@@ -11,7 +11,9 @@ import FullGallery from "../components/listing/FullGallery";
 import ListingPhotoGallerySkeleton from "../components/listing/ListingPhotoGallerySkeleton";
 import ListingInfoSection from "../components/listing/ListingInfoSection";
 import AboutListing from "../components/listing/AboutListing";
+import Button from "../components/ui/Button";
 import NearbyListingsContainer from "../components/listing/NearbyListingsContainer";
+import FeesAndPolicies from "../components/listing/FeesAndPolicies";
 
 const url = process.env.REACT_APP_RAPID_API_URL + "/v2/properties/detail?zpid=";
 const options = {
@@ -24,26 +26,31 @@ const options = {
 
 const ListingPage = () => {
   const params = useParams();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [data, setData] = useState<any>();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true);
         const response = await fetch(url + params.id, options);
         const result = await response.json();
         setData(result.data);
+        setIsLoading(false);
       } catch (error) {
         console.error(error);
       }
     };
 
+    window.scrollTo(0, 0);
+
     fetchData();
   }, [params.id]);
 
   return (
-    <div className="bg-bg-light font-poppins w-screen flex flex-col">
+    <div className="relative bg-bg-light font-poppins w-screen flex flex-col">
       <div className="w-full h-1/2" style={{ height: "60vh" }}>
-        {data ? (
+        {!isLoading && data ? (
           <ListingPhotoGallery photos={data.photoUrlsHighRes} />
         ) : (
           <ListingPhotoGallerySkeleton />
@@ -59,16 +66,26 @@ const ListingPage = () => {
             <BuildingOverview />
           </ListingInfoSection>
           <ListingInfoSection title="Fees and Policies">
-            <></>
+            <FeesAndPolicies
+              fees={[{ fee: "$50", type: "Admin" }]}
+              hasPetsAllowed={true}
+              parkingFeatures={[]}
+            />
           </ListingInfoSection>
           <ListingInfoSection title="Nearby Listings for Rent">
             <NearbyListingsContainer />
           </ListingInfoSection>
         </div>
-        <div className="hidden grow lg:flex flex-col sticky top-20 gap-6">
-          <ContactListing />
+        <div className="hidden grow lg:flex flex-col sticky top-20 gap-6 justify-start">
+          <ContactListing
+            brokerName="Lakeview Associates Inc"
+            brokerPhoneNumber="773-364-6623"
+          />
           <RecentlyViewed />
         </div>
+      </div>
+      <div className="sticky bottom-5 p-3 flex justify-center md:hidden px-4">
+        <Button text="Contact Listing" variant="primary" onClick={() => {}} />
       </div>
       {/* <FullGallery data={data} /> */}
       <Footer />

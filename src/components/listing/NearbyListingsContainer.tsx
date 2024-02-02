@@ -1,6 +1,7 @@
 import React from "react";
 import ListingCard from "../ListingCard";
 import GridCard from "../GridCard";
+import { Link, useNavigate } from "react-router-dom";
 
 const DATA = [
   {
@@ -74,26 +75,32 @@ const DATA = [
 ];
 
 const NearbyListingsContainer = () => {
+  const navigate = useNavigate();
   return (
-    <div className="grid grid-cols-4 flex-wrap gap-3 p-2">
+    <div className="grid grid-cols-2 lg:grid-cols-4 flex-wrap gap-3 p-2">
       {DATA.map((apt) => {
         return (
-          <div className="flex w-full flex-col items-center p-3 rounded-xl shadow-md">
-            <div className="h-[150px] w-full object-fit">
+          <Link
+            className="flex w-full flex-col items-center overflow-hidden rounded-xl shadow-md cursor-pointer"
+            to={`/${apt.zpid}`}
+          >
+            <div className="w-full object-fit">
               <img
                 src="https://photos.zillowstatic.com/fp/e3eab42685bb801eb0bcbe6e26acbbf1-p_c.jpg"
                 alt=""
                 className="h-full w-full"
               />
             </div>
-            <div>
-              <p className="font-medium text-lg">
+            <div className="p-2 text-center">
+              <p className="font-medium text-sm md:text-lg">
                 ${apt.price.toLocaleString()}
               </p>
-              <p>{apt.address.streetAddress}</p>
-              <p>Chicago, IL</p>
+              <p className="text-xs md:text-base">
+                {apt.address.streetAddress}
+              </p>
+              <p className="text-xs md:text-base">{apt.address.city}</p>
             </div>
-          </div>
+          </Link>
         );
       })}
     </div>
