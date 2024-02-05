@@ -20,9 +20,21 @@ const options = {
   }),
 };
 
+const defaultSearchParams = {
+  location: "",
+  statusType: "ForRent",
+  homeType: "",
+  rentMinPrice: null,
+  rentMaxPrice: null,
+  bathsMin: null,
+  bathsMax: null,
+  bedsMin: null,
+  bedsMax: null,
+};
+
 const DiscoverPage = () => {
   const [aptData, setApt] = useState<any>([]);
-  const [searchParams, setSearchParams] = useState({});
+  const [searchParams, setSearchParams] = useState(defaultSearchParams);
   const [locations, setLocations] = useState<any>([]);
 
   useEffect(() => {
@@ -60,9 +72,24 @@ const DiscoverPage = () => {
     setLocations(newLocations);
   };
 
+  const handleSetSearchParam = (paramKey: string, value: any) => {
+    setSearchParams((prevParams) => ({
+      ...prevParams,
+      [paramKey]: value,
+    }));
+  };
+
+  useEffect(() => {
+    console.log(searchParams);
+  }, [searchParams]);
+
   return (
     <div className="w-screen grow font-poppins flex bg-bg-light">
-      <Sidebar handleSearchParams={() => setSearchParams} />
+      <Sidebar
+        handleSearchParams={(paramKey, value) =>
+          handleSetSearchParam(paramKey, value)
+        }
+      />
       <div
         className="flex flex-col grow"
         style={{ maxHeight: "calc(100vh - 70px)" }}

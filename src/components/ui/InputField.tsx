@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import { useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
 type VariantTypes = {
@@ -13,6 +13,8 @@ interface Props {
   placeholder: string;
   iconVariant?: keyof typeof icons;
   defaultValue?: string;
+  textAligned?: string;
+  setValue?: (val: string) => void;
 }
 
 const variants: VariantTypes = {
@@ -22,7 +24,6 @@ const variants: VariantTypes = {
   outlined: "border",
 };
 
-// Correctly define the icons mapping
 const icons = {
   search: <MagnifyingGlassIcon className="w-4 h-4 text-gray-500" />, // Correct className for text color
 };
@@ -32,8 +33,18 @@ const InputField = ({
   placeholder,
   iconVariant,
   defaultValue,
+  textAligned,
+  setValue,
 }: Props) => {
+  const [inputValue, setInputValue] = useState(defaultValue || "");
   const [isFocused, setIsFocused] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+    if (setValue) {
+      setValue(e.target.value);
+    }
+  };
 
   return (
     <div
@@ -44,10 +55,13 @@ const InputField = ({
       {iconVariant && icons[iconVariant]}
       <input
         placeholder={placeholder}
-        value={defaultValue}
-        className="outline-none flex-grow h-full py-3 bg-transparent"
+        value={inputValue}
+        className={`${
+          textAligned ? `text-${textAligned}` : ""
+        } outline-none w-full flex-grow h-full py-3 bg-transparent`}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
+        onChange={handleChange}
       />
     </div>
   );
