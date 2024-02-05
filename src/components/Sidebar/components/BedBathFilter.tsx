@@ -1,23 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NumberOption from "./NumberOption";
 
-export const BedBathFilter = ({ title }: { title: string }) => {
-  const [numSelected, setNumSelected] = useState<number>(0);
+interface Props {
+  title: string;
+  setMinValue: (value: number | null) => void;
+  setMaxValue: (value: number | null) => void;
+}
+
+export const BedBathFilter = ({ title, setMinValue, setMaxValue }: Props) => {
+  const [numsSelected, setNumsSelected] = useState<number[]>([]);
   const values = [];
 
   const handleSelect = (val: number) => {
-    if (numSelected === val) {
-      setNumSelected(0);
+    if (numsSelected.includes(val)) {
+      setNumsSelected(numsSelected.filter((item) => item !== val));
     } else {
-      setNumSelected(val);
+      setNumsSelected((prev) => [...prev, val]);
     }
   };
+
+  useEffect(() => {
+    setMinValue(Math.min(...numsSelected));
+    setMaxValue(Math.max(...numsSelected));
+  }, [numsSelected]);
 
   for (let i = 1; i <= 5; i++) {
     values.push(
       <NumberOption
         value={i}
-        numSelected={numSelected}
+        numSelected={
+          i <= Math.max(...numsSelected) && i >= Math.min(...numsSelected)
+        }
         handleSelect={handleSelect}
       />
     );

@@ -11,9 +11,8 @@ interface Props {
 
 const homeTypes: string[] = [
   "Single Family Homes",
-  "Townhouses",
+  "Townhomes",
   "Condos/Co-ops/Apartments",
-  "Multi-Family",
 ];
 
 const Sidebar = ({ handleSearchParams }: Props) => {
@@ -44,18 +43,32 @@ const Sidebar = ({ handleSearchParams }: Props) => {
             variant="tertiary"
             textAligned="center"
             placeholder="Min"
+            setValue={(value) => handleSetParam("rentMinPrice", Number(value))}
           />
           <MinusIcon className="w-10 h-10" />
           <InputField
             variant="tertiary"
             textAligned="center"
             placeholder="Max"
+            setValue={(value) => handleSetParam("rentMaxPrice", Number(value))}
           />
         </div>
       </div>
-      <BedBathFilter title="Bedrooms" />
-      <BedBathFilter title="Bathrooms" />
-      <DropdownList title="Home Type" listItems={homeTypes} />
+      <BedBathFilter
+        title="Bedrooms"
+        setMinValue={(value) => handleSetParam("bedsMin", Number(value))}
+        setMaxValue={(value) => handleSetParam("bedsMax", Number(value))}
+      />
+      <BedBathFilter
+        title="Bathrooms"
+        setMinValue={(value) => handleSetParam("bathsMin", Number(value))}
+        setMaxValue={(value) => handleSetParam("bathsMax", Number(value))}
+      />
+      <DropdownList
+        title="Home Type"
+        listItems={homeTypes}
+        setValue={(value) => handleSetParam("homeType", value)}
+      />
       <Button text="Search" variant="primary" onClick={() => {}} />
     </div>
   );

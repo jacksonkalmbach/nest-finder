@@ -1,14 +1,13 @@
 interface Props {
   value: number;
-  numSelected: number;
+  numSelected: boolean;
   handleSelect: (val: number) => void;
 }
 
 const NumberOption = ({ value, numSelected, handleSelect }: Props) => {
-  const isSelected =
-    numSelected === value
-      ? "text-dark-blue bg-bg-light"
-      : "text-text-gray bg-dark-blue";
+  const isSelected = numSelected
+    ? "text-dark-blue bg-bg-light"
+    : "text-text-gray bg-dark-blue";
 
   return (
     <div
