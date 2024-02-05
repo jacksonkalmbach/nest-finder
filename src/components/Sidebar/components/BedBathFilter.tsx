@@ -20,8 +20,13 @@ export const BedBathFilter = ({ title, setMinValue, setMaxValue }: Props) => {
   };
 
   useEffect(() => {
-    setMinValue(Math.min(...numsSelected));
-    setMaxValue(Math.max(...numsSelected));
+    if (numsSelected.length === 0) {
+      setMinValue(null);
+      setMaxValue(null);
+    } else {
+      setMinValue(Math.min(...numsSelected));
+      setMaxValue(Math.max(...numsSelected));
+    }
   }, [numsSelected]);
 
   for (let i = 1; i <= 5; i++) {

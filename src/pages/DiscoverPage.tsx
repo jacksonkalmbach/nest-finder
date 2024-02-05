@@ -3,63 +3,123 @@ import SearchMap from "../components/SearchMap";
 import Sidebar from "../components/sidebar/Sidebar";
 import ListingsContainer from "../components/ListingsContainer";
 import ToggleView from "../components/ToggleView";
+import axios from "axios";
+import { Pagination } from "@mui/material";
 
-const url =
-  process.env.REACT_APP_RAPID_API_URL + "/v2/properties/search-for-rent";
-const options = {
-  method: "POST",
-  headers: {
-    "content-type": "application/json",
-    "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY as string,
-    "X-RapidAPI-Host": "zillow-com4.p.rapidapi.com",
-  },
-  body: JSON.stringify({
-    location: "Lincoln Park, Chicago, IL",
-    price: { max: 2000 },
-    bedrooms: { min: 1, max: 1 },
-  }),
+const url = process.env.REACT_APP_RAPID_API_URL + "propertyExtendedSearch";
+
+type SearchParamsType = {
+  location: string;
+  statusType: string;
+  homeType: string;
+  rentMinPrice: number | null;
+  rentMaxPrice: number | null;
+  bathsMin: number;
+  bathsMax: number;
+  bedsMin: number;
+  bedsMax: number;
+  page: number;
 };
 
-const defaultSearchParams = {
-  location: "",
+const defaultSearchParams: SearchParamsType = {
+  location: "Chicago, IL",
   statusType: "ForRent",
   homeType: "",
   rentMinPrice: null,
   rentMaxPrice: null,
-  bathsMin: null,
-  bathsMax: null,
-  bedsMin: null,
-  bedsMax: null,
+  bathsMin: 0,
+  bathsMax: 0,
+  bedsMin: 0,
+  bedsMax: 0,
+  page: 1,
 };
 
 const DiscoverPage = () => {
   const [aptData, setApt] = useState<any>([]);
-  const [searchParams, setSearchParams] = useState(defaultSearchParams);
+  const [searchParams, setSearchParams] =
+    useState<SearchParamsType>(defaultSearchParams);
+  const [pageCount, setPageCount] = useState<number>(1);
+  const [page, setPage] = useState<number>(1);
   const [locations, setLocations] = useState<any>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(url, options);
-        const result = await response.json();
-        setApt(result.data);
-        getLocations(result.data);
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+    fetchData(value);
+  };
 
-        localStorage.setItem("recentSearch", JSON.stringify(result.data));
-        localStorage.setItem("searchCity", "Chicago, IL");
-      } catch (error) {
-        console.error(error);
-      }
+  const fetchData = async (page?: number) => {
+    const params: {
+      location: string;
+      status_type: string;
+      home_type?: string;
+      rentMinPrice?: number;
+      rentMaxPrice?: number;
+      bathsMin?: number;
+      bathsMax?: number;
+      bedsMin?: number;
+      bedsMax?: number;
+      page?: number;
+    } = {
+      location: searchParams.location,
+      status_type: searchParams.statusType,
     };
 
-    const cachedResults = localStorage.getItem("recentSearch");
+    if (searchParams.rentMinPrice)
+      params.rentMinPrice = searchParams.rentMinPrice;
+    if (searchParams.rentMaxPrice)
+      params.rentMaxPrice = searchParams.rentMaxPrice;
+    if (searchParams.homeType) params.home_type = searchParams.homeType;
+    if (searchParams.bathsMin > 0) params.bathsMin = searchParams.bathsMin;
+    if (searchParams.bathsMax > 0) params.bathsMax = searchParams.bathsMax;
+    if (searchParams.bedsMin > 0) params.bedsMin = searchParams.bedsMin;
+    if (searchParams.bedsMax > 0) params.bedsMax = searchParams.bedsMax;
+    if (page) params.page = page;
 
-    if (cachedResults) {
-      setApt(JSON.parse(cachedResults));
+    try {
+      const response = await axios.request({
+        method: "GET",
+        url: url,
+        params: params,
+        headers: {
+          "X-RapidAPI-Key": process.env.REACT_APP_ZILLOW_API_KEY,
+          "X-RapidAPI-Host": "zillow-com1.p.rapidapi.com",
+        },
+      });
+      // setSearchParams(params);
+      setApt(response.data.props);
+      setPageCount(response.data.totalPages);
+      localStorage.setItem("searchParamsCache", JSON.stringify(params));
+      localStorage.setItem(
+        "searchResultCache",
+        JSON.stringify(response.data.props)
+      );
+      localStorage.setItem("searchCity", "Chicago, IL");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const cachedParams = localStorage.getItem("searchParamsCache");
+  const cachedResults = localStorage.getItem("searchResultCache");
+
+  useEffect(() => {
+    if (cachedParams && cachedResults) {
+      if (JSON.parse(cachedParams))
+        try {
+          const parsedData = JSON.parse(cachedResults);
+          setApt(parsedData);
+        } catch (parseError) {
+          console.error("Error parsing cached results:", parseError);
+          fetchData();
+        }
     } else {
       fetchData();
     }
   }, []);
+
+  const handleSearch = () => {
+    fetchData();
+  };
 
   const getLocations = (data: any) => {
     const newLocations = data.map((apt: any) => {
@@ -79,16 +139,13 @@ const DiscoverPage = () => {
     }));
   };
 
-  useEffect(() => {
-    console.log(searchParams);
-  }, [searchParams]);
-
   return (
     <div className="w-screen grow font-poppins flex bg-bg-light">
       <Sidebar
         handleSearchParams={(paramKey, value) =>
           handleSetSearchParam(paramKey, value)
         }
+        handleSearch={handleSearch}
       />
       <div
         className="flex flex-col grow"
@@ -97,22 +154,31 @@ const DiscoverPage = () => {
         <div className="w-full flex flex-col">
           <div className="w-full flex gap-6 px-4 md:px-6 py-6 md:py-0 ">
             <div
-              className="w-full md:w-1/2 overflow-auto flex flex-col gap-4"
+              className="w-full md:w-1/2  flex flex-col gap-4"
               style={{ maxHeight: "calc(100vh - 120px)" }}
             >
-              <div className="p-2 bg-bg-light flex justify-between items-center">
-                <div>
-                  <h2 className="text-xl font-medium">
-                    Apartments in Chicago, IL
-                  </h2>
-                  <p className="text-gray-400">{aptData.length} Results</p>
+              <div className="flex flex-col overflow-auto">
+                <div className="p-2 bg-bg-light flex justify-between items-center">
+                  <div>
+                    <h2 className="text-xl font-medium">
+                      Apartments in Chicago, IL
+                    </h2>
+                    <p className="text-gray-400">{aptData.length} Results</p>
+                  </div>
+                  <ToggleView />
                 </div>
-                <ToggleView />
+                {aptData.length > 0 && <ListingsContainer data={aptData} />}
               </div>
-              {aptData.length > 0 && <ListingsContainer data={aptData} />}
+              <div className="w-full flex justify-center items-center">
+                <Pagination
+                  count={pageCount}
+                  page={page}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
             <div className="hidden md:flex w-1/2 h-[730px] mt-8 rounded-xl overflow-hidden">
-              <SearchMap data={aptData} />
+              {/* <SearchMap data={aptData} /> */}
             </div>
           </div>
         </div>

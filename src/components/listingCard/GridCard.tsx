@@ -4,7 +4,10 @@ import { ArrowUpRightIcon } from "@heroicons/react/24/solid";
 import { Separator } from "@radix-ui/themes";
 import { observer } from "mobx-react";
 import { useContext } from "react";
-import { RootStoreContext } from "../context/RootStoreContext";
+import { RootStoreContext } from "../../context/RootStoreContext";
+import DisplayPrice from "./components/DisplayPrice";
+import DisplayBdBaSf from "./components/DisplayBdBaSf";
+import DisplayImg from "./components/DisplayImg";
 
 const GridCard = observer(
   ({
@@ -14,24 +17,11 @@ const GridCard = observer(
   }: {
     apt: any;
     index: number;
-    onSelected: (zpid: number) => void;
+    onSelected: (zpid: string) => void;
   }) => {
-    const {
-      zpid,
-      address,
-      minPrice,
-      maxPrice,
-      price,
-      title,
-      bedrooms,
-      bathrooms,
-      media,
-    } = apt;
+    const { zpid, address, bedrooms, bathrooms, price, units } = apt;
 
-    const displayName = title ? title : address.streetAddress;
-    const displayPrice = price
-      ? price.value
-      : `${maxPrice.toLocaleString()} - $${minPrice.toLocaleString()}`;
+    const displayName = apt.buildingName ? apt.buildingName : apt.address;
 
     const { uiStore } = useContext(RootStoreContext);
 
@@ -54,11 +44,7 @@ const GridCard = observer(
         onClick={() => onSelected(zpid)}
       >
         <div className="h-[150px] bg-gray-300 rounded-xl overflow-hidden object-cover">
-          <img
-            src={media.allPropertyPhotos.highResolution[0]}
-            alt="listing"
-            className="w-full"
-          />
+          <DisplayImg src={apt.imgSrc} />
         </div>
         <div className="flex flex-col items-start w-full flex-grow py-2 gap-2">
           <div className="flex w-full justify-between items-start">
@@ -69,20 +55,18 @@ const GridCard = observer(
             </div>
           </div>
           <div className="flex flex-col justify-evenly items-start h-full w-full gap-2">
-            <p className="text-sm text-black">
-              {address.city}, {address.state} {address.zipcode}
-            </p>
+            <p className="text-sm text-black">{address}</p>
             <div className="flex w-full justify-start items-center gap-3 text-text-gray text-sm">
-              <p>{bedrooms ? bedrooms : apt.unitsGroup[0].bedrooms} Bed</p>
+              <DisplayBdBaSf value={bedrooms} units={units} label="Bd" />
               {bathrooms && <Separator orientation="vertical" />}
-              {bathrooms && <p>{bathrooms} Bathroom</p>}
+              <DisplayBdBaSf value={bathrooms} units={units} label="Ba" />
               {apt.livingArea && <Separator orientation="vertical" />}
-              {apt.livingArea && <p>{apt.livingArea} sqft</p>}
+              <DisplayBdBaSf value={apt.livingArea} units={units} label="Sf" />
             </div>
           </div>
         </div>
         <div className="flex justify-between items-center border-t pt-2">
-          <p>${displayPrice.toLocaleString()}</p>
+          <DisplayPrice units={units} price={price} />
           <Link
             to={`/${zpid}`}
             className="bg-accent-blue rounded-full p-2 text-white"
@@ -90,7 +74,6 @@ const GridCard = observer(
               uiStore.addRecentlyViewed(
                 zpid,
                 displayName,
-                displayPrice,
                 bedrooms,
                 bathrooms,
                 apt.livingArea

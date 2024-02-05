@@ -7,6 +7,7 @@ import DropdownList from "../ui/DropdownList";
 
 interface Props {
   handleSearchParams: (key: string, value: string | number | null) => void;
+  handleSearch: () => void;
 }
 
 const homeTypes: string[] = [
@@ -15,13 +16,12 @@ const homeTypes: string[] = [
   "Condos/Co-ops/Apartments",
 ];
 
-const Sidebar = ({ handleSearchParams }: Props) => {
+const Sidebar = ({ handleSearchParams, handleSearch }: Props) => {
   const defaultCity = localStorage.getItem("searchCity");
   const searchCity = defaultCity ? defaultCity : "";
 
   const handleSetParam = (key: string, value: string | number | null) => {
     handleSearchParams(key, value);
-    console.log("SETTING PARAM", key, value);
   };
 
   return (
@@ -69,7 +69,7 @@ const Sidebar = ({ handleSearchParams }: Props) => {
         listItems={homeTypes}
         setValue={(value) => handleSetParam("homeType", value)}
       />
-      <Button text="Search" variant="primary" onClick={() => {}} />
+      <Button text="Search" variant="primary" onClick={() => handleSearch()} />
     </div>
   );
 };

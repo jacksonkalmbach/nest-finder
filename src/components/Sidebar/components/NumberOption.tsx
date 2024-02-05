@@ -1,6 +1,6 @@
 interface Props {
   value: number;
-  numSelected: boolean;
+  numSelected: boolean | null;
   handleSelect: (val: number) => void;
 }
 

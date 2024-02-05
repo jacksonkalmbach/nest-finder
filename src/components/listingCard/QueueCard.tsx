@@ -2,6 +2,9 @@ import { ArrowUpRightIcon } from "@heroicons/react/24/solid";
 import { Separator } from "@radix-ui/themes";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import DisplayImg from "./components/DisplayImg";
+import DisplayPrice from "./components/DisplayPrice";
+import DisplayBdBaSf from "./components/DisplayBdBaSf";
 
 const QueueCard = ({
   apt,
@@ -10,10 +13,20 @@ const QueueCard = ({
 }: {
   apt: any;
   index: number;
-  onSelected: (zpid: number) => void;
+  onSelected: (zpid: string) => void;
 }) => {
-  const { zpid, address, minPrice, maxPrice, price, title, bedrooms, media } =
-    apt;
+  const {
+    zpid,
+    address,
+    units,
+    price,
+    bedrooms,
+    bathrooms,
+    livingArea,
+    imgSrc,
+  } = apt;
+
+  const displayName = apt.buildingName ? apt.buildingName : apt.address;
 
   const variants = {
     hidden: { y: 10, opacity: 0 },
@@ -33,18 +46,14 @@ const QueueCard = ({
       className="w-full h-[150px] bg-white p-2 rounded-xl flex gap-2"
       onClick={() => onSelected(zpid)}
     >
-      <div className="h-[130px] min-w-[150px] bg-gray-300 rounded-xl overflow-hidden object-cover">
-        <img
-          src={media.allPropertyPhotos.highResolution[0]}
-          alt=""
-          className="h-full w-full"
-        />
+      <div className="h-full w-[250px] bg-gray-300 rounded-xl overflow-hidden object-fit flex justify-center items-center">
+        <DisplayImg src={imgSrc} />
       </div>
       <div className="w-full flex flex-col p-2">
         <div className="grid grid-cols-5 w-full gap-2 items-start ">
           <div className="col-span-4">
             <p className="font-medium w-full text-base md:text-base overflow-hidden truncate">
-              {title !== "" ? title : address.streetAddress}
+              {displayName}
             </p>
           </div>
           <div className="bg-light-orange col-span-1 h-fit px-2 py-1 rounded-full flex justify-center items-center">
@@ -52,27 +61,18 @@ const QueueCard = ({
           </div>
         </div>
         <div className="flex flex-col items-start h-full w-full gap-2">
-          <p className="text-xs md:text-sm text-text-gray">
-            {address.city}, {address.state}
-          </p>
+          <p className="text-xs md:text-sm text-text-gray">{address}</p>
           <div className="flex text-sm text-text-gray gap-4 items-center ">
-            <div className="text-xs md:text-sm">
-              {bedrooms ? bedrooms : ""} Bed
-            </div>
-            <Separator orientation="vertical" />
-            <div className="hidden md:block">1 Bathroom</div>
-            <div className="md:hidden">1 Ba.</div>
-            <Separator orientation="vertical" />
-            <p className="text-text-gray text-xs md:text-sm">1,200 sqft</p>
+            <DisplayBdBaSf value={bedrooms} units={units} label="Bd" />
+            {bathrooms && <Separator orientation="vertical" />}
+            <DisplayBdBaSf value={bathrooms} units={units} label="Ba" />
+            {livingArea && <Separator orientation="vertical" />}
+            <DisplayBdBaSf value={livingArea} label="Sf" />
           </div>
         </div>
 
         <div className="flex justify-between items-center border-t pt-2">
-          <p className="text-base md:text-base font-medium">
-            {price !== undefined
-              ? "$" + price.value.toLocaleString()
-              : `$${minPrice.toLocaleString()} - $${maxPrice.toLocaleString()}`}
-          </p>
+          <DisplayPrice price={price} units={units} />
           <Link
             to={`/${zpid}`}
             className="bg-accent-blue rounded-full p-2 text-white"

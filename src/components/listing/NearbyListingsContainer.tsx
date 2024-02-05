@@ -1,6 +1,6 @@
 import React from "react";
-import ListingCard from "../ListingCard";
-import GridCard from "../GridCard";
+import ListingCard from "../listingCard/ListingCard";
+import GridCard from "../listingCard/GridCard";
 import { Link, useNavigate } from "react-router-dom";
 
 const DATA = [
