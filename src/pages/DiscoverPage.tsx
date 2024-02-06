@@ -86,6 +86,7 @@ const DiscoverPage = () => {
         },
       });
       // setSearchParams(params);
+      console.log(response.data);
       setApt(response.data.props);
       setPageCount(response.data.totalPages);
       localStorage.setItem("searchParamsCache", JSON.stringify(params));
@@ -140,6 +141,8 @@ const DiscoverPage = () => {
     }));
   };
 
+  console.log(aptData);
+
   return (
     <div className="w-screen grow font-poppins flex bg-bg-light">
       <Sidebar
@@ -179,7 +182,7 @@ const DiscoverPage = () => {
               </div>
             </div>
             <div className="hidden md:flex w-1/2 h-[730px] mt-8 rounded-xl overflow-hidden">
-              {/* <SearchMap data={aptData} /> */}
+              <SearchMap data={aptData} />
             </div>
           </div>
         </div>

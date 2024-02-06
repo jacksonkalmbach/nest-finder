@@ -16,10 +16,10 @@ interface Props {
 interface CustomMarkerProps {
   lat: number;
   lon: number;
-  img: string;
-  address: string;
-  price: number;
-  zpid: number;
+  img?: string;
+  address?: string;
+  price?: number;
+  zpid?: number;
 }
 
 const CustomMarker = (props: CustomMarkerProps) => {
@@ -59,7 +59,7 @@ const CustomMarker = (props: CustomMarkerProps) => {
             strokeWidth="1"
             stroke="white"
           />
-          {isSelected && (
+          {/* {isSelected && (
             <Link
               to={`${zpid}`}
               className="absolute z-50 -top-56 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded-xl shadow-lg"
@@ -74,7 +74,7 @@ const CustomMarker = (props: CustomMarkerProps) => {
                 <p className="text-base">{address}</p>
               </div>
             </Link>
-          )}
+          )} */}
         </div>
       </Marker>
     </div>
@@ -82,37 +82,58 @@ const CustomMarker = (props: CustomMarkerProps) => {
 };
 
 const SearchMap = ({ data }: { data: any }) => {
-  // console.log(data);
+  console.log("SEARCH", data);
+  const locations = data.map((location: any) => ({
+    latitude: location.latitude,
+    longitude: location.longitude,
+  }));
+
+  let latSum = 0;
+  let lngSum = 0;
+
+  locations.forEach((location: any) => {
+    latSum += location.latitude;
+    lngSum += location.longitude;
+  });
+
+  const center =
+    locations.length > 0
+      ? {
+          lat: latSum / locations.length,
+          lng: lngSum / locations.length,
+        }
+      : { lat: 0, lng: 0 };
+
+  // console.log("center", center);
+
   return (
-    <div className="hidden md:flex w-full rounded-xl overflow-hidden">
+    <div className="hidden md:flex w-full h-full rounded-xl overflow-hidden">
       <Map
         mapboxAccessToken={api_key}
         initialViewState={{
-          longitude: -87.633636,
-          latitude: 41.925709,
-          zoom: 12,
+          longitude: -87.652016,
+          latitude: 41.927826,
+          zoom: 10,
         }}
+        // style={{ width: "100%", height: "100%" }}
         mapStyle="mapbox://styles/mapbox/streets-v9"
       >
         {data &&
           data.length > 0 &&
-          data
-            .filter((loc: any) => loc.property.location !== undefined)
-            .map((loc: any) => {
-              const { price, minPrice } = loc.property;
-              const displayPrice = price ? price.value : minPrice;
-              return (
-                <CustomMarker
-                  key={`${loc.property.location.latitude}-${loc.property.location.longitude}`}
-                  lon={loc.property.location.longitude}
-                  lat={loc.property.location.latitude}
-                  img={loc.property.media.propertyPhotoLinks.highResolutionLink}
-                  address={loc.property.address.streetAddress}
-                  price={displayPrice}
-                  zpid={loc.property.zpid}
-                />
-              );
-            })}
+          data.map((loc: any) => {
+            const { longitude, latitude } = loc;
+            return (
+              <CustomMarker
+                // key={`${loc.property.location.latitude}-${loc.property.location.longitude}`}
+                lon={longitude}
+                lat={latitude}
+                // img={loc.property.media.propertyPhotoLinks.highResolutionLink}
+                // address={loc.property.address.streetAddress}
+                price={1000}
+                zpid={100000}
+              />
+            );
+          })}
       </Map>
     </div>
   );
