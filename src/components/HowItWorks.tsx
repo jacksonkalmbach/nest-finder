@@ -93,7 +93,7 @@ const HowItWorks = () => {
           </div>
         </div>
       </div>
-      <div className="w-full flex flex-col justify-center items-center gap-4 mt-12">
+      {/* <div className="w-full flex flex-col justify-center items-center gap-4 mt-12">
         <p className="text-xl md:text-2xl text-center">
           Ready to find your next apartment?
         </p>
@@ -104,7 +104,7 @@ const HowItWorks = () => {
             onClick={() => navigate("/auth")}
           />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
