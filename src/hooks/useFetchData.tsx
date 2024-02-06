@@ -38,7 +38,6 @@ export const useFetchData = ({
             "X-RapidAPI-Host": "zillow-com1.p.rapidapi.com",
           },
         });
-        console.log("response", response);
         setData(response.data);
 
         if (cacheKey) {

@@ -9,6 +9,7 @@ import { Separator } from "@radix-ui/themes";
 // }
 
 const AboutListing = ({ data }: { data: any }) => {
+  console.log("DATA - aboutlisting.tsx", data);
   return (
     <div className="flex flex-col p-4 md:p-6 justify-start w-full items-start font-poppins col-span-2 bg-white rounded-xl gap-2 md:gap-6">
       <div className="w-full justify-center lg:justify-between flex flex-col lg:flex-row items-start lg:items-center">

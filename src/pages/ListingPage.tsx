@@ -16,14 +16,29 @@ import NearbyListingsContainer from "../components/listing/NearbyListingsContain
 import FeesAndPolicies from "../components/listing/FeesAndPolicies";
 
 import { useFetchData } from "../hooks/useFetchData";
+import BuildingListing from "../components/listingTypes/BuildingListing";
+import PropertyListing from "../components/listingTypes/PropertyListing";
 
 const ListingPage = () => {
   const params = useParams();
-  const { data, isLoading, error } = useFetchData({
-    endpoint: "building",
-    params: {
+  let endpoint;
+  let paramsObj;
+
+  if (params.locationType === "zpid") {
+    endpoint = "property";
+    paramsObj = {
+      zpid: params.id,
+    };
+  } else {
+    endpoint = "building";
+    paramsObj = {
       lotId: params.id,
-    },
+    };
+  }
+
+  const { data, isLoading, error } = useFetchData({
+    endpoint: endpoint,
+    params: paramsObj,
   });
 
   useEffect(() => {
@@ -32,54 +47,11 @@ const ListingPage = () => {
 
   return (
     <div className="relative bg-bg-light font-poppins w-screen flex flex-col">
-      <div className="w-full h-1/2" style={{ height: "60vh" }}>
-        {!isLoading && data ? (
-          <ListingPhotoGallery photos={data.photos} />
-        ) : (
-          <ListingPhotoGallerySkeleton />
-        )}
-      </div>
-      <div className="flex items-start gap-8 p-6 lg:py-10 lg:px-20">
-        <div className="flex flex-col gap-6 w-full lg:w-3/4">
-          <AboutListing data={data} />
-          {data && (
-            <ListingInfoSection title="Pricing and Floor Plans">
-              <PricingAndFloorPlans data={data} />
-            </ListingInfoSection>
-          )}
-          {data && data.amenityDetails && (
-            <ListingInfoSection title="Amenities and Features">
-              <BuildingOverview amenities={data.amenityDetails} />
-            </ListingInfoSection>
-          )}
-          {/* {data.amenityDetails && (
-            <ListingInfoSection title="Fees and Policies">
-            <FeesAndPolicies
-            fees={data.amenityDetails.fees}
-            petPolicy={data.amenityDetails.pets}
-            parkingFeatures={data.buildingAttributes.parkingTypes}
-            />
-            </ListingInfoSection>
-          )} */}
-          {/* <ListingInfoSection title="Nearby Listings for Rent">
-            <NearbyListingsContainer />
-          </ListingInfoSection> */}
-        </div>
-        <div className="hidden grow lg:flex flex-col sticky top-20 gap-6 justify-start">
-          {data && (
-            <ContactListing
-              brokerName={data.buildingName}
-              brokerPhoneNumber={data.buildingPhoneNumber}
-              hours={data.amenityDetails.hours}
-            />
-          )}
-          {/* <RecentlyViewed /> */}
-        </div>
-      </div>
-      <div className="sticky bottom-5 p-3 flex justify-center md:hidden px-4">
-        <Button text="Contact Listing" variant="primary" onClick={() => {}} />
-      </div>
-      {/* <FullGallery data={data} /> */}
+      {params.locationType === "zpid" ? (
+        <PropertyListing propData={data} zpid={params.id} />
+      ) : (
+        <BuildingListing data={data} isLoading={isLoading} />
+      )}
       <Footer />
     </div>
   );

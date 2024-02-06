@@ -39,7 +39,7 @@ const FeaturedListing = ({ listing, idx }: Props) => {
     lotId,
   } = listing;
 
-  const linkTo = lotId ? lotId : zpid;
+  const linkTo = lotId ? `lotId/${lotId}` : `zpid/${zpid}`;
 
   const [ref, inView] = useInView({
     triggerOnce: true,

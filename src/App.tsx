@@ -25,7 +25,7 @@ const App = observer(() => {
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="/discover" element={<Main />} />
-          <Route path="/:id" element={<ListingPage />} />
+          <Route path=":locationType/:id" element={<ListingPage />} />
           <Route path="/auth" element={<AuthPage />} />
         </Routes>
       </div>

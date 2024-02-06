@@ -20,7 +20,7 @@ const GridCard = observer(
     onSelected: (zpid: string) => void;
   }) => {
     const { zpid, address, bedrooms, bathrooms, price, units, lotId } = apt;
-    const linkId = lotId ? lotId : zpid;
+    const linkId = lotId ? `lotId/${lotId}` : `zpid/${zpid}`;
 
     const displayName = apt.buildingName ? apt.buildingName : apt.address;
 
