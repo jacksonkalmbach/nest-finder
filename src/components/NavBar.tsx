@@ -36,7 +36,7 @@ const NavBar = observer(() => {
   return (
     <div
       className={
-        "bg-white w-full h-[60px] flex items-center justify-between lg:justify-end z-[9999] p-6 gap-3 sticky top-0"
+        "bg-white w-full h-[70px] flex items-center justify-between lg:justify-end z-[9999] p-8 gap-3 sticky top-0"
       }
     >
       <div
@@ -63,13 +63,13 @@ const NavBar = observer(() => {
         </p>
       </div>
       <div className="flex justify-center items-center gap-2">
-        {!isHome && (
+        {/* {!isHome && (
           <div className="hidden md:block">
             <HeartIcon className="h-6 w-6" />
           </div>
-        )}
+        )} */}
         <div className="hidden md:block">
-          <UserCard />
+          {/* <UserCard /> */}
           {/* <TestMenu /> */}
 
           {/* <Button
