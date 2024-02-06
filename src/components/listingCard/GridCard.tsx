@@ -19,7 +19,8 @@ const GridCard = observer(
     index: number;
     onSelected: (zpid: string) => void;
   }) => {
-    const { zpid, address, bedrooms, bathrooms, price, units } = apt;
+    const { zpid, address, bedrooms, bathrooms, price, units, lotId } = apt;
+    const linkId = lotId ? lotId : zpid;
 
     const displayName = apt.buildingName ? apt.buildingName : apt.address;
 
@@ -68,7 +69,7 @@ const GridCard = observer(
         <div className="flex justify-between items-center border-t pt-2">
           <DisplayPrice units={units} price={price} />
           <Link
-            to={`/${zpid}`}
+            to={`/${linkId}`}
             className="bg-accent-blue rounded-full p-2 text-white"
             onClick={() =>
               uiStore.addRecentlyViewed(

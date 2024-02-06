@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 import PricingAndFloorPlans from "../components/listing/PricingAndFloorPlans";
 import BuildingOverview from "../components/listing/BuildingOverview";
@@ -15,14 +16,7 @@ import Button from "../components/ui/Button";
 import NearbyListingsContainer from "../components/listing/NearbyListingsContainer";
 import FeesAndPolicies from "../components/listing/FeesAndPolicies";
 
-const url = process.env.REACT_APP_RAPID_API_URL + "/v2/properties/detail?zpid=";
-const options = {
-  method: "GET",
-  headers: {
-    "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY as string,
-    "X-RapidAPI-Host": "zillow-com4.p.rapidapi.com",
-  },
-};
+const url = process.env.REACT_APP_RAPID_API_URL + "/building";
 
 const ListingPage = () => {
   const params = useParams();
@@ -33,9 +27,19 @@ const ListingPage = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(url + params.id, options);
-        const result = await response.json();
-        setData(result.data);
+        const response = await axios.request({
+          method: "GET",
+          url: "https://zillow-com1.p.rapidapi.com/building",
+          params: {
+            lotId: params.id,
+          },
+          headers: {
+            "X-RapidAPI-Key": process.env.REACT_APP_ZILLOW_API_KEY,
+            "X-RapidAPI-Host": "zillow-com1.p.rapidapi.com",
+          },
+        });
+        setData(response.data);
+        console.log(response.data);
         setIsLoading(false);
       } catch (error) {
         console.error(error);
@@ -51,7 +55,7 @@ const ListingPage = () => {
     <div className="relative bg-bg-light font-poppins w-screen flex flex-col">
       <div className="w-full h-1/2" style={{ height: "60vh" }}>
         {!isLoading && data ? (
-          <ListingPhotoGallery photos={data.photoUrlsHighRes} />
+          <ListingPhotoGallery photos={data.photos} />
         ) : (
           <ListingPhotoGallerySkeleton />
         )}
@@ -59,29 +63,43 @@ const ListingPage = () => {
       <div className="flex items-start gap-8 p-6 lg:py-10 lg:px-20">
         <div className="flex flex-col gap-6 w-full lg:w-3/4">
           <AboutListing data={data} />
-          <ListingInfoSection title="Pricing and Floor Plans">
-            <PricingAndFloorPlans />
-          </ListingInfoSection>
-          <ListingInfoSection title="Building Overview">
-            <BuildingOverview />
-          </ListingInfoSection>
-          <ListingInfoSection title="Fees and Policies">
-            <FeesAndPolicies
-              fees={[{ fee: "$50", type: "Admin" }]}
-              hasPetsAllowed={true}
-              parkingFeatures={[]}
-            />
-          </ListingInfoSection>
-          <ListingInfoSection title="Nearby Listings for Rent">
+          {data && (
+            <ListingInfoSection title="Pricing and Floor Plans">
+              <PricingAndFloorPlans data={data} />
+            </ListingInfoSection>
+          )}
+          {data && (
+            <ListingInfoSection title="Amenities and Features">
+              <BuildingOverview
+                buildingAmenities={
+                  data.amenityDetails.customAmenities.rawAmenities
+                }
+                aptAmenities={data.amenityDetails.unitFeatures}
+              />
+            </ListingInfoSection>
+          )}
+          {data && (
+            <ListingInfoSection title="Fees and Policies">
+              <FeesAndPolicies
+                fees={data.amenityDetails.fees}
+                petPolicy={data.amenityDetails.pets}
+                parkingFeatures={data.buildingAttributes.parkingTypes}
+              />
+            </ListingInfoSection>
+          )}
+          {/* <ListingInfoSection title="Nearby Listings for Rent">
             <NearbyListingsContainer />
-          </ListingInfoSection>
+          </ListingInfoSection> */}
         </div>
         <div className="hidden grow lg:flex flex-col sticky top-20 gap-6 justify-start">
-          <ContactListing
-            brokerName="Lakeview Associates Inc"
-            brokerPhoneNumber="773-364-6623"
-          />
-          <RecentlyViewed />
+          {data && (
+            <ContactListing
+              brokerName={data.buildingName}
+              brokerPhoneNumber={data.buildingPhoneNumber}
+              hours={data.amenityDetails.hours}
+            />
+          )}
+          {/* <RecentlyViewed /> */}
         </div>
       </div>
       <div className="sticky bottom-5 p-3 flex justify-center md:hidden px-4">

@@ -1,12 +1,15 @@
-import React from "react";
 import AvailableListing from "./AvailableListing";
 
-const PricingAndFloorPlans = () => {
+const PricingAndFloorPlans = ({ data }: { data: any }) => {
+  if (!data.floorPlans) {
+    return <div>Loading floor plans...</div>;
+  }
+
   return (
     <div className="flex flex-col gap-2">
-      <AvailableListing />
-      <AvailableListing />
-      <AvailableListing />
+      {data.floorPlans.map((plan: any, index: number) => (
+        <AvailableListing key={index} {...plan}/>
+      ))}
     </div>
   );
 };

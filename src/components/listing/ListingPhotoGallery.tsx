@@ -4,7 +4,11 @@ import Button from "../ui/Button";
 
 interface Props {
   photos: {
-    url: string;
+    mixedSources: {
+      jpeg: {
+        url: string;
+      }[];
+    };
   }[];
 }
 
@@ -16,7 +20,7 @@ const ListingPhotoGallery = ({ photos }: Props) => {
           return index === 0 ? (
             <div className="md:row-span-2 md:col-span-2 overflow-hidden">
               <img
-                src={img.url}
+                src={img.mixedSources.jpeg[index].url}
                 alt="listing"
                 className="object-cover w-full h-full"
               />
@@ -24,7 +28,7 @@ const ListingPhotoGallery = ({ photos }: Props) => {
           ) : (
             <div className="hidden md:flex w-full md:row-span-1 md:col-span-1 overflow-hidden">
               <img
-                src={img.url}
+                src={img.mixedSources.jpeg[index].url}
                 alt="listing"
                 className="object-cover w-full h-full"
               />

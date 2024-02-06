@@ -1,6 +1,13 @@
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { Separator } from "@radix-ui/themes";
 
+// interface Props {
+//   data: {
+//     buildingName?: string | undefined;
+//     address: string;
+//   };
+// }
+
 const AboutListing = ({ data }: { data: any }) => {
   return (
     <div className="flex flex-col p-4 md:p-6 justify-start w-full items-start font-poppins col-span-2 bg-white rounded-xl gap-2 md:gap-6">
@@ -8,15 +15,12 @@ const AboutListing = ({ data }: { data: any }) => {
         <div className="flex flex-col items-start w-full">
           <div className="flex justify-between items-start w-full">
             <div className="flex flex-col">
-              <h1 className="font-medium text-2xl md:text-3xl mb-2">
-                {data && data.formattedChip.location[0].fullValue}
-              </h1>
-              <p className="text-sm md:text-base">
-                {data && data.formattedChip.location[1].fullValue}
-              </p>
-              <p className="text-sm md:text-base">
-                {data && data.formattedChip.location[2].fullValue}
-              </p>
+              {data && (
+                <h1 className="font-medium text-2xl md:text-3xl mb-2">
+                  {data.buildingName}
+                </h1>
+              )}
+              {data && <p className="text-sm md:text-base">{data.address}</p>}
             </div>
             <div className="flex flex-col justify-center items-end">
               <div className="w-6 h-6 md:w-8 md:h-8">
@@ -29,7 +33,7 @@ const AboutListing = ({ data }: { data: any }) => {
       <div className="flex w-full text-center justify-around p-2 bg-bg-light rounded-xl text-sm md:text-base">
         <div className="flex flex-col justify-center items-center md:text-base">
           <p>Monthly Rent</p>
-          <p className="font-medium">${data && data.price.toLocaleString()}</p>
+          {data && <p className="font-medium">${data.price}</p>}
         </div>
         <Separator orientation="vertical" size={"4"} color="gray" />
         <div className="flex flex-col justify-center items-center">
@@ -50,7 +54,7 @@ const AboutListing = ({ data }: { data: any }) => {
         />
         <div className="hidden md:flex flex-col">
           <p>Square Feet</p>
-          <p className="font-medium">{data && data.livingAreaValue} sqft</p>
+          {/* <p className="font-medium">{data && data.livingAreaValue} sqft</p> */}
         </div>
       </div>
       <p>{data && data.description}</p>
