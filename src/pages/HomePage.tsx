@@ -7,6 +7,7 @@ import FeaturedListing from "../components/FeaturedListing";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SkeletonFeatureListing from "../components/SkeletonFeatureListing";
+import { useFetchData } from "../hooks/useFetchData";
 
 const cachedCity = localStorage.getItem("searchCity");
 const defaultCity = cachedCity ? cachedCity : "Chicago, IL";
@@ -29,28 +30,13 @@ const HomePage = () => {
   const searchedCity = localStorage.getItem("searchCity");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(url, options);
-        const result = await response.json();
-        setFeaturedListings(result.data);
-        console.log(result.data);
-        localStorage.setItem("cachedHomeResults", JSON.stringify(result));
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    const cachedResults = localStorage.getItem("cachedHomeResults");
-    if (cachedResults) {
-      const result = JSON.parse(cachedResults);
-
-      setFeaturedListings(result.data);
-    } else {
-      fetchData();
-    }
-  }, []);
+  const { data, isLoading, error } = useFetchData({
+    endpoint: "propertyExtendedSearch",
+    params: {
+      location: "Chicago, IL",
+      status_type: "ForRent",
+    },
+  });
 
   return (
     <div className="w-screen min-h-screen flex-col grow font-poppins">
@@ -61,9 +47,10 @@ const HomePage = () => {
           Featured Listings in {defaultCity}
         </h2>
         <div className="flex flex-col justify-center items-center gap-6 w-full md:justify-around lg:flex-row">
-          {featuredListings && featuredListings.length > 0 ? (
-            featuredListings.slice(0, 4).map((list: number, index: number) => {
-              return <FeaturedListing listing={list} idx={index} />;
+          {data && data.props.length > 0 ? (
+            data.props.slice(0, 4).map((listing: any, index: number) => {
+              console.log(listing);
+              return <FeaturedListing listing={listing} idx={index} />;
             })
           ) : (
             <>

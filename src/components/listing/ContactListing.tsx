@@ -1,4 +1,3 @@
-import React from "react";
 import { PhoneIcon } from "@heroicons/react/24/solid";
 import Button from "../ui/Button";
 
@@ -23,8 +22,8 @@ const ContactListing = ({ brokerName, brokerPhoneNumber, hours }: Props) => {
         <div className="flex flex-col items-center">
           <p className="font-medium text-lg underline">Building Hours</p>
           <ul className="w-full flex flex-col justify-center items-center">
-            {hours.map((hour) => (
-              <li>{hour}</li>
+            {hours.map((hour, index: number) => (
+              <li key={index}>{hour}</li>
             ))}
           </ul>
         </div>

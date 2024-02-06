@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 
 import PricingAndFloorPlans from "../components/listing/PricingAndFloorPlans";
 import BuildingOverview from "../components/listing/BuildingOverview";
@@ -16,39 +15,19 @@ import Button from "../components/ui/Button";
 import NearbyListingsContainer from "../components/listing/NearbyListingsContainer";
 import FeesAndPolicies from "../components/listing/FeesAndPolicies";
 
-const url = process.env.REACT_APP_RAPID_API_URL + "/building";
+import { useFetchData } from "../hooks/useFetchData";
 
 const ListingPage = () => {
   const params = useParams();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [data, setData] = useState<any>();
+  const { data, isLoading, error } = useFetchData({
+    endpoint: "building",
+    params: {
+      lotId: params.id,
+    },
+  });
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const response = await axios.request({
-          method: "GET",
-          url: "https://zillow-com1.p.rapidapi.com/building",
-          params: {
-            lotId: params.id,
-          },
-          headers: {
-            "X-RapidAPI-Key": process.env.REACT_APP_ZILLOW_API_KEY,
-            "X-RapidAPI-Host": "zillow-com1.p.rapidapi.com",
-          },
-        });
-        setData(response.data);
-        console.log(response.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
     window.scrollTo(0, 0);
-
-    fetchData();
   }, [params.id]);
 
   return (
@@ -70,19 +49,16 @@ const ListingPage = () => {
           )}
           {data && data.amenityDetails && (
             <ListingInfoSection title="Amenities and Features">
-              <BuildingOverview
-                amenities={data.amenityDetails}
-               
-              />
+              <BuildingOverview amenities={data.amenityDetails} />
             </ListingInfoSection>
           )}
           {/* {data.amenityDetails && (
             <ListingInfoSection title="Fees and Policies">
-              <FeesAndPolicies
-                fees={data.amenityDetails.fees}
-                petPolicy={data.amenityDetails.pets}
-                parkingFeatures={data.buildingAttributes.parkingTypes}
-              />
+            <FeesAndPolicies
+            fees={data.amenityDetails.fees}
+            petPolicy={data.amenityDetails.pets}
+            parkingFeatures={data.buildingAttributes.parkingTypes}
+            />
             </ListingInfoSection>
           )} */}
           {/* <ListingInfoSection title="Nearby Listings for Rent">

@@ -2,15 +2,44 @@ import { DotFilledIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useNavigate } from "react-router-dom";
+import DisplayBdBaSf from "./listingCard/components/DisplayBdBaSf";
+import DisplayPrice from "./listingCard/components/DisplayPrice";
 
 interface Props {
-  listing: any;
+  listing: {
+    address: string;
+    bathrooms?: number;
+    bedrooms?: number;
+    buildingName?: string;
+    lotId?: number;
+    zpid?: number;
+    imgSrc: string;
+    price?: number;
+    livingArea?: number;
+    units?: {
+      beds: string;
+      price: string;
+    }[];
+  };
   idx: number;
 }
 
 const FeaturedListing = ({ listing, idx }: Props) => {
   const navigate = useNavigate();
-  const { property } = listing;
+  const {
+    address,
+    imgSrc,
+    buildingName,
+    bedrooms,
+    bathrooms,
+    price,
+    units,
+    livingArea,
+    zpid,
+    lotId,
+  } = listing;
+
+  const linkTo = lotId ? lotId : zpid;
 
   const [ref, inView] = useInView({
     triggerOnce: true,
@@ -29,34 +58,30 @@ const FeaturedListing = ({ listing, idx }: Props) => {
       variants={variants}
       transition={{ ease: "easeInOut", duration: idx / 3 }}
       className="w-[350px] h-[400px] bg-white shadow-md rounded-xl overflow-hidden hover:bg-bg-light cursor-pointer"
-      onClick={() => navigate(`/${property.zpid}`)}
+      onClick={() => navigate(`/${linkTo}`)}
     >
       <div className="h-3/5 w-full object-cover">
-        <img
-          src={listing.property.media.allPropertyPhotos.highResolution[0]}
-          className="h-full w-full"
-        />
+        <img src={imgSrc} className="h-full w-full" />
       </div>
       <div className="w-full p-4 flex flex-col justify-center items-center gap-2">
-        <div className="text-lg font-medium text-center">
-          {property.title ? property.title : property.address.streetAddress}
+        <div className="text-xl font-medium text-center">
+          {buildingName ? buildingName : address}
         </div>
-        <div>{property.address.streetAddress}</div>
+        <DisplayPrice price={price} units={units} />
         <div className="flex items-center gap-2">
-          {property.bedrooms !== undefined && (
-            <div>
-              {property.bedrooms === 0 ? "Studio" : property.bedrooms + " Bd"}
-            </div>
-          )}
-          {property.bedrooms !== undefined && <DotFilledIcon />}
-          {property.bathrooms && <div>{property.bathrooms} Ba</div>}
-          {property.bathrooms && <DotFilledIcon />}
-          <div>
-            $
-            {property.price
-              ? property.price.value.toLocaleString()
-              : `${property.minPrice.toLocaleString()} - $${property.maxPrice.toLocaleString()}`}
-          </div>
+          <DisplayBdBaSf
+            label="Bd"
+            units={units}
+            value={bedrooms?.toString()}
+          />
+          {bedrooms !== undefined && <DotFilledIcon />}
+          {bathrooms && <div>{bathrooms} Ba</div>}
+          {livingArea && <DotFilledIcon />}
+          <DisplayBdBaSf
+            units={units}
+            value={livingArea?.toString()}
+            label="Sf"
+          />
         </div>
       </div>
     </motion.div>
