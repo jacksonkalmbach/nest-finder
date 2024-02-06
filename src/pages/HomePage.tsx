@@ -8,17 +8,14 @@ import { useNavigate } from "react-router-dom";
 import SkeletonFeatureListing from "../components/SkeletonFeatureListing";
 import { useFetchData } from "../hooks/useFetchData";
 
-const cachedCity = localStorage.getItem("searchCity");
-const defaultCity = cachedCity ? cachedCity : "Chicago, IL";
-
 const HomePage = () => {
-  const searchedCity = localStorage.getItem("searchCity");
+  const cachedCity = localStorage.getItem("searchCity");
+  const defaultCity = cachedCity ? cachedCity : "Chicago, IL";
   const navigate = useNavigate();
-
   const { data, isLoading, error } = useFetchData({
     endpoint: "propertyExtendedSearch",
     params: {
-      location: "Chicago, IL",
+      location: defaultCity,
       status_type: "ForRent",
     },
     cacheKey: "featuredListings",

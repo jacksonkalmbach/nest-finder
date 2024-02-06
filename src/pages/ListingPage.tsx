@@ -23,6 +23,7 @@ const ListingPage = () => {
   const params = useParams();
   let endpoint;
   let paramsObj;
+  console.log("PARAMS", params);
 
   if (params.locationType === "zpid") {
     endpoint = "property";

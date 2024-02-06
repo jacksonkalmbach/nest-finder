@@ -93,7 +93,7 @@ const DiscoverPage = () => {
         "searchResultCache",
         JSON.stringify(response.data.props)
       );
-      localStorage.setItem("searchCity", "Chicago, IL");
+      localStorage.setItem("searchCity", params.location);
     } catch (error) {
       console.error(error);
     }
@@ -117,7 +117,8 @@ const DiscoverPage = () => {
     }
   }, []);
 
-  const handleSearch = () => {
+  const handleSearch = (city?: string) => {
+    if (city) localStorage.setItem("searchCity", city);
     fetchData();
   };
 
@@ -161,7 +162,7 @@ const DiscoverPage = () => {
                 <div className="p-2 bg-bg-light flex justify-between items-center">
                   <div>
                     <h2 className="text-xl font-medium">
-                      Apartments in Chicago, IL
+                      Apartments in {localStorage.getItem("searchCity")}
                     </h2>
                     <p className="text-gray-400">{aptData.length} Results</p>
                   </div>

@@ -74,19 +74,35 @@ const DATA = [
   },
 ];
 
-const NearbyListingsContainer = () => {
+interface Props {
+  data: {
+    address: {
+      streetAddress: string;
+      city: string;
+      zipcode: string;
+      state: string;
+    };
+    price: number;
+    zpid: number;
+    miniCardPhotos: {
+      url: string;
+    }[];
+  }[];
+}
+
+const NearbyListingsContainer = ({ data }: Props) => {
   const navigate = useNavigate();
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 flex-wrap gap-3 p-2">
-      {DATA.map((apt) => {
+      {data.slice(0, 4).map((apt: any) => {
         return (
           <Link
             className="flex w-full flex-col items-center overflow-hidden rounded-xl shadow-md cursor-pointer"
-            to={`/${apt.zpid}`}
+            to={`/zpid/${apt.zpid}`}
           >
             <div className="w-full object-fit">
               <img
-                src="https://photos.zillowstatic.com/fp/e3eab42685bb801eb0bcbe6e26acbbf1-p_c.jpg"
+                src={apt.miniCardPhotos[0].url}
                 alt=""
                 className="h-full w-full"
               />

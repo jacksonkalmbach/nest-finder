@@ -8,6 +8,7 @@ import ListingPhotoGallery from "../listing/ListingPhotoGallery";
 import ListingPhotoGallerySkeleton from "../listing/ListingPhotoGallerySkeleton";
 import PricingAndFloorPlans from "../listing/PricingAndFloorPlans";
 import { useFetchData } from "../../hooks/useFetchData";
+import NearbyListingsContainer from "../listing/NearbyListingsContainer";
 
 const PropertyListing = ({
   propData,
@@ -17,30 +18,34 @@ const PropertyListing = ({
   zpid?: string;
 }) => {
   const { data, isLoading, error } = useFetchData({
-    endpoint: "/images",
+    endpoint: "images",
     params: {
       zpid: zpid,
     },
   });
 
-  console.log(data);
+  console.log("Data - propertlisting.tsx", propData);
   return (
     <div className="relative bg-bg-light font-poppins w-screen flex flex-col">
       <div className="w-full h-1/2" style={{ height: "60vh" }}>
         {!isLoading && data ? (
-          <ListingPhotoGallery photos={data.photos} />
+          <ListingPhotoGallery listingPhotos={data.images} />
         ) : (
           <ListingPhotoGallerySkeleton />
         )}
       </div>
       <div className="flex items-start gap-8 p-6 lg:py-10 lg:px-20">
         <div className="flex flex-col gap-6 w-full lg:w-3/4">
-          {/* <AboutListing data={propData} /> */}
-          {/* {data && (
-            <ListingInfoSection title="Pricing and Floor Plans">
-              <PricingAndFloorPlans data={data} />
-            </ListingInfoSection>
-          )} */}
+          {propData && (
+            <AboutListing
+              address={propData.address.streetAddress}
+              description={propData.description}
+              price={propData.price}
+              bathrooms={propData.bathrooms}
+              bedrooms={propData.bedrooms}
+              livingAreaValue={propData.livingAreaValue}
+            />
+          )}
           {/* {data && data.amenityDetails && (
             <ListingInfoSection title="Amenities and Features">
               <BuildingOverview amenities={data.amenityDetails} />
@@ -55,9 +60,11 @@ const PropertyListing = ({
               />
             </ListingInfoSection>
           )} */}
-          {/* <ListingInfoSection title="Nearby Listings for Rent">
-        <NearbyListingsContainer />
-      </ListingInfoSection> */}
+          {/* {propData && (
+            <ListingInfoSection title="Nearby Listings for Rent">
+              <NearbyListingsContainer data={propData.nearbyHomes} />
+            </ListingInfoSection>
+          )} */}
         </div>
         <div className="hidden grow lg:flex flex-col sticky top-20 gap-6 justify-start">
           {/* {data.amenityDetails && (

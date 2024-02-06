@@ -15,6 +15,7 @@ const BuildingListing = ({
   data: any;
   isLoading: boolean;
 }) => {
+  console.log("Buidlinglistins.tsx", data);
   return (
     <div className="relative bg-bg-light font-poppins w-screen flex flex-col">
       <div className="w-full h-1/2" style={{ height: "60vh" }}>
@@ -26,18 +27,18 @@ const BuildingListing = ({
       </div>
       <div className="flex items-start gap-8 p-6 lg:py-10 lg:px-20">
         <div className="flex flex-col gap-6 w-full lg:w-3/4">
-          <AboutListing data={data} />
-          {data && (
+          {/* <AboutListing address={data.address} /> */}
+          {/* {data && (
             <ListingInfoSection title="Pricing and Floor Plans">
               <PricingAndFloorPlans data={data} />
             </ListingInfoSection>
-          )}
-          {data && data.amenityDetails && (
+          )} */}
+          {/* {data && data.amenityDetails && (
             <ListingInfoSection title="Amenities and Features">
               <BuildingOverview amenities={data.amenityDetails} />
             </ListingInfoSection>
-          )}
-          {data.amenityDetails && (
+          )} */}
+          {/* {data.amenityDetails && (
             <ListingInfoSection title="Fees and Policies">
               <FeesAndPolicies
                 fees={data.amenityDetails.fees}
@@ -45,19 +46,19 @@ const BuildingListing = ({
                 parkingFeatures={data.buildingAttributes.parkingTypes}
               />
             </ListingInfoSection>
-          )}
+          )} */}
           {/* <ListingInfoSection title="Nearby Listings for Rent">
             <NearbyListingsContainer />
           </ListingInfoSection> */}
         </div>
         <div className="hidden grow lg:flex flex-col sticky top-20 gap-6 justify-start">
-          {data.amenityDetails && (
+          {/* {data.amenityDetails && (
             <ContactListing
               brokerName={data.buildingName}
               brokerPhoneNumber={data.buildingPhoneNumber}
               hours={data.amenityDetails.hours}
             />
-          )}
+          )} */}
           {/* <RecentlyViewed /> */}
         </div>
       </div>
