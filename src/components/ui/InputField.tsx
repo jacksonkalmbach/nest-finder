@@ -15,6 +15,7 @@ interface Props {
   defaultValue?: string;
   textAligned?: string;
   setValue?: (val: string) => void;
+  onChange?: () => void;
 }
 
 const variants: VariantTypes = {

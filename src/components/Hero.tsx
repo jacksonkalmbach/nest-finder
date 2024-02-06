@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import heroImg from "../assets/hero-image.jpg";
 import InputField from "./ui/InputField";
 import Underline from "./Underline";
@@ -9,6 +9,8 @@ const Hero = () => {
   const navigate = useNavigate();
   const defaultCity = localStorage.getItem("searchCity");
   const searchCity = defaultCity ? defaultCity : "";
+  const [searchVal, setSearchVal] = useState<string>(searchCity);
+  
   return (
     <div className="w-full h-3/4 flex justify-center items-center bg-bg-light p-6">
       <div className="flex flex-col justify-center items-center gap-6">
@@ -34,7 +36,7 @@ const Hero = () => {
             <InputField
               variant="primary"
               iconVariant="search"
-              defaultValue={searchCity}
+              defaultValue={searchVal}
               placeholder="Start Searching"
             />
           </div>
@@ -51,7 +53,7 @@ const Hero = () => {
               variant="primary"
               onClick={() => {
                 navigate("/discover");
-                localStorage.setItem("searchCity", "Chicago, IL");
+                localStorage.setItem("searchCity", searchVal);
               }}
             />
           </div>

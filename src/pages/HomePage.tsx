@@ -19,6 +19,7 @@ const HomePage = () => {
       status_type: "ForRent",
     },
     cacheKey: "featuredListings",
+    cacheVal: defaultCity,
   });
 
   return (

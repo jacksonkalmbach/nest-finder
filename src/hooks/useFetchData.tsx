@@ -5,12 +5,14 @@ interface FetchDataParams {
   endpoint: string;
   params: Record<string, any>;
   cacheKey?: string;
+  cacheVal?: string;
 }
 
 export const useFetchData = ({
   endpoint,
   params,
   cacheKey,
+  cacheVal,
 }: FetchDataParams) => {
   const [data, setData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -20,7 +22,7 @@ export const useFetchData = ({
     const fetchData = async () => {
       if (cacheKey) {
         const cachedData = localStorage.getItem(cacheKey);
-        if (cachedData) {
+        if (cachedData === cacheVal) {
           setData(JSON.parse(cachedData));
           setIsLoading(false);
           return;
