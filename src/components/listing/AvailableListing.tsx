@@ -41,38 +41,42 @@ const AvailableListing = ({
         <div>
           <p className="font-medium text-xl">{name}</p>
           <p className="font-medium text-xl">{`$${minPrice.toLocaleString()} - $${maxPrice.toLocaleString()}`}</p>
-          <p className="font-base text-lg">{`${beds} Beds, ${baths} Baths, ${sqft} SF`}</p>
+          <p className="font-base text-lg">{`${
+            beds === 0 ? "Studio" : `${beds} Beds`
+          }, ${baths} Baths, ${sqft} SF`}</p>
         </div>
         <div>
           <img />
         </div>
       </div>
-      <div className="flex flex-col">
-        <Table.Root variant="surface" className="font-poppins">
-          <Table.Header className="font-poppins">
-            <Table.Row align={"center"}>
-              <Table.ColumnHeaderCell>Unit</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>Price</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>Available</Table.ColumnHeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {units.map((unit) => {
-              return (
-                <Table.Row key={unit.zpid}>
-                  <Table.RowHeaderCell>{unit.unitNumber}</Table.RowHeaderCell>
-                  <Table.Cell>${unit.price.toLocaleString()}</Table.Cell>
-                  <Table.Cell>
-                    {unit.availableFrom === "0"
-                      ? "Now"
-                      : convertDate(unit.availableFrom)}
-                  </Table.Cell>
-                </Table.Row>
-              );
-            })}
-          </Table.Body>
-        </Table.Root>
-      </div>
+      {units && (
+        <div className="flex flex-col">
+          <Table.Root variant="surface" className="font-poppins">
+            <Table.Header className="font-poppins">
+              <Table.Row align={"center"}>
+                <Table.ColumnHeaderCell>Unit</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>Price</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>Available</Table.ColumnHeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {units.map((unit) => {
+                return (
+                  <Table.Row key={unit.zpid}>
+                    <Table.RowHeaderCell>{unit.unitNumber}</Table.RowHeaderCell>
+                    <Table.Cell>${unit.price.toLocaleString()}</Table.Cell>
+                    <Table.Cell>
+                      {unit.availableFrom === "0"
+                        ? "Now"
+                        : convertDate(unit.availableFrom)}
+                    </Table.Cell>
+                  </Table.Row>
+                );
+              })}
+            </Table.Body>
+          </Table.Root>
+        </div>
+      )}
     </div>
   );
 };

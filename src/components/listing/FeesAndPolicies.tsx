@@ -5,18 +5,20 @@ interface Props {
 }
 
 const FeesAndPolicies = ({ fees, petPolicy, parkingFeatures }: Props) => {
+  console.log("Fees", fees);
   return (
     <div className="flex flex-col gap-3">
       <div>
         <p className="text-lg font-medium">Fees</p>
         <ul className="flex flex-col">
-          {fees.map((fee) => {
-            return (
-              <li className="flex gap-1">
-                <p>{fee}</p>
-              </li>
-            );
-          })}
+          {Object.keys(fees).length > 0 &&
+            fees.map((fee) => {
+              return (
+                <li className="flex gap-1">
+                  <p>{fee}</p>
+                </li>
+              );
+            })}
         </ul>
       </div>
       <div>

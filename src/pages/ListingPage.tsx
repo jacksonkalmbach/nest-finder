@@ -68,17 +68,15 @@ const ListingPage = () => {
               <PricingAndFloorPlans data={data} />
             </ListingInfoSection>
           )}
-          {data && (
+          {data && data.amenityDetails && (
             <ListingInfoSection title="Amenities and Features">
               <BuildingOverview
-                buildingAmenities={
-                  data.amenityDetails.customAmenities.rawAmenities
-                }
-                aptAmenities={data.amenityDetails.unitFeatures}
+                amenities={data.amenityDetails}
+               
               />
             </ListingInfoSection>
           )}
-          {data && (
+          {/* {data.amenityDetails && (
             <ListingInfoSection title="Fees and Policies">
               <FeesAndPolicies
                 fees={data.amenityDetails.fees}
@@ -86,7 +84,7 @@ const ListingPage = () => {
                 parkingFeatures={data.buildingAttributes.parkingTypes}
               />
             </ListingInfoSection>
-          )}
+          )} */}
           {/* <ListingInfoSection title="Nearby Listings for Rent">
             <NearbyListingsContainer />
           </ListingInfoSection> */}

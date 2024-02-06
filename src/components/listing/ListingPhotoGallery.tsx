@@ -16,7 +16,7 @@ const ListingPhotoGallery = ({ photos }: Props) => {
   return (
     <div className="w-full h-full lg:px-20 md:pt-8">
       <div className="relative w-full h-full grid grid-cols-1 grid-rows-1 md:grid-cols-4 md:grid-rows-2 gap-1 md:rounded-xl overflow-hidden">
-        {photos.slice(0, 5).map((img, index) => {
+        {photos.length > 0 && photos.slice(0, 5).map((img, index) => {
           return index === 0 ? (
             <div className="md:row-span-2 md:col-span-2 overflow-hidden">
               <img
