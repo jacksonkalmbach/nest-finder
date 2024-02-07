@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ListingCard from "./listingCard/ListingCard";
 
 const ListingsContainer = ({ data }: { data: any }) => {

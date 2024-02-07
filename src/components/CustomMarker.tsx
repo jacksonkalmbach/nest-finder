@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 const CustomMarker = ({ price }: { price: number }) => {
   // const [isSelected, setIsSelected] = useState<boolean>(false);
 

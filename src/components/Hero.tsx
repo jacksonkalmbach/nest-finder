@@ -1,5 +1,4 @@
 import { useState } from "react";
-import heroImg from "../assets/hero-image.jpg";
 import InputField from "./ui/InputField";
 import Underline from "./Underline";
 import Button from "./ui/Button";

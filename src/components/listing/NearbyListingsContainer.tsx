@@ -1,78 +1,4 @@
-import React from "react";
-import ListingCard from "../listingCard/ListingCard";
-import GridCard from "../listingCard/GridCard";
-import { Link, useNavigate } from "react-router-dom";
-
-const DATA = [
-  {
-    miniCardPhotos: [
-      {
-        url: "https://photos.zillowstatic.com/fp/e3eab42685bb801eb0bcbe6e26acbbf1-p_c.jpg",
-      },
-    ],
-    zpid: 2126449199,
-    longitude: -87.64292,
-    address: {
-      city: "Chicago",
-      state: "IL",
-      streetAddress: "525 W Deming Pl APT 222",
-      zipcode: "60614",
-    },
-    price: 1525,
-    latitude: 41.927727,
-  },
-  {
-    miniCardPhotos: [
-      {
-        url: "https://photos.zillowstatic.com/fp/e3eab42685bb801eb0bcbe6e26acbbf1-p_c.jpg",
-      },
-    ],
-    zpid: 2126449199,
-    longitude: -87.64292,
-    address: {
-      city: "Chicago",
-      state: "IL",
-      streetAddress: "525 W Deming Pl APT 222",
-      zipcode: "60614",
-    },
-    price: 1525,
-    latitude: 41.927727,
-  },
-  {
-    miniCardPhotos: [
-      {
-        url: "https://photos.zillowstatic.com/fp/e3eab42685bb801eb0bcbe6e26acbbf1-p_c.jpg",
-      },
-    ],
-    zpid: 2126449199,
-    longitude: -87.64292,
-    address: {
-      city: "Chicago",
-      state: "IL",
-      streetAddress: "525 W Deming Pl APT 222",
-      zipcode: "60614",
-    },
-    price: 1525,
-    latitude: 41.927727,
-  },
-  {
-    miniCardPhotos: [
-      {
-        url: "https://photos.zillowstatic.com/fp/e3eab42685bb801eb0bcbe6e26acbbf1-p_c.jpg",
-      },
-    ],
-    zpid: 2126449199,
-    longitude: -87.64292,
-    address: {
-      city: "Chicago",
-      state: "IL",
-      streetAddress: "525 W Deming Pl APT 222",
-      zipcode: "60614",
-    },
-    price: 1525,
-    latitude: 41.927727,
-  },
-];
+import { Link } from "react-router-dom";
 
 interface Props {
   data: {
@@ -91,7 +17,6 @@ interface Props {
 }
 
 const NearbyListingsContainer = ({ data }: Props) => {
-  const navigate = useNavigate();
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 flex-wrap gap-3 p-2">
       {data.slice(0, 4).map((apt: any) => {

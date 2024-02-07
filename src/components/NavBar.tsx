@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import UserCard from "./UserCard";
 import Logo from "./Logo";
 import { HeartIcon } from "@heroicons/react/24/outline";
