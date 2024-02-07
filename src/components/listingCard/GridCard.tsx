@@ -50,8 +50,16 @@ const GridCard = observer(
         <div className="flex flex-col items-start w-full flex-grow py-2 gap-2">
           <div className="flex w-full justify-between items-start">
             <p className="font-medium w-3/4 md:truncate">{displayName}</p>
-            <div className="bg-light-orange h-fit px-2 py-1 rounded-full flex justify-center items-center">
-              <p className="text-[8px]">For Rent</p>
+            <div
+              className={`${
+                apt.listingStatus === "FOR_RENT"
+                  ? "bg-light-orange"
+                  : "bg-blue-100"
+              }  h-fit px-2 py-1 rounded-full flex justify-center items-center`}
+            >
+              <p className="text-[8px]">
+                {apt.listingStatus === "FOR_RENT" ? "For Rent" : "For Sale"}
+              </p>
               {/* <p>{index}</p> */}
             </div>
           </div>

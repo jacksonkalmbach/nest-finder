@@ -33,6 +33,15 @@ const ListingPage = () => {
     params: paramsObj,
   });
 
+  // const {
+  //   data: propImgs,
+  //   isLoading: propImgsLoading,
+  //   error: propImgsError,
+  // } = useFetchData({
+  //   endpoint: "images",
+  //   params: { zpid: params.id },
+  // });
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [params.id]);
@@ -44,6 +53,7 @@ const ListingPage = () => {
           {seePhotos ? (
             <FullGallery
               buildingPhotos={data.photos}
+              // listingPhotos={propImgs.images}
               handleCloseGallery={() => setSeePhotos(false)}
             />
           ) : listingType === "zpid" ? (

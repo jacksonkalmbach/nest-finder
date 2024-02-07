@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { RootStoreContext } from "../context/RootStoreContext";
 
 interface FetchDataParams {
   endpoint: string;
@@ -17,6 +18,7 @@ export const useFetchData = ({
   const [data, setData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
+  const { locationsSearchStore } = useContext(RootStoreContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,6 +43,7 @@ export const useFetchData = ({
           },
         });
         setData(response.data);
+        locationsSearchStore.setListingsData(response.data);
 
         if (cacheKey) {
           localStorage.setItem(cacheKey, JSON.stringify(response.data));

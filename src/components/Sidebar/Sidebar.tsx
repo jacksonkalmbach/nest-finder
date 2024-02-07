@@ -1,14 +1,15 @@
+import { useEffect, useState } from "react";
 import InputField from "../ui/InputField";
 import Button from "../ui/Button";
 import { MinusIcon } from "@heroicons/react/24/solid";
 import { BedBathFilter } from "./components/BedBathFilter";
 import ToggleSaleRent from "./components/ToggleSaleRent";
 import DropdownList from "../ui/DropdownList";
-
-interface Props {
-  handleSearchParams: (key: string, value: string | number | null) => void;
-  handleSearch: () => void;
-}
+import { observer } from "mobx-react";
+import { useContext } from "react";
+import { RootStoreContext } from "../../context/RootStoreContext";
+import { SearchParamsType } from "../../types/SearchParamsTypes";
+import { fetchData } from "../../utils/fetchData";
 
 const homeTypes: string[] = [
   "Single Family Homes",
@@ -16,12 +17,35 @@ const homeTypes: string[] = [
   "Condos/Co-ops/Apartments",
 ];
 
-const Sidebar = ({ handleSearchParams, handleSearch }: Props) => {
+const url = process.env.REACT_APP_RAPID_API_URL + "propertyExtendedSearch";
+
+const Sidebar = observer(() => {
   const defaultCity = localStorage.getItem("searchCity");
   const searchCity = defaultCity ? defaultCity : "";
 
+  const [params, setParams] = useState<SearchParamsType>({
+    location: searchCity,
+    status_type: "ForRent",
+  });
+
+  const { locationsSearchStore } = useContext(RootStoreContext);
+
+  const handleSearchClick = async () => {
+    locationsSearchStore.setSearchParams(params);
+    const response = await fetchData(url, params);
+    console.log("res", response.data);
+    locationsSearchStore.setListingsData(response.data);
+  };
+
+  const handleSetSearchParams = (paramKey: string, value: any) => {
+    setParams((prevParams) => ({
+      ...prevParams,
+      [paramKey]: value,
+    }));
+  };
+
   const handleSetParam = (key: string, value: string | number | null) => {
-    handleSearchParams(key, value);
+    handleSetSearchParams(key, value);
   };
 
   return (
@@ -34,7 +58,7 @@ const Sidebar = ({ handleSearchParams, handleSearch }: Props) => {
         setValue={(value) => handleSetParam("location", value)}
       />
       <ToggleSaleRent
-        setValue={(value) => handleSetParam("statusType", value)}
+        setValue={(value) => handleSetParam("status_type", value)}
       />
       <div className="flex flex-col w-full bg-secondary-dark-blue py-4 px-4 rounded-xl gap-2">
         <p className="text-center">Price Range</p>
@@ -67,11 +91,11 @@ const Sidebar = ({ handleSearchParams, handleSearch }: Props) => {
       <DropdownList
         title="Home Type"
         listItems={homeTypes}
-        setValue={(value) => handleSetParam("homeType", value)}
+        setValue={(value) => handleSetParam("home_type", value)}
       />
-      <Button text="Search" variant="primary" onClick={() => handleSearch()} />
+      <Button text="Search" variant="primary" onClick={handleSearchClick} />
     </div>
   );
-};
+});
 
 export default Sidebar;

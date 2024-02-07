@@ -82,62 +82,69 @@ const CustomMarker = (props: CustomMarkerProps) => {
 };
 
 const SearchMap = ({ data }: { data: any }) => {
-  console.log("SEARCH", data);
-  const locations = data.map((location: any) => ({
-    latitude: location.latitude,
-    longitude: location.longitude,
-  }));
+  console.log("LNGLAT - Searchmap.tsx", data);
+  const [center, setCenter] = useState<{ lat: number; lng: number }>({
+    lat: 0,
+    lng: 0,
+  }); // Default to a sensible default
+  const [isLoading, setIsLoading] = useState(true);
 
-  let latSum = 0;
-  let lngSum = 0;
+  useEffect(() => {
+    if (data && data.length > 0) {
+      const locations = data.map((location: any) => ({
+        latitude: location.latitude,
+        longitude: location.longitude,
+      }));
 
-  locations.forEach((location: any) => {
-    latSum += location.latitude;
-    lngSum += location.longitude;
-  });
+      let latSum = 0;
+      let lngSum = 0;
 
-  const center =
-    locations.length > 0
-      ? {
-          lat: latSum / locations.length,
-          lng: lngSum / locations.length,
-        }
-      : { lat: 0, lng: 0 };
+      locations.forEach((location: any) => {
+        latSum += location.latitude;
+        lngSum += location.longitude;
+      });
 
-  // console.log("center", center);
+      const calculatedCenter = {
+        lat: latSum / locations.length,
+        lng: lngSum / locations.length,
+      };
+      setCenter(calculatedCenter);
+    } else {
+      setCenter({ lat: 0, lng: 0 }); // Replace with your actual default lat, lng
+    }
+    setIsLoading(false);
+  }, [data]);
+
+  if (isLoading) {
+    return <div>Loading map...</div>;
+  }
 
   return (
-    <div className="hidden md:flex w-full h-full rounded-xl overflow-hidden">
-      <Map
-        mapboxAccessToken={api_key}
-        initialViewState={{
-          longitude: center.lng,
-          latitude: center.lat,
-          // longitude: -87.652016,
-          // latitude: 41.927826,
-          zoom: 10,
-        }}
-        // style={{ width: "100%", height: "100%" }}
-        mapStyle="mapbox://styles/mapbox/streets-v9"
-      >
-        {data &&
-          data.length > 0 &&
-          data.map((loc: any) => {
+    <>
+      <div className="hidden md:flex w-full h-full rounded-xl overflow-hidden">
+        <Map
+          mapboxAccessToken={api_key}
+          initialViewState={{
+            longitude: center.lng,
+            latitude: center.lat,
+            zoom: 10,
+          }}
+          mapStyle="mapbox://styles/mapbox/streets-v9"
+        >
+          {data.map((loc: any) => {
             const { longitude, latitude } = loc;
             return (
               <CustomMarker
-                // key={`${loc.property.location.latitude}-${loc.property.location.longitude}`}
                 lon={longitude}
                 lat={latitude}
-                // img={loc.property.media.propertyPhotoLinks.highResolutionLink}
-                // address={loc.property.address.streetAddress}
                 price={1000}
                 zpid={100000}
               />
             );
           })}
-      </Map>
-    </div>
+        </Map>
+      </div>
+    </>
   );
 };
 
