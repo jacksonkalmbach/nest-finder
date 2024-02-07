@@ -35,6 +35,8 @@ const Sidebar = observer(() => {
     const response = await fetchData(url, params);
     console.log("res", response.data);
     locationsSearchStore.setListingsData(response.data);
+    locationsSearchStore.setListingCount(response.data.totalResultCount);
+    locationsSearchStore.setListingPageCount(response.data.totalPages);
   };
 
   const handleSetSearchParams = (paramKey: string, value: any) => {

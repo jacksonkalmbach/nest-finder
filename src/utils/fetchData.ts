@@ -2,7 +2,7 @@ import axios from "axios";
 import { SearchParamsType } from "../types/SearchParamsTypes";
 
 export const fetchData = async (url: string, params: SearchParamsType) => {
-  console.log("first", params);
+  console.log("params", params);
   if (params.status_type === "ForSale") {
     const minPrice = params.rentMaxPrice;
     const maxPrice = params.rentMaxPrice;
@@ -11,7 +11,6 @@ export const fetchData = async (url: string, params: SearchParamsType) => {
     params.rentMinPrice = undefined;
     params.rentMaxPrice = undefined;
   }
-  console.log("second", params);
   const response = await axios.request({
     method: "GET",
     url: url,

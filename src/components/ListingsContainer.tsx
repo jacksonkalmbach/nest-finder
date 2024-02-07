@@ -5,7 +5,7 @@ import { RootStoreContext } from "../context/RootStoreContext";
 
 const ListingsContainer = observer(() => {
   const { locationsSearchStore } = useContext(RootStoreContext);
-  const [aptData, setAptData] = useState<any>([]);
+  const [aptData, setAptData] = useState<any | null>(null);
 
   useEffect(() => {
     console.log("new data");
@@ -21,7 +21,7 @@ const ListingsContainer = observer(() => {
 
   return (
     <div className="w-full bg-bg-light flex flex-col lg:grid grid-rows-2 grid-cols-2 gap-2">
-      {aptData.length &&
+      {aptData &&
         aptData.map((apt: any, index: number) => {
           return (
             <ListingCard

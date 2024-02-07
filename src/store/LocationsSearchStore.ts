@@ -21,6 +21,8 @@ class LocationsSearchStore {
   };
   @observable listingsData: any = {};
   @observable coordinates: { lat: number; lng: number }[] = [];
+  @observable listingPageCount: number = 1;
+  @observable listingCount: number = 0;
 
   constructor() {
     makeObservable(this);
@@ -32,6 +34,14 @@ class LocationsSearchStore {
 
   @action setSearchParams(params: SearchParamsType) {
     this.searchParams = params;
+  }
+
+  @action setListingPageCount(count: number) {
+    this.listingPageCount = count;
+  }
+
+  @action setListingCount(num: number) {
+    this.listingCount = num;
   }
 }
 

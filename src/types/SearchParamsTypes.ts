@@ -10,4 +10,6 @@ export type SearchParamsType = {
   maxBath?: number;
   minBath?: number;
   home_type?: string;
+  page?: string;
+  sort?: string;
 };
