@@ -111,8 +111,10 @@ const SearchMap = ({ data }: { data: any }) => {
       <Map
         mapboxAccessToken={api_key}
         initialViewState={{
-          longitude: -87.652016,
-          latitude: 41.927826,
+          longitude: center.lng,
+          latitude: center.lat,
+          // longitude: -87.652016,
+          // latitude: 41.927826,
           zoom: 10,
         }}
         // style={{ width: "100%", height: "100%" }}

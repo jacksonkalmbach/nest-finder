@@ -4,7 +4,7 @@ import Button from "../ui/Button";
 interface Props {
   brokerPhoneNumber: string;
   brokerName: string;
-  hours: string[];
+  hours?: string[];
 }
 
 const ContactListing = ({ brokerName, brokerPhoneNumber, hours }: Props) => {
@@ -18,7 +18,7 @@ const ContactListing = ({ brokerName, brokerPhoneNumber, hours }: Props) => {
         <PhoneIcon className="h-4 w-4" />
         <p>{brokerPhoneNumber}</p>
       </div>
-      {Object.keys(hours).length > 0 && (
+      {hours && Object.keys(hours).length > 0 && (
         <div className="flex flex-col items-center">
           <p className="font-medium text-lg underline">Building Hours</p>
           <ul className="w-full flex flex-col justify-center items-center">

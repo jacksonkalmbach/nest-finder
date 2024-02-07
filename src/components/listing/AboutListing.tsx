@@ -9,6 +9,7 @@ interface Props {
   bedrooms?: number;
   bathrooms?: number;
   livingAreaValue?: number;
+  units?: {}[];
 }
 
 const AboutListing = ({

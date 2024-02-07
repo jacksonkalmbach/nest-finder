@@ -60,20 +60,20 @@ const PropertyListing = ({
               />
             </ListingInfoSection>
           )} */}
-          {/* {propData && (
+          {propData && (
             <ListingInfoSection title="Nearby Listings for Rent">
               <NearbyListingsContainer data={propData.nearbyHomes} />
             </ListingInfoSection>
-          )} */}
+          )}
         </div>
         <div className="hidden grow lg:flex flex-col sticky top-20 gap-6 justify-start">
-          {/* {data.amenityDetails && (
+          {data && data.attributionInfo && (
             <ContactListing
-              brokerName={data.buildingName}
-              brokerPhoneNumber={data.buildingPhoneNumber}
+              brokerName={data.agentName}
+              brokerPhoneNumber={data.agentPhoneNumber}
               hours={data.amenityDetails.hours}
             />
-          )} */}
+          )}
           {/* <RecentlyViewed /> */}
         </div>
       </div>

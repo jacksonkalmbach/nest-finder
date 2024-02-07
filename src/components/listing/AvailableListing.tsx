@@ -26,13 +26,10 @@ const AvailableListing = ({
 }: Props) => {
   const convertDate = (timestampMs: string) => {
     const date = new Date(Number(timestampMs));
-
     const day = String(date.getUTCDate()).padStart(2, "0");
     const month = String(date.getUTCMonth() + 1).padStart(2, "0");
     const year = String(date.getUTCFullYear()).slice(-2);
-
     const formattedDate = `${month}/${day}/${year}`;
-
     return formattedDate;
   };
   return (
