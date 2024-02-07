@@ -12,9 +12,14 @@ interface Photo {
 interface Props {
   photos?: Photo[];
   listingPhotos?: string[];
+  handleSeePhotos: () => void;
 }
 
-const ListingPhotoGallery = ({ photos, listingPhotos }: Props) => {
+const ListingPhotoGallery = ({
+  photos,
+  listingPhotos,
+  handleSeePhotos,
+}: Props) => {
   let normalizedPhotos: string[] = [];
 
   if (photos && Array.isArray(photos)) {
@@ -44,7 +49,11 @@ const ListingPhotoGallery = ({ photos, listingPhotos }: Props) => {
             </div>
           ))}
         <div className="hidden md:block absolute w-[100px] bottom-5 right-5">
-          <Button text="View All" variant="seeThrough" onClick={() => {}} />
+          <Button
+            text="View All"
+            variant="seeThrough"
+            onClick={handleSeePhotos}
+          />
         </div>
       </div>
     </div>

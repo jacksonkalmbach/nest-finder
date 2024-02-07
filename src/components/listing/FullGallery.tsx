@@ -1,17 +1,51 @@
-import React from "react";
+import Button from "../ui/Button";
 
-const FullGallery = ({ data }: { data: any }) => {
+interface Props {
+  buildingPhotos?: {
+    mixedSources: {
+      jpeg: {
+        url: string;
+      }[];
+    }[];
+  }[];
+  listingPhotos?: string[];
+  handleCloseGallery: () => void;
+}
+
+const FullGallery = ({
+  buildingPhotos,
+  listingPhotos,
+  handleCloseGallery,
+}: Props) => {
   return (
-    <div className="absolute w-screen overflow-auto bg-white z-[9999] gap-2 grid grid-cols-4">
-      {data &&
-        data.photoUrlsHighRes.map((img: { url: string }) => {
-          return (
-            <div className="row-span-1 overflow-hidden object-cover">
-              <img src={img.url} alt="" className="w-full h-[250px]" />
-            </div>
-          );
-        })}
-    </div>
+    <>
+      <div className="w-screen flex justify-end px-5 bg-bg-light">
+        <div>
+          <Button
+            text="Close"
+            variant="ghost"
+            icon="close"
+            onClick={handleCloseGallery}
+          />
+        </div>
+      </div>
+      <div className="p-2 w-screen grow overflow-auto bg-bg-light gap-2 grid grid-cols-4">
+        {buildingPhotos?.map((img: any) => (
+          <div className="row-span-1 overflow-hidden object-cover">
+            <img
+              src={img.mixedSources.jpeg[0].url}
+              alt=""
+              className="w-full h-[250px]"
+            />
+          </div>
+        ))}
+        {listingPhotos?.map((img: string) => (
+          <div className="row-span-1 overflow-hidden object-cover">
+            <img src={img} alt="" className="w-full h-[250px]" />
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 

@@ -24,9 +24,11 @@ const QueueCard = ({
     bathrooms,
     livingArea,
     imgSrc,
+    lotId,
   } = apt;
 
   const displayName = apt.buildingName ? apt.buildingName : apt.address;
+  const linkId = lotId ? `lotId/${lotId}` : `zpid/${zpid}`;
 
   const variants = {
     hidden: { y: 10, opacity: 0 },
@@ -74,7 +76,7 @@ const QueueCard = ({
         <div className="flex justify-between items-center border-t pt-2">
           <DisplayPrice price={price} units={units} />
           <Link
-            to={`/${zpid}`}
+            to={`/${linkId}`}
             className="bg-accent-blue rounded-full p-2 text-white"
           >
             <ArrowUpRightIcon className="w-3 h-3" />

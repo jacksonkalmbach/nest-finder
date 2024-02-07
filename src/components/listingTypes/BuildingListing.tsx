@@ -11,9 +11,11 @@ import FeesAndPolicies from "../listing/FeesAndPolicies";
 const BuildingListing = ({
   data,
   isLoading,
+  handleSeePhotos,
 }: {
   data: any;
   isLoading: boolean;
+  handleSeePhotos: () => void;
 }) => {
   console.log("Buidlinglistins.tsx", data);
   return (
@@ -22,7 +24,10 @@ const BuildingListing = ({
         <div className="relative bg-bg-light font-poppins w-screen flex flex-col">
           <div className="w-full h-1/2" style={{ height: "60vh" }}>
             {!isLoading && data ? (
-              <ListingPhotoGallery photos={data.photos} />
+              <ListingPhotoGallery
+                photos={data.photos}
+                handleSeePhotos={handleSeePhotos}
+              />
             ) : (
               <ListingPhotoGallerySkeleton />
             )}

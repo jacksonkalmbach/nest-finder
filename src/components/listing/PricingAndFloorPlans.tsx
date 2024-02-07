@@ -19,19 +19,20 @@ const PricingAndFloorPlans = ({ data }: { data: any }) => {
         : data.floorPlans.map((plan: any, index: number) => (
             <AvailableListing key={index} {...plan} />
           ))}
-      {!seeAll && data.floorPlans.length > 3 ? (
-        <Button
-          text="See All Units"
-          variant="ghost"
-          onClick={() => setSeeAll(true)}
-        />
-      ) : (
-        <Button
-          text="See Less Units"
-          variant="ghost"
-          onClick={() => setSeeAll(false)}
-        />
-      )}
+      {data.floorPlans.length > 3 &&
+        (!seeAll ? (
+          <Button
+            text="See All Units"
+            variant="ghost"
+            onClick={() => setSeeAll(true)}
+          />
+        ) : (
+          <Button
+            text="See Less Units"
+            variant="ghost"
+            onClick={() => setSeeAll(false)}
+          />
+        ))}
     </div>
   );
 };

@@ -13,9 +13,11 @@ import NearbyListingsContainer from "../listing/NearbyListingsContainer";
 const PropertyListing = ({
   propData,
   zpid,
+  handleSeePhotos,
 }: {
   propData: any;
   zpid?: string;
+  handleSeePhotos: () => void;
 }) => {
   const { data, isLoading, error } = useFetchData({
     endpoint: "images",
@@ -29,7 +31,10 @@ const PropertyListing = ({
     <div className="relative bg-bg-light font-poppins w-screen flex flex-col">
       <div className="w-full h-1/2" style={{ height: "60vh" }}>
         {!isLoading && data ? (
-          <ListingPhotoGallery listingPhotos={data.images} />
+          <ListingPhotoGallery
+            listingPhotos={data.images}
+            handleSeePhotos={handleSeePhotos}
+          />
         ) : (
           <ListingPhotoGallerySkeleton />
         )}
