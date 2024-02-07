@@ -9,7 +9,7 @@ import { observer } from "mobx-react";
 
 const DiscoverPage = observer(() => {
   const { locationsSearchStore } = useContext(RootStoreContext);
-
+  console.log("discoverpage.tsx", locationsSearchStore.listingsData);
   return (
     <div className="w-screen grow font-poppins flex bg-bg-light">
       <Sidebar />
@@ -43,7 +43,7 @@ const DiscoverPage = observer(() => {
               </div>
             </div>
             <div className="hidden md:flex w-1/2 h-[730px] mt-8 rounded-xl overflow-hidden">
-              {/* <SearchMap data={aptData} /> */}
+              {/* <SearchMap /> */}
             </div>
           </div>
         </div>

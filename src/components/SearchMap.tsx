@@ -1,8 +1,10 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import Map, { Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { MapPinIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
+import { RootStoreContext } from "../context/RootStoreContext";
+import { observer } from "mobx-react";
 
 const api_key = process.env.REACT_APP_MAP_API_KEY as string;
 
@@ -81,20 +83,26 @@ const CustomMarker = (props: CustomMarkerProps) => {
   );
 };
 
-const SearchMap = ({ data }: { data: any }) => {
-  console.log("LNGLAT - Searchmap.tsx", data);
+const SearchMap = observer(() => {
+  const { locationsSearchStore } = useContext(RootStoreContext);
+  console.log("render map");
   const [center, setCenter] = useState<{ lat: number; lng: number }>({
     lat: 0,
     lng: 0,
-  }); // Default to a sensible default
+  });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (data && data.length > 0) {
-      const locations = data.map((location: any) => ({
-        latitude: location.latitude,
-        longitude: location.longitude,
-      }));
+    console.log(locationsSearchStore.listingsData.props);
+    if (Object.keys(locationsSearchStore.listingsData).length > 0) {
+      const locations = locationsSearchStore.listingsData.props.map(
+        (property: { latitude: number; longitude: number }) => {
+          return {
+            latitude: property.latitude,
+            longitude: property.longitude,
+          };
+        }
+      );
 
       let latSum = 0;
       let lngSum = 0;
@@ -109,14 +117,16 @@ const SearchMap = ({ data }: { data: any }) => {
         lng: lngSum / locations.length,
       };
       setCenter(calculatedCenter);
-    } else {
-      setCenter({ lat: 0, lng: 0 }); // Replace with your actual default lat, lng
+      setIsLoading(false);
     }
-    setIsLoading(false);
-  }, [data]);
+  }, [locationsSearchStore.listingsData]);
 
   if (isLoading) {
-    return <div>Loading map...</div>;
+    return (
+      <div className="hidden md:flex justify-center items-center w-full h-full rounded-xl overflow-hidden">
+        Loading map...
+      </div>
+    );
   }
 
   return (
@@ -131,21 +141,22 @@ const SearchMap = ({ data }: { data: any }) => {
           }}
           mapStyle="mapbox://styles/mapbox/streets-v9"
         >
-          {data.map((loc: any) => {
-            const { longitude, latitude } = loc;
-            return (
-              <CustomMarker
-                lon={longitude}
-                lat={latitude}
-                price={1000}
-                zpid={100000}
-              />
-            );
-          })}
+          {Object.keys(locationsSearchStore.listingsData).length > 0 &&
+            locationsSearchStore.listingsData.props.map((loc: any) => {
+              const { longitude, latitude } = loc;
+              return (
+                <CustomMarker
+                  lon={longitude}
+                  lat={latitude}
+                  price={1000}
+                  zpid={100000}
+                />
+              );
+            })}
         </Map>
       </div>
     </>
   );
-};
+});
 
 export default SearchMap;
