@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import SearchMap from "../components/SearchMap";
-import Sidebar from "../components/sidebar/Sidebar";
 import ListingsContainer from "../components/ListingsContainer";
 import ToggleView from "../components/ToggleView";
 import Pagination from "../components/ui/Pagination";
 import { RootStoreContext } from "../context/RootStoreContext";
 import { observer } from "mobx-react";
 import MobileFilters from "../components/MobileFilters";
+import Sidebar from "../components/sidebar/Sidebar";
 
 const DiscoverPage = observer(() => {
   const { locationsSearchStore } = useContext(RootStoreContext);
