@@ -6,6 +6,7 @@ import ToggleView from "../components/ToggleView";
 import Pagination from "../components/ui/Pagination";
 import { RootStoreContext } from "../context/RootStoreContext";
 import { observer } from "mobx-react";
+import MobileFilters from "../components/MobileFilters";
 
 const DiscoverPage = observer(() => {
   const { locationsSearchStore } = useContext(RootStoreContext);
@@ -17,6 +18,7 @@ const DiscoverPage = observer(() => {
         className="flex flex-col grow"
         style={{ maxHeight: "calc(100vh - 70px)" }}
       >
+        <MobileFilters />
         <div className="w-full flex flex-col">
           <div className="w-full flex gap-6 px-4 md:px-6 py-6 md:py-0 ">
             <div

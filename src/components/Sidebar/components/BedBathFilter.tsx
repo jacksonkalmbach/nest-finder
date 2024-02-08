@@ -2,10 +2,15 @@ import { useEffect, useState } from "react";
 import NumberOption from "./NumberOption";
 
 interface Props {
-  title: string;
+  title?: string;
   setMinValue: (value: number | null) => void;
   setMaxValue: (value: number | null) => void;
 }
+
+const variants = {
+  primary: "",
+  mobile: "",
+};
 
 export const BedBathFilter = ({ title, setMinValue, setMaxValue }: Props) => {
   const [numsSelected, setNumsSelected] = useState<number[]>([]);
@@ -42,9 +47,9 @@ export const BedBathFilter = ({ title, setMinValue, setMaxValue }: Props) => {
   }
 
   return (
-    <div className="flex flex-col bg-secondary-dark-blue p-4 w-full rounded-xl">
-      <p className="text-center">{title}</p>
-      <div className="flex w-full justify-evenly items-center mt-2">
+    <div className="flex flex-col md:bg-secondary-dark-blue md:p-4 w-full rounded-xl">
+      {title && <p className="text-center">{title}</p>}
+      <div className="flex w-full justify-evenly items-center md:mt-2">
         {values}
       </div>
     </div>

@@ -28,7 +28,7 @@ const variants: VariantTypes = {
 };
 
 const icons = {
-  search: <MagnifyingGlassIcon className="w-4 h-4 text-gray-500" />, // Correct className for text color
+  search: <MagnifyingGlassIcon className="w-4 h-4 text-gray-500" />,
 };
 
 const InputField = ({

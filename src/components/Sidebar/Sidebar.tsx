@@ -33,7 +33,6 @@ const Sidebar = observer(() => {
   const handleSearchClick = async () => {
     locationsSearchStore.setSearchParams(params);
     const response = await fetchData(url, params);
-    console.log("res", response.data);
     locationsSearchStore.setListingsData(response.data);
     locationsSearchStore.setListingCount(response.data.totalResultCount);
     locationsSearchStore.setListingPageCount(response.data.totalPages);
@@ -93,6 +92,7 @@ const Sidebar = observer(() => {
       <DropdownList
         title="Home Type"
         listItems={homeTypes}
+        isDefaultOpen={false}
         setValue={(value) => handleSetParam("home_type", value)}
       />
       <Button

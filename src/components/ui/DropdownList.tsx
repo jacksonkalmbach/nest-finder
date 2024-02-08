@@ -3,9 +3,10 @@ import { Cross1Icon } from "@radix-ui/react-icons";
 import { useState, useEffect } from "react";
 
 interface Props {
-  title: string;
+  title?: string;
   listItems: string[];
   setValue?: (value: string) => void;
+  isDefaultOpen: boolean;
 }
 
 type HomeTypeValue = "Houses" | "Townhomes" | "Apartments_Condos_Co-ops";
@@ -21,10 +22,10 @@ const homeTypesKey: HomeTypesKey = {
   "Condos/Co-ops/Apartments": "Apartments_Condos_Co-ops",
 };
 
-const DropdownList = ({ title, listItems, setValue }: Props) => {
+const DropdownList = ({ title, listItems, setValue, isDefaultOpen }: Props) => {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [listedItems, setListedItems] = useState<string[]>(listItems);
-  const [showList, setShowList] = useState<boolean>(false);
+  const [showList, setShowList] = useState<boolean>(isDefaultOpen);
 
   const handleItemClick = (item: string) => {
     if (!selectedItems.includes(item)) {
@@ -50,9 +51,9 @@ const DropdownList = ({ title, listItems, setValue }: Props) => {
   };
 
   return (
-    <div className="flex flex-col bg-secondary-dark-blue w-full p-4 rounded-xl">
+    <div className="flex flex-col md:bg-secondary-dark-blue w-full p-4 rounded-xl">
       <div
-        className="flex w-full justify-between cursor-pointer"
+        className="hidden md:flex w-full justify-between cursor-pointer"
         onClick={() => setShowList(!showList)}
       >
         <p>{title}</p>
@@ -62,27 +63,27 @@ const DropdownList = ({ title, listItems, setValue }: Props) => {
           } w-6 h-6 transform duration-150 ease-in-out`}
         />
       </div>
-      <div className="flex flex-wrap gap-2 w-full">
+      <div className="flex flex-row md:flex-wrap gap-2 w-full">
         {selectedItems.map((item, index) => (
           <div
             key={index}
-            className="bg-bg-light text-dark-blue flex justify-between items-center gap-1 w-fit py-1 px-2 rounded-xl mt-2 cursor-pointer"
+            className="bg-bg-light text-dark-blue justify-between items-center gap-1 h-fit flex no-wrap min-w-fit py-1 px-2 rounded-xl md:mt-2 cursor-pointer"
             onClick={() => handleRemoveItem(item)}
           >
-            <p className="text-[10px]">{item}</p>
+            <p className="text-sm">{item}</p>
             <Cross1Icon className="w-3 h-3" />
           </div>
         ))}
       </div>
       {showList && (
-        <ul className="text-sm flex flex-col gap-2 mt-3">
+        <ul className="text-sm flex flex-row md:flex-col h-fit no-wrap min-w-fit gap-2 md:mt-3 overflow-auto">
           {listedItems.map((item, index) => (
             <li
               key={index}
-              className="hover:underline cursor-pointer"
+              className="hover:underline w-fit cursor-pointer"
               onClick={() => handleItemClick(item)}
             >
-              {item} {/* Display original key */}
+              {item}
             </li>
           ))}
         </ul>
