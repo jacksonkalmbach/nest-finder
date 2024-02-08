@@ -6,13 +6,13 @@ import Pagination from "../components/ui/Pagination";
 import { RootStoreContext } from "../context/RootStoreContext";
 import { observer } from "mobx-react";
 import MobileFilters from "../components/MobileFilters";
-import Sidebar from "../components/Sidebar/Sidebar";
+// import Sidebar from "../components/Sidebar/Sidebar";
 
 const DiscoverPage = observer(() => {
   const { locationsSearchStore } = useContext(RootStoreContext);
   return (
     <div className="w-screen grow font-poppins flex bg-bg-light">
-      <Sidebar />
+      {/* <Sidebar /> */}
       <div
         className="flex flex-col grow"
         style={{ maxHeight: "calc(100vh - 70px)" }}
