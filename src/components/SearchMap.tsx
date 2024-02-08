@@ -21,30 +21,30 @@ interface CustomMarkerProps {
   img?: string;
   address?: string;
   price?: number;
-  zpid?: number;
+  zpid: string;
 }
 
 const CustomMarker = observer((props: CustomMarkerProps) => {
   const { locationsSearchStore } = useContext(RootStoreContext);
   const { lat, lon, img, address, price, zpid } = props;
-  const [isSelected, setIsSelected] = useState<boolean>(false);
+  const isSelected = zpid === locationsSearchStore.selectedListing;
   const markerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        markerRef.current &&
-        !markerRef.current.contains(event.target as Node)
-      ) {
-        setIsSelected(false);
-      }
-    };
+  // useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     if (
+  //       markerRef.current &&
+  //       !markerRef.current.contains(event.target as Node)
+  //     ) {
+  //       setIsSelected(false);
+  //     }
+  //   };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, []);
 
   // const handleClick = () => {
   //   locationsSearchStore.setSelectedListing(zpid);
@@ -54,15 +54,15 @@ const CustomMarker = observer((props: CustomMarkerProps) => {
     <div
       ref={markerRef}
       className="z-10"
-      onClick={() => setIsSelected(!isSelected)}
       style={{ cursor: "pointer" }}
+      onClick={() => locationsSearchStore.setSelectedListing(zpid)}
     >
       <Marker latitude={lat} longitude={lon}>
         <div className={`relative ${isSelected ? "z-30" : "z-20"}`}>
           <MapPinIcon
             className={`w-7 h-7 ${
-              isSelected ? "text-bg-light" : "text-accent-blue"
-            } hover:text-bg-light`}
+              !isSelected ? "text-text-gray" : "text-accent-blue scale-125"
+            } hover:text-bg-light transition-all duration-150`}
             strokeWidth="1"
             stroke="white"
           />
@@ -156,18 +156,20 @@ const SearchMap = observer(() => {
             latitude: center.latitude,
             zoom: 10,
           }}
-          {...viewState}
+          // {...viewState}
           mapStyle="mapbox://styles/mapbox/streets-v9"
         >
           {Object.keys(locationsSearchStore.listingsData).length > 0 &&
             locationsSearchStore.listingsData.props.map((loc: any) => {
+              const { lotId, zpid } = loc;
               const { longitude, latitude } = loc;
+              const id = lotId ? lotId.toString() : zpid.toString();
               return (
                 <CustomMarker
                   lon={longitude}
                   lat={latitude}
                   price={1000}
-                  zpid={100000}
+                  zpid={id}
                 />
               );
             })}
