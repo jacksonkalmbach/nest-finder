@@ -36,7 +36,7 @@ const NavBar = observer(() => {
   return (
     <div
       className={
-        "bg-white w-full h-[70px] flex items-center justify-between lg:justify-end z-[9999] p-6 gap-3 sticky top-0"
+        "bg-white w-full h-[70px] flex items-center justify-between lg:justify-end z-[9990] p-6 gap-3 sticky top-0"
       }
     >
       <div

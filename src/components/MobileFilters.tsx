@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import InputField from "./ui/InputField";
 import ToggleSaleRent from "./sidebar/components/ToggleSaleRent";
 import { BedBathFilter } from "./sidebar/components/BedBathFilter";
 import DropdownList from "./ui/DropdownList";
+import { RootStoreContext } from "../context/RootStoreContext";
 
 const filterOptions: string[] = [
-  "For Rent",
+  "status_type",
   "Price",
   "Beds",
   "Baths",
@@ -23,7 +24,7 @@ const homeTypes: string[] = [
 ];
 
 const filterInputs: FilterInputs = {
-  "For Rent": (
+  status_type: (
     <div className="flex justify-around items-center">
       <ToggleSaleRent setValue={(value) => console.log(value)} />
     </div>
@@ -51,6 +52,8 @@ const filterInputs: FilterInputs = {
 };
 
 const MobileFilters = () => {
+  const { locationsSearchStore } = useContext(RootStoreContext);
+  console.log(locationsSearchStore.searchParams);
   const [filter, setFilter] = useState<string>("");
   const [showFilter, setShowFilter] = useState<boolean>(false);
 
@@ -63,6 +66,11 @@ const MobileFilters = () => {
       setFilter(option);
       setShowFilter(true);
     }
+  };
+
+  const statusType: Record<string, string> = {
+    ForRent: "For Rent",
+    ForSale: "For Sale",
   };
 
   return (
@@ -78,12 +86,14 @@ const MobileFilters = () => {
             } px-2 rounded-full h-fit flex no-wrap min-w-fit`}
             onClick={() => handleClick(option)}
           >
-            {option}
+            {option === "status_type"
+              ? statusType[locationsSearchStore.searchParams.status_type]
+              : option}
           </div>
         ))}
       </div>
       {showFilter && (
-        <div className="absolute w-full p-3 top-full bg-white z-50">
+        <div className="absolute w-full p-3 top-full bg-white z-20">
           {filterInputs[filter]}
         </div>
       )}

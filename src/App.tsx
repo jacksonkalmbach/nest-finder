@@ -18,7 +18,7 @@ const App = observer(() => {
     <RootStoreContext.Provider value={rootStore}>
       <div className="w-screen h-screen flex flex-col">
         {rootStore.uiStore.showNav && (
-          <div className="fixed w-full h-full bg-black bg-opacity-40 z-30 blur"></div>
+          <div className="fixed w-full h-full bg-black bg-opacity-60 z-[9997] "></div>
         )}
         {rootStore.uiStore.showNav && <MobileNavMenu />}
         <NavBar />

@@ -22,7 +22,7 @@ const MobileNavMenu = observer(() => {
     <div
       className={`${
         uiStore.showNav ? "right-0" : "-right-full"
-      } fixed w-4/5 h-screen bg-bg-light z-30 p-6 transition-all duration-200`}
+      } fixed w-4/5 h-screen bg-bg-light z-[9999] p-6 transition-all duration-200`}
     >
       <div className="w-6 h-6" onClick={handleClose}>
         <Cross1Icon className="w-full h-full" />
