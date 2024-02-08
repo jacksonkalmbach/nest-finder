@@ -7,11 +7,15 @@ import FeaturedListing from "../components/FeaturedListing";
 import { useNavigate } from "react-router-dom";
 import SkeletonFeatureListing from "../components/SkeletonFeatureListing";
 import { useFetchData } from "../hooks/useFetchData";
+import { capitalizeEachWord } from "../utils/capitalizeWords";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
   const cachedCity = localStorage.getItem("searchCity");
   const defaultCity = cachedCity ? cachedCity : "Chicago, IL";
-  const navigate = useNavigate();
+  localStorage.setItem("defaultCity", defaultCity);
+
   const { data, isLoading, error } = useFetchData({
     endpoint: "propertyExtendedSearch",
     params: {
@@ -25,10 +29,9 @@ const HomePage = () => {
   return (
     <div className="w-screen min-h-screen flex-col grow font-poppins">
       <Hero />
-
       <div className="w-full flex flex-col p-12 justify-center items-center gap-6">
         <h2 className="text-3xl text-center md:text-4xl font-medium">
-          Featured Listings in {defaultCity}
+          Featured Listings in {capitalizeEachWord(defaultCity)}
         </h2>
         <div className="flex flex-col justify-center items-center gap-6 w-full md:justify-around lg:flex-row">
           {!isLoading ? (

@@ -6,14 +6,11 @@ import { RootStoreContext } from "../context/RootStoreContext";
 const ListingsContainer = observer(() => {
   const { locationsSearchStore } = useContext(RootStoreContext);
   const [aptData, setAptData] = useState<any | null>(null);
+  const [selectedListing, setSelectedListing] = useState<string>();
 
   useEffect(() => {
-    console.log("new data");
     setAptData(locationsSearchStore.listingsData.props);
   }, [locationsSearchStore.listingsData.props]);
-
-  console.log("listingcontainer.tsx", locationsSearchStore.listingsData);
-  const [selectedListing, setSelectedListing] = useState<string>();
 
   const handleSelectListing = (zpid: string) => {
     setSelectedListing(zpid);

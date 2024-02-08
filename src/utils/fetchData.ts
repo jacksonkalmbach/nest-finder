@@ -2,7 +2,13 @@ import axios from "axios";
 import { SearchParamsType } from "../types/SearchParamsTypes";
 
 export const fetchData = async (url: string, params: SearchParamsType) => {
-  console.log("params", params);
+  const cachedCity = localStorage.getItem("searchCity");
+  const defaultCity = cachedCity ? cachedCity : "Chicago, IL";
+
+  if (params.location === "") {
+    params.location = defaultCity;
+  }
+
   if (params.status_type === "ForSale") {
     const minPrice = params.rentMaxPrice;
     const maxPrice = params.rentMaxPrice;

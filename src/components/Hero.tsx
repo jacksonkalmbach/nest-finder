@@ -11,32 +11,30 @@ const url = process.env.REACT_APP_RAPID_API_URL + "propertyExtendedSearch";
 
 const Hero = observer(() => {
   const navigate = useNavigate();
+
   const { locationsSearchStore } = useContext(RootStoreContext);
-  const defaultCity = localStorage.getItem("searchCity");
-  const searchCity = defaultCity ? defaultCity : "";
-  const [searchVal, setSearchVal] = useState<string>(searchCity);
+  const defaultCity = localStorage.getItem("defaultCity");
+  const searchCity = localStorage.getItem("searchCity");
+  const defaultSearchVal = searchCity ? searchCity : "";
+
+  const [searchVal, setSearchVal] = useState<string>(defaultSearchVal);
 
   const handleSearchClick = () => {
-    const fetchResponse = async () => {
-      console.log("searchVal", searchVal);
-      try {
-        const response = await fetchData(url, {
-          location: "jacksonville, fl",
-          status_type: "ForRent",
-        });
+    const searchLocation = searchVal === "" ? searchCity : searchVal;
+
+    fetchData(url, { location: searchVal, status_type: "ForRent" })
+      .then((response) => {
         if (response && response.data) {
+          localStorage.setItem("searchCity", searchVal);
           locationsSearchStore.setListingsData(response.data);
           locationsSearchStore.setListingCount(response.data.totalResultCount);
           locationsSearchStore.setListingPageCount(response.data.totalPages);
           navigate("/discover");
-        } else {
-          console.error("No data received from fetchData");
         }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchResponse();
+      })
+      .catch((error) => {
+        console.error("There was an error fetching the data", error);
+      });
   };
 
   return (
@@ -64,7 +62,6 @@ const Hero = observer(() => {
             <InputField
               variant="primary"
               iconVariant="search"
-              defaultValue={searchVal}
               placeholder="Start Searching"
               setValue={(value) => setSearchVal(value)}
             />

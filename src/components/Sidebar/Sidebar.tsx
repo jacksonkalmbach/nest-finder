@@ -23,6 +23,8 @@ const Sidebar = observer(() => {
   const defaultCity = localStorage.getItem("searchCity");
   const searchCity = defaultCity ? defaultCity : "";
 
+  console.log("SEARCH CITY", searchCity);
+
   const [params, setParams] = useState<SearchParamsType>({
     location: searchCity,
     status_type: "ForRent",

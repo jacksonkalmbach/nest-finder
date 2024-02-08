@@ -15,6 +15,7 @@ export const useFetchData = ({
   cacheKey,
   cacheVal,
 }: FetchDataParams) => {
+  localStorage.setItem("searchCity", params.location);
   const [data, setData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import SearchMap from "../components/SearchMap";
 import ListingsContainer from "../components/ListingsContainer";
 import ToggleView from "../components/ToggleView";
@@ -6,13 +6,32 @@ import Pagination from "../components/ui/Pagination";
 import { RootStoreContext } from "../context/RootStoreContext";
 import { observer } from "mobx-react";
 import MobileFilters from "../components/MobileFilters";
-// import Sidebar from "../components/Sidebar/Sidebar";
+import Sidebar from "../components/Sidebar/Sidebar";
+import { capitalizeEachWord } from "../utils/capitalizeWords";
 
 const DiscoverPage = observer(() => {
+  const [listings, setLisings] = useState<any>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { locationsSearchStore } = useContext(RootStoreContext);
+
+  useEffect(() => {
+    setIsLoading(true);
+    if (locationsSearchStore.listingsData) {
+      setLisings(locationsSearchStore.listingsData);
+      setIsLoading(false);
+    }
+  }, []);
+
+  console.log("DATA - DiscoverPage", locationsSearchStore.listingsData);
+  console.log("LISTINGS - DiscoverPage", listings);
+
+  const locationTitle = localStorage.getItem("searchCity")
+    ? localStorage.getItem("searchCity")
+    : "";
+
   return (
     <div className="w-screen grow font-poppins flex bg-bg-light">
-      {/* <Sidebar /> */}
+      <Sidebar />
       <div
         className="flex flex-col grow"
         style={{ maxHeight: "calc(100vh - 70px)" }}
@@ -28,7 +47,8 @@ const DiscoverPage = observer(() => {
                 <div className="p-2 bg-bg-light flex justify-between items-center">
                   <div>
                     <h2 className="text-xl font-medium">
-                      Apartments in {localStorage.getItem("searchCity")}
+                      Apartments in{" "}
+                      {locationTitle ? capitalizeEachWord(locationTitle) : ""}
                     </h2>
                     <p className="text-gray-400">
                       {locationsSearchStore.listingCount.toLocaleString()}{" "}
@@ -37,7 +57,7 @@ const DiscoverPage = observer(() => {
                   </div>
                   <ToggleView />
                 </div>
-                <ListingsContainer />
+                {isLoading ? <>Loading...</> : <ListingsContainer />}
               </div>
               <div className="w-full flex justify-center items-center">
                 <Pagination />
