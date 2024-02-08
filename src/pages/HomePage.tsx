@@ -34,7 +34,7 @@ const HomePage = () => {
           Featured Listings in {capitalizeEachWord(defaultCity)}
         </h2>
         <div className="flex flex-col justify-center items-center gap-6 w-full md:justify-around lg:flex-row">
-          {!isLoading ? (
+          {!isLoading && data.props ? (
             data.props.slice(0, 4).map((listing: any, index: number) => {
               return <FeaturedListing listing={listing} idx={index} />;
             })

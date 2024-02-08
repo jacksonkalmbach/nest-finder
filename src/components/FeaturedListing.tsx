@@ -4,6 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { useNavigate } from "react-router-dom";
 import DisplayBdBaSf from "./listingCard/components/DisplayBdBaSf";
 import DisplayPrice from "./listingCard/components/DisplayPrice";
+import DisplayImg from "./listingCard/components/DisplayImg";
 
 interface Props {
   listing: {
@@ -61,7 +62,7 @@ const FeaturedListing = ({ listing, idx }: Props) => {
       onClick={() => navigate(`/${linkTo}`)}
     >
       <div className="h-3/5 w-full object-cover">
-        <img src={imgSrc} className="h-full w-full" />
+        <DisplayImg src={imgSrc} />
       </div>
       <div className="w-full p-4 flex flex-col justify-center items-center gap-2">
         <div className="text-xl font-medium text-center">
