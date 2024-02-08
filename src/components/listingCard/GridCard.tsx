@@ -13,18 +13,16 @@ const GridCard = observer(
   ({
     apt,
     index,
-    onSelected,
+    isSelected,
   }: {
     apt: any;
     index: number;
-    onSelected: (zpid: string) => void;
+    isSelected: boolean;
   }) => {
     const { zpid, address, bedrooms, bathrooms, price, units, lotId } = apt;
     const linkId = lotId ? `lotId/${lotId}` : `zpid/${zpid}`;
-
     const displayName = apt.buildingName ? apt.buildingName : apt.address;
-
-    const { uiStore } = useContext(RootStoreContext);
+    const { uiStore, locationsSearchStore } = useContext(RootStoreContext);
 
     const variants = {
       hidden: { y: 10, opacity: 0 },
@@ -41,8 +39,10 @@ const GridCard = observer(
           ease: "easeInOut",
           duration: animationDuration,
         }}
-        className="bg-white row-span-1 col-span-1 rounded-xl border h-full border-gray-100 flex flex-col p-4 justify-between"
-        onClick={() => onSelected(zpid)}
+        className={`${
+          isSelected && "border-2 border-accent-blue"
+        } bg-white row-span-1 col-span-1 rounded-xl border h-full border-gray-100 flex flex-col p-4 justify-between`}
+        onClick={() => locationsSearchStore.setSelectedListing(zpid)}
       >
         <div className="h-[150px] bg-gray-300 rounded-xl overflow-hidden object-cover">
           <DisplayImg src={apt.imgSrc} />

@@ -15,16 +15,27 @@ const ListingCard = observer(
     onSelected: (zpid: string) => void;
   }) => {
     const { uiStore } = useContext(RootStoreContext);
-
+    const { locationsSearchStore } = useContext(RootStoreContext);
+    const selectedListing = locationsSearchStore.selectedListing;
+    console.log(selectedListing);
+    console.log(apt);
     return (
       <>
         {uiStore.listingView === "grid" ? (
-        <div>
-          <GridCard apt={apt} index={index} onSelected={onSelected} />
-        </div>
+          <div>
+            <GridCard
+              apt={apt}
+              index={index}
+              isSelected={apt.zpid === selectedListing}
+            />
+          </div>
         ) : (
           <div className="col-span-2">
-            <QueueCard apt={apt} index={index} onSelected={onSelected} />
+            <QueueCard
+              apt={apt}
+              index={index}
+              isSelected={apt.zpid === selectedListing}
+            />
           </div>
         )}
       </>

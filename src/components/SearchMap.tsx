@@ -24,7 +24,8 @@ interface CustomMarkerProps {
   zpid?: number;
 }
 
-const CustomMarker = (props: CustomMarkerProps) => {
+const CustomMarker = observer((props: CustomMarkerProps) => {
+  const { locationsSearchStore } = useContext(RootStoreContext);
   const { lat, lon, img, address, price, zpid } = props;
   const [isSelected, setIsSelected] = useState<boolean>(false);
   const markerRef = useRef<HTMLDivElement>(null);
@@ -44,6 +45,10 @@ const CustomMarker = (props: CustomMarkerProps) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  // const handleClick = () => {
+  //   locationsSearchStore.setSelectedListing(zpid);
+  // };
 
   return (
     <div
@@ -81,7 +86,7 @@ const CustomMarker = (props: CustomMarkerProps) => {
       </Marker>
     </div>
   );
-};
+});
 
 const SearchMap = observer(() => {
   const { locationsSearchStore } = useContext(RootStoreContext);
@@ -131,7 +136,7 @@ const SearchMap = observer(() => {
       setCenter(calculatedCenter);
       setIsLoading(false);
     }
-  }, [center]);
+  }, []);
 
   if (isLoading) {
     return (

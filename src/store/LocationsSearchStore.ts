@@ -23,6 +23,7 @@ class LocationsSearchStore {
   @observable coordinates: { lat: number; lng: number }[] = [];
   @observable listingPageCount: number = 1;
   @observable listingCount: number = 0;
+  @observable selectedListing: string = "";
 
   constructor() {
     makeObservable(this);
@@ -42,6 +43,10 @@ class LocationsSearchStore {
 
   @action setListingCount(num: number) {
     this.listingCount = num;
+  }
+
+  @action setSelectedListing(id: string) {
+    this.selectedListing = id;
   }
 }
 
