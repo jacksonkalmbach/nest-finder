@@ -95,7 +95,12 @@ const Sidebar = observer(() => {
         listItems={homeTypes}
         setValue={(value) => handleSetParam("home_type", value)}
       />
-      <Button text="Search" variant="primary" onClick={handleSearchClick} />
+      <Button
+        text="Search"
+        type="button"
+        variant="primary"
+        onClick={handleSearchClick}
+      />
     </div>
   );
 });

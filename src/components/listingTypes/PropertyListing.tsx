@@ -77,13 +77,19 @@ const PropertyListing = ({
               brokerName={data.agentName}
               brokerPhoneNumber={data.agentPhoneNumber}
               hours={data.amenityDetails.hours}
+              address={data.address}
             />
           )}
           {/* <RecentlyViewed /> */}
         </div>
       </div>
       <div className="sticky bottom-5 p-3 flex justify-center md:hidden px-4">
-        <Button text="Contact Listing" variant="primary" onClick={() => {}} />
+        <Button
+          text="Contact Listing"
+          variant="primary"
+          type="button"
+          onClick={() => {}}
+        />
       </div>
       {/* <FullGallery data={data} /> */}
     </div>

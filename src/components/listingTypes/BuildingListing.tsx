@@ -57,12 +57,13 @@ const BuildingListing = ({
                 </ListingInfoSection>
               )}
             </div>
-            <div className="hidden grow lg:flex flex-col sticky top-20 gap-6 justify-start">
+            <div className="hidden grow border-3 border-red-500 lg:flex flex-col sticky top-20 gap-6 justify-start">
               {data.amenityDetails && (
                 <ContactListing
                   brokerName={data.buildingName}
                   brokerPhoneNumber={data.buildingPhoneNumber}
                   hours={data.amenityDetails.hours}
+                  address={data.address}
                 />
               )}
               {/* <RecentlyViewed /> */}
@@ -72,6 +73,7 @@ const BuildingListing = ({
             <Button
               text="Contact Listing"
               variant="primary"
+              type="button"
               onClick={() => {}}
             />
           </div>

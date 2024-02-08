@@ -18,7 +18,12 @@ const AuthPage = () => {
           <InputField variant="outlined" placeholder="Password" />
           <p>Confirm Password</p>
           <InputField variant="outlined" placeholder="Confirm Password" />
-          <Button text="Sign Up" variant="primary" onClick={() => {}} />
+          <Button
+            text="Sign Up"
+            variant="primary"
+            type="submit"
+            onClick={() => {}}
+          />
           <div className="w-full flex items-center gap-3 text-text-gray">
             <Separator size={"4"} />
             <p>OR</p>
@@ -27,6 +32,7 @@ const AuthPage = () => {
           <Button
             text="Login with Google"
             variant="outlined"
+            type="button"
             onClick={() => {}}
           />
           <div className="flex gap-1">

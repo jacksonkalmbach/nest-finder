@@ -48,6 +48,7 @@ const HomePage = () => {
           <Button
             text="View More"
             variant="primary"
+            type="button"
             onClick={() => navigate("/discover")}
           />
         </div>

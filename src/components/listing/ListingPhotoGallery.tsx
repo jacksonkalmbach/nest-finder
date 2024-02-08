@@ -50,6 +50,7 @@ const ListingPhotoGallery = ({
         <div className="hidden md:block absolute w-[100px] bottom-5 right-5">
           <Button
             text="View All"
+            type="button"
             variant="seeThrough"
             onClick={handleSeePhotos}
           />

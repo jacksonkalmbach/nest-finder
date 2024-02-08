@@ -72,12 +72,18 @@ const Hero = observer(() => {
           <div className="block md:hidden">
             <Button
               text="Start Searching"
+              type="button"
               variant="primary"
               onClick={handleSearchClick}
             />
           </div>
           <div className="hidden md:block w-full md:w-[200px]">
-            <Button text="Go" variant="primary" onClick={handleSearchClick} />
+            <Button
+              text="Go"
+              type="button"
+              variant="primary"
+              onClick={handleSearchClick}
+            />
           </div>
         </div>
       </div>

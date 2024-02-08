@@ -23,6 +23,7 @@ const FullGallery = ({
         <div>
           <Button
             text="Close"
+            type="button"
             variant="ghost"
             icon="close"
             onClick={handleCloseGallery}

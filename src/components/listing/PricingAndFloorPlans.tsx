@@ -23,12 +23,14 @@ const PricingAndFloorPlans = ({ data }: { data: any }) => {
         (!seeAll ? (
           <Button
             text="See All Units"
+            type="button"
             variant="ghost"
             onClick={() => setSeeAll(true)}
           />
         ) : (
           <Button
             text="See Less Units"
+            type="button"
             variant="ghost"
             onClick={() => setSeeAll(false)}
           />

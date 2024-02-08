@@ -12,6 +12,8 @@ interface Props {
   variant: keyof VariantTypes;
   placeholder: string;
   iconVariant?: keyof typeof icons;
+  required?: boolean;
+  type?: string;
   defaultValue?: string;
   textAligned?: string;
   setValue?: (val: string) => void;
@@ -32,6 +34,8 @@ const icons = {
 const InputField = ({
   variant,
   placeholder,
+  type,
+  required,
   iconVariant,
   defaultValue,
   textAligned,
