@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import InputField from "./ui/InputField";
-import ToggleSaleRent from "./sidebar/components/ToggleSaleRent";
-import { BedBathFilter } from "./sidebar/components/BedBathFilter";
+import ToggleSaleRent from "./Sidebar/components/ToggleSaleRent";
+import { BedBathFilter } from "./Sidebar/components/BedBathFilter";
 import DropdownList from "./ui/DropdownList";
 import { RootStoreContext } from "../context/RootStoreContext";
 

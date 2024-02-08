@@ -6,11 +6,10 @@ import Pagination from "../components/ui/Pagination";
 import { RootStoreContext } from "../context/RootStoreContext";
 import { observer } from "mobx-react";
 import MobileFilters from "../components/MobileFilters";
-import Sidebar from "../components/sidebar/Sidebar";
+import Sidebar from "../components/Sidebar/Sidebar";
 
 const DiscoverPage = observer(() => {
   const { locationsSearchStore } = useContext(RootStoreContext);
-  console.log("discoverpage.tsx", locationsSearchStore.listingsData);
   return (
     <div className="w-screen grow font-poppins flex bg-bg-light">
       <Sidebar />
