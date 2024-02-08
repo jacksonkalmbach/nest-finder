@@ -64,7 +64,7 @@ const DiscoverPage = observer(() => {
               </div>
             </div>
             <div className="hidden md:flex w-1/2 h-[730px] mt-8 rounded-xl overflow-hidden">
-              {/* <SearchMap /> */}
+              <SearchMap />
             </div>
           </div>
         </div>

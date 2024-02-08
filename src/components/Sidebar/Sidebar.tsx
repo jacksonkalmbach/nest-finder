@@ -23,8 +23,6 @@ const Sidebar = observer(() => {
   const defaultCity = localStorage.getItem("searchCity");
   const searchCity = defaultCity ? defaultCity : "";
 
-  console.log("SEARCH CITY", searchCity);
-
   const [params, setParams] = useState<SearchParamsType>({
     location: searchCity,
     status_type: "ForRent",
@@ -35,6 +33,7 @@ const Sidebar = observer(() => {
   const handleSearchClick = async () => {
     locationsSearchStore.setSearchParams(params);
     const response = await fetchData(url, params);
+    localStorage.setItem("searchCity", params.location);
     locationsSearchStore.setListingsData(response.data);
     locationsSearchStore.setListingCount(response.data.totalResultCount);
     locationsSearchStore.setListingPageCount(response.data.totalPages);

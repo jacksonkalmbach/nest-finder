@@ -85,14 +85,24 @@ const CustomMarker = (props: CustomMarkerProps) => {
 
 const SearchMap = observer(() => {
   const { locationsSearchStore } = useContext(RootStoreContext);
-  console.log("render map");
-  const [center, setCenter] = useState<{ lat: number; lng: number }>({
-    lat: 0,
-    lng: 0,
+  const [viewState, setViewState] = useState<{
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  }>({ latitude: 0, longitude: 0, zoom: 10 });
+  const [center, setCenter] = useState<{
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  }>({
+    latitude: 0,
+    longitude: 0,
+    zoom: 10,
   });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     console.log(locationsSearchStore.listingsData.props);
     if (Object.keys(locationsSearchStore.listingsData).length > 0) {
       const locations = locationsSearchStore.listingsData.props.map(
@@ -113,13 +123,15 @@ const SearchMap = observer(() => {
       });
 
       const calculatedCenter = {
-        lat: latSum / locations.length,
-        lng: lngSum / locations.length,
+        latitude: latSum / locations.length,
+        longitude: lngSum / locations.length,
+        zoom: 10,
       };
+      setViewState(calculatedCenter);
       setCenter(calculatedCenter);
       setIsLoading(false);
     }
-  }, [locationsSearchStore.listingsData]);
+  }, [center]);
 
   if (isLoading) {
     return (
@@ -135,10 +147,11 @@ const SearchMap = observer(() => {
         <Map
           mapboxAccessToken={api_key}
           initialViewState={{
-            longitude: center.lng,
-            latitude: center.lat,
+            longitude: center.longitude,
+            latitude: center.latitude,
             zoom: 10,
           }}
+          {...viewState}
           mapStyle="mapbox://styles/mapbox/streets-v9"
         >
           {Object.keys(locationsSearchStore.listingsData).length > 0 &&
