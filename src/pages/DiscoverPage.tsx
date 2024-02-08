@@ -6,7 +6,7 @@ import Pagination from "../components/ui/Pagination";
 import { RootStoreContext } from "../context/RootStoreContext";
 import { observer } from "mobx-react";
 import MobileFilters from "../components/MobileFilters";
-import Sidebar from "../components/Sidebar/Sidebar";
+import Sidebar from "../components/sidebar/Sidebar";
 
 const DiscoverPage = observer(() => {
   const { locationsSearchStore } = useContext(RootStoreContext);
