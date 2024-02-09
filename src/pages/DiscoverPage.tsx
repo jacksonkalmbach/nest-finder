@@ -53,7 +53,9 @@ const DiscoverPage = observer(() => {
                       {locationTitle ? capitalizeEachWord(locationTitle) : ""}
                     </h2>
                     <p className="text-gray-400">
-                      {locationsSearchStore.listingCount.toLocaleString()}{" "}
+                      {Number(
+                        localStorage.getItem("listingCount")
+                      ).toLocaleString()}{" "}
                       Results
                     </p>
                   </div>

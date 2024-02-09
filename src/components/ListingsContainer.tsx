@@ -8,14 +8,15 @@ const ListingsContainer = observer(() => {
   const [aptData, setAptData] = useState<any | null>(null);
 
   const listingRefs = useRef<{
-    [zpid: string]: React.RefObject<HTMLDivElement>;
+    [id: string]: React.RefObject<HTMLDivElement>;
   }>({});
 
   useEffect(() => {
     setAptData(locationsSearchStore.listingsData.props);
     if (locationsSearchStore.listingsData.props) {
       locationsSearchStore.listingsData.props.forEach((apt: any) => {
-        listingRefs.current[apt.zpid] = React.createRef();
+        const id = apt.isBuilding ? apt.lotId.toString() : apt.zpid.toString();
+        return (listingRefs.current[id] = React.createRef());
       });
     }
   }, [locationsSearchStore.listingsData.props]);
@@ -36,17 +37,20 @@ const ListingsContainer = observer(() => {
   return (
     <div className="w-full bg-bg-light flex flex-col lg:grid grid-cols-2 gap-2">
       {aptData &&
-        aptData.map((apt: any, index: number) => (
-          <div ref={listingRefs.current[apt.zpid]} key={index}>
-            <ListingCard
-              apt={apt}
-              index={index}
-              onSelected={() =>
-                locationsSearchStore.setSelectedListing(apt.zpid)
-              }
-            />
-          </div>
-        ))}
+        aptData.map((apt: any, index: number) => {
+          const id = apt.isBuilding
+            ? apt.lotId.toString()
+            : apt.zpid.toString();
+          return (
+            <div ref={listingRefs.current[id]} key={id}>
+              <ListingCard
+                apt={apt}
+                index={index}
+                onSelected={() => locationsSearchStore.setSelectedListing(id)}
+              />
+            </div>
+          );
+        })}
     </div>
   );
 });

@@ -36,7 +36,9 @@ const Sidebar = observer(() => {
     localStorage.setItem("searchCity", params.location);
     locationsSearchStore.setListingsData(response.data);
     locationsSearchStore.setListingCount(response.data.totalResultCount);
+    localStorage.setItem("listingCount", response.data.totalResultCount);
     locationsSearchStore.setListingPageCount(response.data.totalPages);
+    localStorage.setItem("totalPages", response.data.totalPages);
   };
 
   const handleSetSearchParams = (paramKey: string, value: any) => {

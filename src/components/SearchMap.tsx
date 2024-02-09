@@ -33,12 +33,11 @@ const CustomMarker = observer((props: CustomMarkerProps) => {
   return (
     <div
       ref={markerRef}
-      className="z-10"
       style={{ cursor: "pointer" }}
       onClick={() => locationsSearchStore.setSelectedListing(zpid)}
     >
       <Marker latitude={lat} longitude={lon}>
-        <div className={`relative ${isSelected ? "z-30" : "z-20"}`}>
+        <div className={`relative ${isSelected ? "z-50" : "z-20"}`}>
           <MapPinIcon
             className={`w-7 h-7 ${
               !isSelected ? "text-text-gray" : "text-accent-blue scale-150"
@@ -46,22 +45,6 @@ const CustomMarker = observer((props: CustomMarkerProps) => {
             strokeWidth="1"
             stroke="white"
           />
-          {/* {isSelected && (
-            <Link
-              to={`${zpid}`}
-              className="absolute z-50 -top-56 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded-xl shadow-lg"
-            >
-              <div className="h-[150px] w-[200px] object-cover rounded-xl overflow-hidden">
-                <img src={img} alt="" className="w-full h-full" />
-              </div>
-              <div>
-                <p className="font-medium text-base">
-                  ${price.toLocaleString()}
-                </p>
-                <p className="text-base">{address}</p>
-              </div>
-            </Link>
-          )} */}
         </div>
       </Marker>
     </div>

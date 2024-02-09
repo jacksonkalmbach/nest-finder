@@ -28,7 +28,9 @@ const Hero = observer(() => {
           localStorage.setItem("searchCity", searchVal);
           locationsSearchStore.setListingsData(response.data);
           locationsSearchStore.setListingCount(response.data.totalResultCount);
+          localStorage.setItem("listingCount", response.data.totalResultCount);
           locationsSearchStore.setListingPageCount(response.data.totalPages);
+          localStorage.setItem("totalPages", response.data.totalPages);
           navigate("/discover");
         }
       })
