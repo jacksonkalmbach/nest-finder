@@ -10,6 +10,7 @@ import { RootStoreContext } from "./context/RootStoreContext";
 import MobileNavMenu from "./components/MobileNavMenu";
 import { observer } from "mobx-react";
 import AuthPage from "./pages/AuthPage";
+import ImageGalleryPage from "./pages/ImageGalleryPage";
 
 const App = observer(() => {
   const rootStore = useContext(RootStoreContext);
@@ -26,6 +27,10 @@ const App = observer(() => {
           <Route index element={<HomePage />} />
           <Route path="/discover" element={<Main />} />
           <Route path=":locationType/:id" element={<ListingPage />} />
+          <Route
+            path="/:locationType/:id/images"
+            element={<ImageGalleryPage />}
+          />
           <Route path="/auth" element={<AuthPage />} />
         </Routes>
       </div>

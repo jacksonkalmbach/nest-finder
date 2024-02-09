@@ -12,4 +12,5 @@ export type SearchParamsType = {
   home_type?: string;
   page?: string;
   sort?: string;
+  zpid?: string;
 };

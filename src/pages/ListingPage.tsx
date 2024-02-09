@@ -33,15 +33,6 @@ const ListingPage = () => {
     params: paramsObj,
   });
 
-  // const {
-  //   data: propImgs,
-  //   isLoading: propImgsLoading,
-  //   error: propImgsError,
-  // } = useFetchData({
-  //   endpoint: "images",
-  //   params: { zpid: params.id },
-  // });
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [params.id]);
