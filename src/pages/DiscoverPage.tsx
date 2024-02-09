@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import SearchMap from "../components/SearchMap";
 import ListingsContainer from "../components/ListingsContainer";
-import ToggleView from "../components/ToggleView";
 import Pagination from "../components/ui/Pagination";
 import { RootStoreContext } from "../context/RootStoreContext";
 import { observer } from "mobx-react";
@@ -55,7 +54,6 @@ const DiscoverPage = observer(() => {
                       Results
                     </p>
                   </div>
-                  <ToggleView />
                 </div>
                 {isLoading ? <>Loading...</> : <ListingsContainer />}
               </div>

@@ -26,7 +26,6 @@ const PropertyListing = ({
     },
   });
 
-  console.log("Data - propertlisting.tsx", propData);
   return (
     <div className="relative bg-bg-light font-poppins w-screen flex flex-col">
       <div className="w-full h-1/2" style={{ height: "60vh" }}>

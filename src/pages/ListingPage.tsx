@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Footer from "../components/Footer";
 import BuildingListing from "../components/listingTypes/BuildingListing";
@@ -9,6 +9,7 @@ import { useFetchData } from "../hooks/useFetchData";
 import FullGallery from "../components/listing/FullGallery";
 
 const ListingPage = () => {
+  const navigate = useNavigate();
   const [seePhotos, setSeePhotos] = useState<boolean>(false);
   const params = useParams();
   const listingType = params.locationType === "zpid" ? "zpid" : "lotId";
@@ -51,7 +52,7 @@ const ListingPage = () => {
             <PropertyListing
               propData={data}
               zpid={params.id}
-              handleSeePhotos={() => setSeePhotos(true)}
+              handleSeePhotos={() => navigate(`/zpid/${params.id}/images`)}
             />
           ) : (
             <BuildingListing

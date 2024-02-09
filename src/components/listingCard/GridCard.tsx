@@ -41,13 +41,13 @@ const GridCard = observer(
         }}
         className={`${
           isSelected && "border-2 border-accent-blue"
-        } bg-white row-span-1 col-span-1 rounded-xl border h-full border-gray-100 flex flex-col p-4 justify-between`}
+        } bg-white row-span-1 col-span-1 rounded-xl border h-full border-gray-100 flex flex-col p-4 justify-between min-h-[350px]`}
         onClick={() => locationsSearchStore.setSelectedListing(zpid)}
       >
         <div className="h-[150px] bg-gray-300 rounded-xl overflow-hidden object-cover">
           <DisplayImg src={apt.imgSrc} />
         </div>
-        <div className="flex flex-col items-start w-full flex-grow py-2 gap-2">
+        <div className="flex flex-col items-start justify-center w-full flex-grow py-2 gap-2">
           <div className="flex w-full justify-between items-start">
             <p className="font-medium w-3/4 md:truncate">{displayName}</p>
             <div
