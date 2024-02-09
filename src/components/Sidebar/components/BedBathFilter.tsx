@@ -7,10 +7,6 @@ interface Props {
   setMaxValue: (value: number | null) => void;
 }
 
-const variants = {
-  primary: "",
-  mobile: "",
-};
 
 export const BedBathFilter = ({ title, setMinValue, setMaxValue }: Props) => {
   const [numsSelected, setNumsSelected] = useState<number[]>([]);

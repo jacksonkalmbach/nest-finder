@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import Footer from "../components/Footer";
@@ -7,12 +7,16 @@ import PropertyListing from "../components/listingTypes/PropertyListing";
 
 import { useFetchData } from "../hooks/useFetchData";
 import FullGallery from "../components/listing/FullGallery";
+import { RootStoreContext } from "../context/RootStoreContext";
 
 const ListingPage = () => {
   const navigate = useNavigate();
   const [seePhotos, setSeePhotos] = useState<boolean>(false);
   const params = useParams();
   const listingType = params.locationType === "zpid" ? "zpid" : "lotId";
+
+  const { locationsSearchStore } = useContext(RootStoreContext);
+  console.log("CACHED - ListngPage", locationsSearchStore.listingsData);
 
   let endpoint;
   let paramsObj;

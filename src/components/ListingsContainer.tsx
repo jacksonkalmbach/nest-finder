@@ -37,7 +37,7 @@ const ListingsContainer = observer(() => {
     <div className="w-full bg-bg-light flex flex-col lg:grid grid-cols-2 gap-2">
       {aptData &&
         aptData.map((apt: any, index: number) => (
-          <div ref={listingRefs.current[apt.zpid]} key={apt.zpid}>
+          <div ref={listingRefs.current[apt.zpid]} key={index}>
             <ListingCard
               apt={apt}
               index={index}

@@ -30,26 +30,6 @@ const CustomMarker = observer((props: CustomMarkerProps) => {
   const isSelected = zpid === locationsSearchStore.selectedListing;
   const markerRef = useRef<HTMLDivElement>(null);
 
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (
-  //       markerRef.current &&
-  //       !markerRef.current.contains(event.target as Node)
-  //     ) {
-  //       setIsSelected(false);
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
-
-  // const handleClick = () => {
-  //   locationsSearchStore.setSelectedListing(zpid);
-  // };
-
   return (
     <div
       ref={markerRef}
@@ -61,7 +41,7 @@ const CustomMarker = observer((props: CustomMarkerProps) => {
         <div className={`relative ${isSelected ? "z-30" : "z-20"}`}>
           <MapPinIcon
             className={`w-7 h-7 ${
-              !isSelected ? "text-text-gray" : "text-accent-blue scale-125"
+              !isSelected ? "text-text-gray" : "text-accent-blue scale-150"
             } hover:text-bg-light transition-all duration-150`}
             strokeWidth="1"
             stroke="white"
@@ -88,8 +68,7 @@ const CustomMarker = observer((props: CustomMarkerProps) => {
   );
 });
 
-const SearchMap = observer(() => {
-  const { locationsSearchStore } = useContext(RootStoreContext);
+const SearchMap = observer(({ srcData }: { srcData: any }) => {
   const [viewState, setViewState] = useState<{
     latitude: number;
     longitude: number;
@@ -102,15 +81,16 @@ const SearchMap = observer(() => {
   }>({
     latitude: 0,
     longitude: 0,
-    zoom: 10,
+    zoom: 12,
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [listings, setListings] = useState<any[]>([]);
 
   useEffect(() => {
     setIsLoading(true);
-    console.log(locationsSearchStore.listingsData.props);
-    if (Object.keys(locationsSearchStore.listingsData).length > 0) {
-      const locations = locationsSearchStore.listingsData.props.map(
+    if (srcData && Array.isArray(srcData)) {
+      setListings(srcData);
+      const locations = srcData.map(
         (property: { latitude: number; longitude: number }) => {
           return {
             latitude: property.latitude,
@@ -136,9 +116,9 @@ const SearchMap = observer(() => {
       setCenter(calculatedCenter);
       setIsLoading(false);
     }
-  }, []);
+  }, [srcData]);
 
-  if (isLoading) {
+  if (isLoading && listings.length === 0) {
     return (
       <div className="hidden md:flex justify-center items-center w-full h-full rounded-xl overflow-hidden">
         Loading map...
@@ -154,13 +134,13 @@ const SearchMap = observer(() => {
           initialViewState={{
             longitude: center.longitude,
             latitude: center.latitude,
-            zoom: 10,
+            zoom: 12,
           }}
-          // {...viewState}
+          {...viewState}
           mapStyle="mapbox://styles/mapbox/streets-v9"
         >
-          {Object.keys(locationsSearchStore.listingsData).length > 0 &&
-            locationsSearchStore.listingsData.props.map((loc: any) => {
+          {listings.length > 0 &&
+            listings.map((loc: any) => {
               const { lotId, zpid } = loc;
               const { longitude, latitude } = loc;
               const id = lotId ? lotId.toString() : zpid.toString();

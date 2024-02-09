@@ -14,15 +14,18 @@ const DiscoverPage = observer(() => {
   const { locationsSearchStore } = useContext(RootStoreContext);
 
   useEffect(() => {
+    if (locationsSearchStore.listingsData.props) {
+      setLisings(locationsSearchStore.listingsData.props);
+    }
+  }, [locationsSearchStore.listingsData.props]);
+
+  useEffect(() => {
     setIsLoading(true);
     if (locationsSearchStore.listingsData) {
       setLisings(locationsSearchStore.listingsData);
       setIsLoading(false);
     }
   }, []);
-
-  console.log("DATA - DiscoverPage", locationsSearchStore.listingsData);
-  console.log("LISTINGS - DiscoverPage", listings);
 
   const locationTitle = localStorage.getItem("searchCity")
     ? localStorage.getItem("searchCity")
@@ -62,7 +65,7 @@ const DiscoverPage = observer(() => {
               </div>
             </div>
             <div className="hidden md:flex w-1/2 h-[730px] mt-8 rounded-xl overflow-hidden">
-              <SearchMap />
+              <SearchMap srcData={listings} />
             </div>
           </div>
         </div>
