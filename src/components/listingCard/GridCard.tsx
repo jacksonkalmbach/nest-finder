@@ -46,7 +46,7 @@ const GridCard = observer(({ apt, index }: { apt: any; index: number }) => {
         duration: animationDuration,
       }}
       className={`${
-        isSelected && "border-2 border-accent-blue"
+        isSelected && "md:border-2 md:border-accent-blue"
       } bg-white row-span-1 col-span-1 rounded-xl border h-full flex flex-col p-4 justify-between min-h-[350px] cursor-pointer`}
       onClick={handleClick}
     >

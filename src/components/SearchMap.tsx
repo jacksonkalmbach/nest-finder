@@ -30,12 +30,12 @@ const CustomMarker = observer((props: CustomMarkerProps) => {
   const isSelected = zpid === locationsSearchStore.selectedListing;
   const markerRef = useRef<HTMLDivElement>(null);
 
+  const handleClick = () => {
+    locationsSearchStore.setSelectedListing(zpid);
+  };
+
   return (
-    <div
-      ref={markerRef}
-      style={{ cursor: "pointer" }}
-      onClick={() => locationsSearchStore.setSelectedListing(zpid)}
-    >
+    <div ref={markerRef} style={{ cursor: "pointer" }} onClick={handleClick}>
       <Marker latitude={lat} longitude={lon}>
         <div className={`relative ${isSelected ? "z-50" : "z-20"}`}>
           <MapPinIcon
@@ -103,7 +103,7 @@ const SearchMap = observer(({ srcData }: { srcData: any }) => {
 
   if (isLoading && listings.length === 0) {
     return (
-      <div className="hidden md:flex justify-center items-center w-full h-full rounded-xl overflow-hidden">
+      <div className="flex justify-center items-center w-full h-full rounded-xl overflow-hidden">
         Loading map...
       </div>
     );
@@ -111,7 +111,7 @@ const SearchMap = observer(({ srcData }: { srcData: any }) => {
 
   return (
     <>
-      <div className="hidden md:flex w-full h-full rounded-xl overflow-hidden">
+      <div className="flex w-full h-full rounded-xl overflow-hidden">
         <Map
           mapboxAccessToken={api_key}
           initialViewState={{
@@ -127,14 +127,7 @@ const SearchMap = observer(({ srcData }: { srcData: any }) => {
               const { lotId, zpid } = loc;
               const { longitude, latitude } = loc;
               const id = lotId ? lotId.toString() : zpid.toString();
-              return (
-                <CustomMarker
-                  lon={longitude}
-                  lat={latitude}
-                  price={1000}
-                  zpid={id}
-                />
-              );
+              return <CustomMarker lon={longitude} lat={latitude} zpid={id} />;
             })}
         </Map>
       </div>

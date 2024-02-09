@@ -36,29 +36,31 @@ const SortBy = ({ params }: any) => {
     setSortVal(sortKey[val]);
   };
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <Button variant="soft" color="gray">
-          {sortVal}
-          <CaretSortIcon width="12" height="12" />
-        </Button>
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Content
-        variant="soft"
-        color="gray"
-        className="font-poppins"
-      >
-        <DropdownMenu.Item onClick={() => handleClick("Default")}>
-          <p className="font-poppins cursor-pointer">Default</p>
-        </DropdownMenu.Item>
-        <DropdownMenu.Item onClick={() => handleClick("Price_Low_High")}>
-          <p className="font-poppins cursor-pointer">Rent (low to high)</p>
-        </DropdownMenu.Item>
-        <DropdownMenu.Item onClick={() => handleClick("Price_High_Low")}>
-          <p className="font-poppins cursor-pointer">Rent (high to low)</p>
-        </DropdownMenu.Item>
-      </DropdownMenu.Content>
-    </DropdownMenu.Root>
+    <div className="hidden lg:block">
+      <DropdownMenu.Root>
+        <DropdownMenu.Trigger>
+          <Button variant="soft" color="gray">
+            {sortVal}
+            <CaretSortIcon width="12" height="12" />
+          </Button>
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Content
+          variant="soft"
+          color="gray"
+          className="font-poppins"
+        >
+          <DropdownMenu.Item onClick={() => handleClick("Default")}>
+            <p className="font-poppins cursor-pointer">Default</p>
+          </DropdownMenu.Item>
+          <DropdownMenu.Item onClick={() => handleClick("Price_Low_High")}>
+            <p className="font-poppins cursor-pointer">Rent (low to high)</p>
+          </DropdownMenu.Item>
+          <DropdownMenu.Item onClick={() => handleClick("Price_High_Low")}>
+            <p className="font-poppins cursor-pointer">Rent (high to low)</p>
+          </DropdownMenu.Item>
+        </DropdownMenu.Content>
+      </DropdownMenu.Root>
+    </div>
   );
 };
 
