@@ -51,9 +51,15 @@ const AvailableListing = ({
           <Table.Root variant="surface" className="font-poppins">
             <Table.Header className="font-poppins">
               <Table.Row align={"center"}>
-                <Table.ColumnHeaderCell>Unit</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Price</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Available</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>
+                  <p className="font-poppins font-medium">Unit</p>
+                </Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>
+                  <p className="font-poppins font-medium">Price</p>
+                </Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>
+                  <p className="font-poppins font-medium">Available</p>
+                </Table.ColumnHeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>

@@ -35,6 +35,7 @@ const BuildingListing = ({
           <div className="flex items-start gap-8 p-6 lg:py-10 lg:px-20">
             <div className="flex flex-col gap-6 w-full lg:w-3/4">
               <AboutListing
+                isBuilding={true}
                 address={data.address}
                 description={data.description}
               />

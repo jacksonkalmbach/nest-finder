@@ -38,10 +38,11 @@ const PropertyListing = ({
           <ListingPhotoGallerySkeleton />
         )}
       </div>
-      <div className="flex items-start gap-8 p-6 lg:py-10 lg:px-20">
+      <div className="flex w-full items-center gap-8 p-6 lg:py-10 lg:px-20">
         <div className="flex flex-col gap-6 w-full lg:w-3/4">
           {propData && (
             <AboutListing
+              isBuilding={false}
               address={propData.address.streetAddress}
               description={propData.description}
               price={propData.price}

@@ -18,7 +18,6 @@ const ContactListing = ({
 }: Props) => {
   const [showSendMessage, setShowSendMessage] = useState<boolean>(false);
 
-
   return (
     <div className="hidden lg:flex flex-col justify-center items-center bg-white grow p-6 rounded-xl gap-2 overflow-auto ">
       <h3 className="text-lg text-center font-medium">Contact This Property</h3>

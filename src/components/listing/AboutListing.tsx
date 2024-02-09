@@ -2,6 +2,7 @@ import { HeartIcon } from "@heroicons/react/24/outline";
 
 interface Props {
   address: string;
+  isBuilding: boolean
   buildingName?: string;
   description: string;
   price?: number;
@@ -19,6 +20,7 @@ const AboutListing = ({
   bedrooms,
   bathrooms,
   livingAreaValue,
+  isBuilding
 }: Props) => {
   return (
     <div className="flex flex-col p-4 md:p-6 justify-start w-full items-start font-poppins col-span-2 bg-white rounded-xl gap-2 md:gap-6">
@@ -39,31 +41,33 @@ const AboutListing = ({
           </div>
         </div>
       </div>
-      <div className="flex w-full text-center justify-around p-2 bg-bg-light rounded-xl text-sm md:text-base">
-        <div className="flex flex-col justify-center items-center md:text-base">
-          <p>Monthly Rent</p>
-          {price && <p className="font-medium">${price.toLocaleString()}</p>}
-        </div>
-
-        <div className="flex flex-col justify-center items-center">
-          <p className="hidden md:block">Bedrooms</p>
-          <p className="md:hidden">Beds</p>
-          <p className="font-medium">{bedrooms}</p>
-        </div>
-
-        <div className="flex flex-col justify-center items-center">
-          <p className="hidden md:block">Bathrooms</p>
-          <p className="md:hidden">Bath</p>
-          <p className="font-medium">{bathrooms}</p>
-        </div>
-
-        {livingAreaValue && (
-          <div className="hidden md:flex flex-col">
-            <p>Square Feet</p>
-            <p className="font-medium">{livingAreaValue} sqft</p>
+      {!isBuilding && (
+        <div className="flex w-full text-center justify-around p-2 bg-bg-light rounded-xl text-sm md:text-base">
+          <div className="flex flex-col justify-center items-center md:text-base">
+            <p>Monthly Rent</p>
+            {price && <p className="font-medium">${price.toLocaleString()}</p>}
           </div>
-        )}
-      </div>
+
+          <div className="flex flex-col justify-center items-center">
+            <p className="hidden md:block">Bedrooms</p>
+            <p className="md:hidden">Beds</p>
+            <p className="font-medium">{bedrooms}</p>
+          </div>
+
+          <div className="flex flex-col justify-center items-center">
+            <p className="hidden md:block">Bathrooms</p>
+            <p className="md:hidden">Bath</p>
+            <p className="font-medium">{bathrooms}</p>
+          </div>
+
+          {livingAreaValue && (
+            <div className="hidden md:flex flex-col">
+              <p>Square Feet</p>
+              <p className="font-medium">{livingAreaValue} sqft</p>
+            </div>
+          )}
+        </div>
+      )}
       <p>{description}</p>
     </div>
   );

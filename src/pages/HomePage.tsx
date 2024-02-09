@@ -15,6 +15,7 @@ const HomePage = () => {
   const cachedCity = localStorage.getItem("searchCity");
   const defaultCity = cachedCity ? cachedCity : "Chicago, IL";
   localStorage.setItem("defaultCity", defaultCity);
+  
 
   const { data, isLoading, error } = useFetchData({
     endpoint: "propertyExtendedSearch",

@@ -7,6 +7,8 @@ import { observer } from "mobx-react";
 import MobileFilters from "../components/MobileFilters";
 import Sidebar from "../components/Sidebar/Sidebar";
 import { capitalizeEachWord } from "../utils/capitalizeWords";
+import { DropdownMenu } from "@radix-ui/themes";
+import SortBy from "../components/SortBy";
 
 const DiscoverPage = observer(() => {
   const [listings, setLisings] = useState<any>();
@@ -59,6 +61,7 @@ const DiscoverPage = observer(() => {
                       Results
                     </p>
                   </div>
+                  <SortBy params={locationsSearchStore.searchParams} />
                 </div>
                 {isLoading ? <>Loading...</> : <ListingsContainer />}
               </div>
