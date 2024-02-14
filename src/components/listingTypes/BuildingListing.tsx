@@ -17,21 +17,20 @@ const BuildingListing = ({
   isLoading: boolean;
   handleSeePhotos: () => void;
 }) => {
-  console.log("Buidlinglistins.tsx", data);
   return (
     <>
-      {data && (
-        <div className="relative bg-bg-light font-poppins w-screen flex flex-col">
-          <div className="w-full h-1/2" style={{ height: "60vh" }}>
-            {!isLoading && data ? (
-              <ListingPhotoGallery
-                photos={data.photos}
-                handleSeePhotos={handleSeePhotos}
-              />
-            ) : (
-              <ListingPhotoGallerySkeleton />
-            )}
-          </div>
+      <div className="relative bg-bg-light font-poppins w-screen flex flex-col">
+        <div className="w-full h-1/2" style={{ height: "60vh" }}>
+          {!isLoading && data ? (
+            <ListingPhotoGallery
+              photos={data.photos}
+              handleSeePhotos={handleSeePhotos}
+            />
+          ) : (
+            <ListingPhotoGallerySkeleton />
+          )}
+        </div>
+        {data && (
           <div className="flex items-start gap-8 p-6 lg:py-10 lg:px-20">
             <div className="flex flex-col gap-6 w-full lg:w-3/4">
               <AboutListing
@@ -70,17 +69,17 @@ const BuildingListing = ({
               {/* <RecentlyViewed /> */}
             </div>
           </div>
-          <div className="sticky bottom-5 p-3 flex justify-center md:hidden px-4">
-            <Button
-              text="Contact Listing"
-              variant="primary"
-              type="button"
-              onClick={() => {}}
-            />
-          </div>
-          {/* <FullGallery data={data} /> */}
+        )}
+        <div className="sticky bottom-5 p-3 flex justify-center md:hidden px-4">
+          <Button
+            text="Contact Listing"
+            variant="primary"
+            type="button"
+            onClick={() => {}}
+          />
         </div>
-      )}
+        {/* <FullGallery data={data} /> */}
+      </div>
     </>
   );
 };

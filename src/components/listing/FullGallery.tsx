@@ -20,7 +20,7 @@ const FullGallery = ({
   return (
     <>
       <div className="w-screen flex justify-end px-5 bg-bg-light">
-        <div>
+        {/* <div>
           <Button
             text="Close"
             type="button"
@@ -28,7 +28,7 @@ const FullGallery = ({
             icon="close"
             onClick={handleCloseGallery}
           />
-        </div>
+        </div> */}
       </div>
       <div className="p-2 w-screen grow overflow-auto bg-bg-light gap-2 grid grid-cols-4">
         {buildingPhotos?.map((img: any) => (
