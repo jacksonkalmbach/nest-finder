@@ -2,7 +2,7 @@ import { HeartIcon } from "@heroicons/react/24/outline";
 
 interface Props {
   address: string;
-  isBuilding: boolean
+  isBuilding: boolean;
   buildingName?: string;
   description: string;
   price?: number;
@@ -20,7 +20,7 @@ const AboutListing = ({
   bedrooms,
   bathrooms,
   livingAreaValue,
-  isBuilding
+  isBuilding,
 }: Props) => {
   return (
     <div className="flex flex-col p-4 md:p-6 justify-start w-full items-start font-poppins col-span-2 bg-white rounded-xl gap-2 md:gap-6">
@@ -33,11 +33,11 @@ const AboutListing = ({
               </h1>
               <p className="text-sm md:text-base">{address}</p>
             </div>
-            <div className="flex flex-col justify-center items-end">
+            {/* <div className="flex flex-col justify-center items-end">
               <div className="w-6 h-6 md:w-8 md:h-8">
                 <HeartIcon className="w-full h-auto text-accent-blue" />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
