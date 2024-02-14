@@ -65,7 +65,7 @@ const DiscoverPage = observer(() => {
                       Results
                     </p>
                   </div>
-                  <SortBy params={locationsSearchStore.searchParams} />
+                  {/* <SortBy params={locationsSearchStore.searchParams} /> */}
                   <div
                     className="lg:hidden flex items-center gap-1"
                     onClick={() => setShowList(!showList)}
