@@ -28,7 +28,6 @@ const PropertyListing = ({
     },
   });
 
-  console.log(propData);
   const { streetAddress, attributionInfo } = propData;
   const { brokerName, brokerPhoneNumber } = attributionInfo;
 
