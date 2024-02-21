@@ -1,12 +1,12 @@
 import Button from "../ui/Button";
 import AboutListing from "../listing/AboutListing";
 import ContactListing from "../listing/ContactListing";
-import FeesAndPolicies from "../listing/FeesAndPolicies";
 import ListingInfoSection from "../listing/ListingInfoSection";
 import ListingPhotoGallery from "../listing/ListingPhotoGallery";
 import ListingPhotoGallerySkeleton from "../listing/ListingPhotoGallerySkeleton";
 import { useFetchData } from "../../hooks/useFetchData";
 import NearbyListingsContainer from "../listing/NearbyListingsContainer";
+import RecentlyViewed from "../RecentlyViewed";
 
 import { Table } from "@radix-ui/themes";
 import { useEffect } from "react";
@@ -28,10 +28,12 @@ const PropertyListing = ({
     },
   });
 
-  console.log("PROP DATA", propData);
+  console.log(propData);
+  const { streetAddress, attributionInfo } = propData;
+  const { brokerName, brokerPhoneNumber } = attributionInfo;
 
   return (
-    <div className="relative bg-bg-light font-poppins w-screen flex flex-col">
+    <div className=" bg-bg-light font-poppins w-screen flex flex-col">
       <div className="w-full h-1/2" style={{ height: "60vh" }}>
         {!isLoading && data ? (
           <ListingPhotoGallery
@@ -42,7 +44,7 @@ const PropertyListing = ({
           <ListingPhotoGallerySkeleton />
         )}
       </div>
-      <div className="flex w-full items-center gap-8 p-6 lg:py-10 lg:px-20">
+      <div className="flex w-full justify-start items-center gap-8 p-6 lg:py-10 lg:px-20">
         <div className="flex flex-col gap-6 w-full lg:w-3/4">
           {propData && (
             <AboutListing
@@ -95,7 +97,6 @@ const PropertyListing = ({
               <Table.Root>
                 {propData.priceHistory.map((history: any) => {
                   const { date, price } = history;
-                  console.log(price);
                   return (
                     <>
                       {price !== null && (
@@ -118,25 +119,13 @@ const PropertyListing = ({
             </ListingInfoSection>
           )}
         </div>
-        <div className="hidden grow lg:flex flex-col sticky top-20 gap-6 justify-start">
-          {data && data.attributionInfo && (
-            <ContactListing
-              brokerName={data.agentName}
-              brokerPhoneNumber={data.agentPhoneNumber}
-              hours={data.amenityDetails.hours}
-              address={data.address}
-            />
-          )}
-          {/* <RecentlyViewed /> */}
+        <div className="hidden grow border-3 lg:flex flex-col top-0 gap-6">
+          <ContactListing
+            brokerName={brokerName === null ? streetAddress : brokerName}
+            brokerPhoneNumber={brokerPhoneNumber}
+            address={streetAddress}
+          />
         </div>
-      </div>
-      <div className="sticky bottom-5 p-3 flex justify-center md:hidden px-4">
-        <Button
-          text="Contact Listing"
-          variant="primary"
-          type="button"
-          onClick={() => {}}
-        />
       </div>
     </div>
   );

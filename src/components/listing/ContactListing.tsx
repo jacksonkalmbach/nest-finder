@@ -26,7 +26,7 @@ const ContactListing = ({
         {brokerName}
       </p>
 
-      {!showSendMessage && (
+      {!showSendMessage && brokerPhoneNumber && (
         <div className="hidden md:flex gap-2 text-accent-blue font-medium items-center">
           <PhoneIcon className="h-4 w-4" />
           <p>{brokerPhoneNumber}</p>

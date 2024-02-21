@@ -20,7 +20,7 @@ const RecentlyViewed = observer(() => {
               return (
                 <div
                   onClick={() => {
-                    navigate(`/${apt.zpid}`);
+                    navigate(`/zpid/${apt.zpid}`);
                   }}
                   className="bg-bg-light h-[80px] w-full rounded-xl p-3 flex flex-col items-center justify-center cursor-pointer"
                 >

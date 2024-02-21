@@ -22,7 +22,9 @@ const ListingPhotoGallery = ({
   let normalizedPhotos: string[] = [];
 
   if (photos && Array.isArray(photos)) {
-    normalizedPhotos = photos.map((photo) => photo.mixedSources.jpeg[0].url);
+    normalizedPhotos = photos.map(
+      (photo) => photo.mixedSources.jpeg[photo.mixedSources.jpeg.length - 1].url
+    );
   } else if (listingPhotos && Array.isArray(listingPhotos)) {
     normalizedPhotos = listingPhotos;
   }

@@ -17,6 +17,7 @@ const BuildingListing = ({
   isLoading: boolean;
   handleSeePhotos: () => void;
 }) => {
+  console.log("BUILDING DATA.tsx", data);
   return (
     <>
       <div className="relative bg-bg-light font-poppins w-screen flex flex-col">
