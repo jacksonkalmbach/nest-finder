@@ -16,7 +16,6 @@ const ListingPage = () => {
   const listingType = params.locationType === "zpid" ? "zpid" : "lotId";
 
   const { locationsSearchStore } = useContext(RootStoreContext);
-  console.log("CACHED - ListngPage", locationsSearchStore.listingsData);
 
   let endpoint;
   let paramsObj;

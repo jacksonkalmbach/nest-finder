@@ -1,14 +1,16 @@
 import Button from "../ui/Button";
 import AboutListing from "../listing/AboutListing";
-import BuildingOverview from "../listing/BuildingOverview";
 import ContactListing from "../listing/ContactListing";
 import FeesAndPolicies from "../listing/FeesAndPolicies";
 import ListingInfoSection from "../listing/ListingInfoSection";
 import ListingPhotoGallery from "../listing/ListingPhotoGallery";
 import ListingPhotoGallerySkeleton from "../listing/ListingPhotoGallerySkeleton";
-import PricingAndFloorPlans from "../listing/PricingAndFloorPlans";
 import { useFetchData } from "../../hooks/useFetchData";
 import NearbyListingsContainer from "../listing/NearbyListingsContainer";
+
+import { Table } from "@radix-ui/themes";
+import { useEffect } from "react";
+import { fetchData } from "../../utils/fetchData";
 
 const PropertyListing = ({
   propData,
@@ -25,6 +27,8 @@ const PropertyListing = ({
       zpid: zpid,
     },
   });
+
+  console.log("PROP DATA", propData);
 
   return (
     <div className="relative bg-bg-light font-poppins w-screen flex flex-col">
@@ -51,20 +55,63 @@ const PropertyListing = ({
               livingAreaValue={propData.livingAreaValue}
             />
           )}
-          {/* {data && data.amenityDetails && (
-            <ListingInfoSection title="Amenities and Features">
-              <BuildingOverview amenities={data.amenityDetails} />
+          {propData.schools && (
+            <ListingInfoSection title="Nearby Schools">
+              <Table.Root>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.ColumnHeaderCell>
+                      <p className="font-poppins font-medium">School</p>
+                    </Table.ColumnHeaderCell>
+                    <Table.ColumnHeaderCell>
+                      <p className="font-poppins font-medium">Grades</p>
+                    </Table.ColumnHeaderCell>
+                    <Table.ColumnHeaderCell>
+                      <p className="font-poppins font-medium">Distance</p>
+                    </Table.ColumnHeaderCell>
+                    <Table.ColumnHeaderCell>
+                      <p className="font-poppins font-medium">Rating</p>
+                    </Table.ColumnHeaderCell>
+                  </Table.Row>
+                </Table.Header>
+
+                {propData.schools.map((school: any) => {
+                  return (
+                    <Table.Body>
+                      <Table.Row>
+                        <Table.RowHeaderCell>{school.name}</Table.RowHeaderCell>
+                        <Table.Cell>{school.grades}</Table.Cell>
+                        <Table.Cell>{school.distance} mi</Table.Cell>
+                        <Table.Cell>{school.rating}/10</Table.Cell>
+                      </Table.Row>
+                    </Table.Body>
+                  );
+                })}
+              </Table.Root>
             </ListingInfoSection>
-          )} */}
-          {/* {data.amenityDetails && (
-            <ListingInfoSection title="Fees and Policies">
-              <FeesAndPolicies
-                fees={data.amenityDetails.fees}
-                petPolicy={data.amenityDetails.pets}
-                parkingFeatures={data.buildingAttributes.parkingTypes}
-              />
+          )}
+          {propData.priceHistory && (
+            <ListingInfoSection title="Pricing History">
+              <Table.Root>
+                {propData.priceHistory.map((history: any) => {
+                  const { date, price } = history;
+                  console.log(price);
+                  return (
+                    <>
+                      {price !== null && (
+                        <Table.Body>
+                          <Table.Row>
+                            <Table.RowHeaderCell>{date}</Table.RowHeaderCell>
+                            <Table.Cell>${price.toLocaleString()}</Table.Cell>
+                          </Table.Row>
+                        </Table.Body>
+                      )}
+                    </>
+                  );
+                })}
+              </Table.Root>
             </ListingInfoSection>
-          )} */}
+          )}
           {propData && (
             <ListingInfoSection title="Nearby Listings for Rent">
               <NearbyListingsContainer data={propData.nearbyHomes} />
@@ -91,7 +138,6 @@ const PropertyListing = ({
           onClick={() => {}}
         />
       </div>
-      {/* <FullGallery data={data} /> */}
     </div>
   );
 };

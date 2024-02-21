@@ -51,7 +51,9 @@ const AboutListing = ({
           <div className="flex flex-col justify-center items-center">
             <p className="hidden md:block">Bedrooms</p>
             <p className="md:hidden">Beds</p>
-            <p className="font-medium">{bedrooms}</p>
+            <p className="font-medium">
+              {bedrooms === 0 ? "Studio" : bedrooms}
+            </p>
           </div>
 
           <div className="flex flex-col justify-center items-center">
