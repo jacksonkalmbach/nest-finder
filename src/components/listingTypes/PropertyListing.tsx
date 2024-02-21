@@ -44,7 +44,7 @@ const PropertyListing = ({
           <ListingPhotoGallerySkeleton />
         )}
       </div>
-      <div className="flex w-full justify-start items-center gap-8 p-6 lg:py-10 lg:px-20">
+      <div className="relative flex w-full justify-start items-start gap-8 p-6 lg:py-10 lg:px-20">
         <div className="flex flex-col gap-6 w-full lg:w-3/4">
           {propData && (
             <AboutListing
@@ -119,7 +119,7 @@ const PropertyListing = ({
             </ListingInfoSection>
           )}
         </div>
-        <div className="hidden grow border-3 lg:flex flex-col top-0 gap-6">
+        <div className="sticky top-20 grow">
           <ContactListing
             brokerName={brokerName === null ? streetAddress : brokerName}
             brokerPhoneNumber={brokerPhoneNumber}
