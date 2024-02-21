@@ -27,7 +27,6 @@ const Hero = observer(() => {
   const handleSearchClick = (val?: string) => {
     if (searchVal === "") return;
     const searchLocation = val ? val : searchVal;
-    console.log("searching...", searchLocation);
 
     fetchData(propertySearchUrl, {
       location: searchLocation,
@@ -59,6 +58,12 @@ const Hero = observer(() => {
     }, 500);
 
     return () => clearTimeout(debounceTimer);
+  }, [searchVal]);
+
+  useEffect(() => {
+    if (searchVal.length === 0) {
+      setCities([]);
+    }
   }, [searchVal]);
 
   return (
