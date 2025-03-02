@@ -97,7 +97,6 @@ const Hero = observer(() => {
             {cities?.length > 0 && (
               <div className="absolute bg-white mt-2 w-full rounded-xl p-4 border">
                 {cities?.map((city: { display: string }) => {
-                  console.log(city);
                   return (
                     <div
                       className="hover:bg-bg-light rounded-xl p-2 cursor-pointer"

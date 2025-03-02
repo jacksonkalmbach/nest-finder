@@ -3,11 +3,12 @@ import Button from "../components/ui/Button";
 import Footer from "../components/Footer";
 import HowItWorks from "../components/HowItWorks";
 import FeaturedListing from "../components/FeaturedListing";
+import SkeletonFeatureListing from "../components/SkeletonFeatureListing";
 
 import { useNavigate } from "react-router-dom";
-import SkeletonFeatureListing from "../components/SkeletonFeatureListing";
 import { useFetchData } from "../hooks/useFetchData";
 import { capitalizeEachWord } from "../utils/capitalizeWords";
+import { useEffect } from "react";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -15,7 +16,6 @@ const HomePage = () => {
   const cachedCity = localStorage.getItem("searchCity");
   const defaultCity = cachedCity ? cachedCity : "Chicago, IL";
   localStorage.setItem("defaultCity", defaultCity);
-  
 
   const { data, isLoading, error } = useFetchData({
     endpoint: "propertyExtendedSearch",
@@ -27,6 +27,8 @@ const HomePage = () => {
     cacheVal: defaultCity,
   });
 
+  console.log("HOME PAGE DATA", data);
+
   return (
     <div className="w-screen min-h-screen flex-col grow font-poppins">
       <Hero />
@@ -35,7 +37,7 @@ const HomePage = () => {
           Featured Listings in {capitalizeEachWord(defaultCity)}
         </h2>
         <div className="flex flex-col justify-center items-center gap-6 w-full md:justify-around lg:flex-row">
-          {!isLoading && data.props ? (
+          {!isLoading && data?.props ? (
             data.props.slice(0, 4).map((listing: any, index: number) => {
               return <FeaturedListing listing={listing} idx={index} />;
             })

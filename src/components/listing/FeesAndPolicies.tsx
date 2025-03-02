@@ -5,7 +5,6 @@ interface Props {
 }
 
 const FeesAndPolicies = ({ fees, petPolicy, parkingFeatures }: Props) => {
-  console.log("Fees", petPolicy);
   return (
     <div className="flex flex-col gap-3">
       {Object.keys(fees).length > 0 && (

@@ -53,7 +53,6 @@ const filterInputs: FilterInputs = {
 
 const MobileFilters = () => {
   const { locationsSearchStore } = useContext(RootStoreContext);
-  console.log(locationsSearchStore.searchParams);
   const [filter, setFilter] = useState<string>("");
   const [showFilter, setShowFilter] = useState<boolean>(false);
 

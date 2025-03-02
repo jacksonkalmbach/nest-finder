@@ -20,8 +20,6 @@ const SortBy = ({ params }: any) => {
     if (val !== "Default") {
       const fetchSortedData = async () => {
         const response = await fetchData(url, { ...params, sort: val });
-        console.log("params", { ...params, sort: val });
-        console.log(response.data);
         locationsSearchStore.setListingsData(response.data);
       };
       fetchSortedData();

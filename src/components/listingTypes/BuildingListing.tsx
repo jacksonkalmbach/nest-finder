@@ -17,7 +17,6 @@ const BuildingListing = ({
   isLoading: boolean;
   handleSeePhotos: () => void;
 }) => {
-  console.log("BUILDING DATA.tsx", data);
   return (
     <>
       <div className="relative bg-bg-light font-poppins w-screen flex flex-col">
@@ -48,15 +47,16 @@ const BuildingListing = ({
                   <BuildingOverview amenities={data.amenityDetails} />
                 </ListingInfoSection>
               )}
-              {data.amenityDetails && (
+              {/* {data.amenityDetails && (
                 <ListingInfoSection title="Fees and Policies">
+                  <div>fees</div>
                   <FeesAndPolicies
                     fees={data.amenityDetails.fees}
                     petPolicy={data.amenityDetails.pets}
                     parkingFeatures={data.buildingAttributes.parkingTypes}
                   />
                 </ListingInfoSection>
-              )}
+              )} */}
             </div>
             <div className="hidden grow border-3 border-red-500 lg:flex flex-col sticky top-20 gap-6 justify-start">
               {data.amenityDetails && (

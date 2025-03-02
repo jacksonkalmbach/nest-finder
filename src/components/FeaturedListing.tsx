@@ -40,6 +40,7 @@ const FeaturedListing = ({ listing, idx }: Props) => {
     lotId,
   } = listing;
 
+  console.log("HIT FEATUREDLISTING");
   const linkTo = lotId ? `lotId/${lotId}` : `zpid/${zpid}`;
 
   const [ref, inView] = useInView({

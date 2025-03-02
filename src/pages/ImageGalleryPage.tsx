@@ -19,7 +19,6 @@ const ImageGalleryPage = () => {
           const response = await fetchImages(id);
           if (response) {
             setImages(response.data.images);
-            console.log(response.data.images);
           }
         } catch (error) {
           console.error("Failed to fetch images:", error);
