@@ -27,8 +27,6 @@ const HomePage = () => {
     cacheVal: defaultCity,
   });
 
-  console.log("HOME PAGE DATA", data);
-
   return (
     <div className="w-screen min-h-screen flex-col grow font-poppins">
       <Hero />

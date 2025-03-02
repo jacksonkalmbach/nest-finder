@@ -18,7 +18,7 @@ export const useFetchData = ({
   if (params.location !== undefined)
     localStorage.setItem("searchCity", params.location);
 
-  console.log("PARAMS", params);
+
 
   const [data, setData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -63,7 +63,7 @@ export const useFetchData = ({
     fetchData();
   }, [endpoint, cacheKey]);
 
-  console.log(data);
+
 
   return { data, isLoading, error };
 };

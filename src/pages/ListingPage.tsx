@@ -48,7 +48,6 @@ const ListingPage = () => {
     params: paramsObj,
   });
 
-  console.log("building data", data);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [params.id]);
