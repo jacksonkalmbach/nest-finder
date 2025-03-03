@@ -1,6 +1,6 @@
 # 🏠 Nestfinder
 
-View Live Site [Here](https://nestfinder.vercel.app/)
+View Live Site [Here](https://nest-finder-murex.vercel.app/)
 
 ## Tech Stack
 
